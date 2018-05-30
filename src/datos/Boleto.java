@@ -1,5 +1,9 @@
 package datos;
 
+import datos.Linea;
+import datos.Ramal;
+import datos.Estacion;
+
 import java.util.GregorianCalendar;
 
 public class Boleto {
@@ -7,20 +11,25 @@ public class Boleto {
 	private Transporte transporte;
 	private GregorianCalendar fechaHora;
 	private boolean cerrado;
-	private float precioFinal;
-	private float descuento;
+	private double precioFinal;
 	private Viaje viaje;
+	private Linea linea;
+	private Ramal ramal;
+	private Estacion estacion;
 	
 	public Boleto() {}
-
-	public Boleto(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, float precioFinal, float descuento, Viaje viaje) {
+	
+	public Boleto(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, double precioFinal, Viaje viaje,
+			Linea linea, Ramal ramal, Estacion estacion) {
 		super();
 		this.transporte = transporte;
 		this.fechaHora = fechaHora;
 		this.cerrado = cerrado;
 		this.precioFinal = precioFinal;
-		this.descuento = descuento;
 		this.viaje = viaje;
+		this.linea = linea;
+		this.ramal = ramal;
+		this.estacion = estacion;
 	}
 
 	public int getIdBoleto() {
@@ -55,20 +64,12 @@ public class Boleto {
 		this.cerrado = cerrado;
 	}
 
-	public float getPrecioFinal() {
+	public double getPrecioFinal() {
 		return precioFinal;
 	}
 
-	public void setPrecioFinal(float precioFinal) {
+	public void setPrecioFinal(double precioFinal) {
 		this.precioFinal = precioFinal;
-	}
-
-	public float getDescuento() {
-		return descuento;
-	}
-
-	public void setDescuento(float descuento) {
-		this.descuento = descuento;
 	}
 
 	public Viaje getViaje() {
@@ -78,6 +79,32 @@ public class Boleto {
 	public void setViaje(Viaje viaje) {
 		this.viaje = viaje;
 	}
+
+	public Linea getLinea() {
+		return linea;
+	}
+
+	public void setLinea(Linea linea) {
+		this.linea = linea;
+	}
+
+	public Ramal getRamal() {
+		return ramal;
+	}
+
+	public void setRamal(Ramal ramal) {
+		this.ramal = ramal;
+	}
+
+	public Estacion getEstacion() {
+		return estacion;
+	}
+
+	public void setEstacion(Estacion estacion) {
+		this.estacion = estacion;
+	}
+	
+	
 	
 	
 	

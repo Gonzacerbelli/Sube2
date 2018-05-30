@@ -5,16 +5,14 @@ import java.util.*;
 public class Viaje {
 	private int idViaje;
 	private GregorianCalendar fechaHora;
-	private int cantidadDeBoletos;
 	private Set<Boleto> lstBoleto;
 	private Tarjeta tarjeta;
 	
 	public Viaje() {}
 
-	public Viaje(GregorianCalendar fechaHora, int cantidadDeBoletos, Set<Boleto> lstBoleto, Tarjeta tarjeta) {
+	public Viaje(GregorianCalendar fechaHora, Set<Boleto> lstBoleto, Tarjeta tarjeta) {
 		super();
 		this.fechaHora = fechaHora;
-		this.cantidadDeBoletos = cantidadDeBoletos;
 		this.lstBoleto = lstBoleto;
 		this.tarjeta = tarjeta;
 	}
@@ -33,14 +31,6 @@ public class Viaje {
 
 	public void setFechaHora(GregorianCalendar fechaHora) {
 		this.fechaHora = fechaHora;
-	}
-
-	public int getCantidadDeBoletos() {
-		return cantidadDeBoletos;
-	}
-
-	public void setCantidadDeBoletos(int cantidadDeBoletos) {
-		this.cantidadDeBoletos = cantidadDeBoletos;
 	}
 
 	public Set<Boleto> getLstBoleto() {

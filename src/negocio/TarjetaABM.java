@@ -10,7 +10,7 @@ import dao.TarjetaDao;
 public class TarjetaABM {
 	TarjetaDao dao = new TarjetaDao();
 	
-	public int agregar(int numTarjeta, float saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
+	public int agregar(int numTarjeta, double saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
 			Set<Movimiento> lstMovimiento) throws Exception {
 		Tarjeta tarjetaAux = dao.traerTarjeta(numTarjeta);
 		if (tarjetaAux != null) {

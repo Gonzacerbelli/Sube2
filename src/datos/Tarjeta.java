@@ -5,7 +5,7 @@ import java.util.*;
 public class Tarjeta {
 	private int idTarjeta;
 	private int numTarjeta;
-	private float saldo;
+	private double saldo;
 	private Set<Viaje> lstViaje;
 	private Usuario usuario;
 	private boolean activa;
@@ -13,7 +13,7 @@ public class Tarjeta {
 	
 	public Tarjeta() {}
 
-	public Tarjeta(int numTarjeta, float saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
+	public Tarjeta(int numTarjeta, double saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
 			Set<Movimiento> lstMovimiento) {
 		super();
 		this.numTarjeta = numTarjeta;
@@ -40,11 +40,11 @@ public class Tarjeta {
 		this.numTarjeta = numTarjeta;
 	}
 
-	public float getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
 

@@ -2,13 +2,16 @@ package test;
 
 import datos.Usuario;
 import datos.Viaje;
+import datos.Tarjeta;
+import datos.Movimiento;
+
 import negocio.UsuarioABM;
 import negocio.TarjetaABM;
+import negocio.ViajeABM;
 
 import java.util.Set;
 
-import datos.Movimiento;
-import datos.Tarjeta;
+
 
 public class Test {
 
@@ -20,19 +23,22 @@ public class Test {
 		
 		UsuarioABM usuarioAbm = new UsuarioABM();
 		TarjetaABM tarjetaAbm = new TarjetaABM();
+		ViajeABM viajeAbm = new ViajeABM();
 		
 		try {
-			
+			//traigo usuario
 			Usuario usuario = usuarioAbm.traerUsuario(dni);
 			
+			//traigo tarjeta del usuario
 			Tarjeta tarjeta = tarjetaAbm.traerTarjeta(123456789);
 			
+			//si no existe la tarjeta le creo una al usuario
 			if(tarjeta == null) {
 				tarjetaAbm.agregar(123456789, 15, null, usuario, true, null);
 				tarjeta = tarjetaAbm.traerTarjeta(123456789);
 			}
 			
-			
+			//creo un viaje
 			
 			
 			

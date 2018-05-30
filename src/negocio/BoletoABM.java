@@ -2,6 +2,9 @@ package negocio;
 
 import dao.BoletoDao;
 import datos.Boleto;
+import datos.Estacion;
+import datos.Linea;
+import datos.Ramal;
 import datos.Viaje;
 import datos.Transporte;
 import java.util.GregorianCalendar;
@@ -9,8 +12,9 @@ import java.util.GregorianCalendar;
 public class BoletoABM {
 	BoletoDao dao = new BoletoDao();
 	
-	public int agregar(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, float precioFinal, float descuento, Viaje viaje) {
-		Boleto boleto = new Boleto(transporte, fechaHora, cerrado, precioFinal, descuento, viaje);
+	public int agregar(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, double precioFinal, Viaje viaje,
+			Linea linea, Ramal ramal, Estacion estacion) {
+		Boleto boleto = new Boleto(transporte, fechaHora, cerrado, precioFinal, viaje, linea, ramal, estacion);
 		return dao.agregar(boleto);
 	}
 	

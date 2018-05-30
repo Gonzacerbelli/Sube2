@@ -3,10 +3,10 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import datos.Tarjeta;
-import datos.Usuario;
 
-public class TarjetaDao {
+import datos.Ramal;
+
+public class RamalDao {
 	private static Session session;
 	private Transaction tx;
 	
@@ -20,7 +20,7 @@ public class TarjetaDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 	
-	public int agregar(Tarjeta objeto) {
+	public int agregar(Ramal objeto) {
 		int id = 0;
 		try {
 			iniciaOperacion();
@@ -35,7 +35,7 @@ public class TarjetaDao {
 		return id;
 	}
 
-	public void actualizar(Tarjeta objeto) throws HibernateException {
+	public void actualizar(Ramal objeto) throws HibernateException {
 		try {
 			iniciaOperacion();
 			session.update(objeto);
@@ -48,7 +48,7 @@ public class TarjetaDao {
 		}
 	}
 
-	public void eliminar(Tarjeta objeto) throws HibernateException {
+	public void eliminar(Ramal objeto) throws HibernateException {
 		try {
 			iniciaOperacion();
 			session.delete(objeto);
@@ -61,22 +61,12 @@ public class TarjetaDao {
 		}
 	}
 	
-	public Tarjeta traerTarjeta(int numTarjeta) throws HibernateException {
-		Tarjeta objeto = null;
+	public Ramal traerBoleto(int idRamal) throws HibernateException {
+		Ramal objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Tarjeta) session.get(Tarjeta.class, numTarjeta);
-		} finally {
-			session.close();
-		}
-		return objeto;
-	}
-	
-	public Tarjeta traerTarjeta(Usuario usuario) throws HibernateException {
-		Tarjeta objeto = null;
-		try {
-			iniciaOperacion();
-			objeto = (Tarjeta) session.createQuery("from Tarjeta t where t.activa = '1' and t.id=" + usuario.getIdUsuario()).uniqueResult();
+			objeto = (Ramal) session.get(Ramal.class, idRamal);
+			tx.commit();
 		} finally {
 			session.close();
 		}

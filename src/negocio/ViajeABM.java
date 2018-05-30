@@ -12,8 +12,8 @@ public class ViajeABM {
 	
 	ViajeDao dao = new ViajeDao();
 	
-	public int agregar(GregorianCalendar fechaHora, int cantidadDeBoletos, Set<Boleto> lstBoleto, Tarjeta tarjeta) {
-		Viaje viaje = new Viaje(fechaHora, cantidadDeBoletos, lstBoleto, tarjeta);
+	public int agregar(GregorianCalendar fechaHora, Set<Boleto> lstBoleto, Tarjeta tarjeta) {
+		Viaje viaje = new Viaje(fechaHora, lstBoleto, tarjeta);
 		return dao.agregar(viaje);
 	}
 	

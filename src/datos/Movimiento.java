@@ -4,17 +4,20 @@ import java.util.GregorianCalendar;
 
 public class Movimiento {
 	private int idMovimiento;
-	private Transporte transporte;
-	private float valor;
+	private Tarjeta tarjeta;
+	private Boleto boleto;
+	private double valor;
 	private GregorianCalendar fechaHora;
 	private String tipo;
 	private String detalle;
 	
 	public Movimiento() {}
 
-	public Movimiento(Transporte transporte, float valor, GregorianCalendar fechaHora, String tipo, String detalle) {
+	public Movimiento(Tarjeta tarjeta, Boleto boleto, double valor, GregorianCalendar fechaHora, String tipo,
+			String detalle) {
 		super();
-		this.transporte = transporte;
+		this.tarjeta = tarjeta;
+		this.boleto = boleto;
 		this.valor = valor;
 		this.fechaHora = fechaHora;
 		this.tipo = tipo;
@@ -29,19 +32,27 @@ public class Movimiento {
 		this.idMovimiento = idMovimiento;
 	}
 
-	public Transporte getTransporte() {
-		return transporte;
+	public Tarjeta getTarjeta() {
+		return tarjeta;
 	}
 
-	public void setTransporte(Transporte transporte) {
-		this.transporte = transporte;
+	public void setTarjeta(Tarjeta tarjeta) {
+		this.tarjeta = tarjeta;
 	}
 
-	public float getValor() {
+	public Boleto getBoleto() {
+		return boleto;
+	}
+
+	public void setBoleto(Boleto boleto) {
+		this.boleto = boleto;
+	}
+
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
@@ -68,6 +79,7 @@ public class Movimiento {
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
 	}
+
 	
 	
 }

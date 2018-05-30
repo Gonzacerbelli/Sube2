@@ -3,9 +3,9 @@ package datos;
 public class Transporte {
 	
 	private int idTransporte;
-	private float precio;
+	private double precio;
 	
-	public Transporte(float precio) {
+	public Transporte(double precio) {
 		super();
 		this.precio = precio;
 	}
@@ -18,11 +18,11 @@ public class Transporte {
 		this.idTransporte = idTransporte;
 	}
 
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	
