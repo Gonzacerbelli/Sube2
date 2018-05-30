@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.Tarjeta" table="tarjeta">
+		<id column="idTarjeta" name="idTarjeta">
+			<generator class="identity" />
+		</id>
+		<property column="numTarjeta" name="numTarjeta" type="int" />
+		<property column="saldo" name="saldo" type="float" />
+		<property column="activa" name="activa" type="boolean" />
+		
+		<many-to-one name="usuario" class="datos.Usuario" column="idUsuario" not-null="true"/>
+	
+		<set name="lstViaje" cascade="save-update" table="viaje" order-by="fechaHora asc" inverse="true" lazy="true" fetch="select">
+			<key column="idTarjeta" not-null="true"/>
+			<one-to-many class="datos.Viaje"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.Usuario" table="usuario">
+		<id column="idUsuario" name="idUsuario">
+			<generator class="identity" />
+		</id>
+		<property column="nombre" name="nombre" type="string" />
+		<property column="apellido" name="apellido" type="string" />
+		<property column="dni" name="dni" type="int" />
+		<property column="pass" name="pass" type="string" />
+		<property column="email" name="email" type="string" />
+		<property column="tarifaSocial" name="tarifaSocial" type="boolean" />
+		<property column="estudiantil" name="estudiantil" type="boolean" />
+		
+		<set name="lstTarjetas" cascade="save-update" table="tarjeta" order-by="idTarjeta asc" inverse="true" lazy="true" fetch="select">
+			<key column="idUsuario" not-null="true"/>
+			<one-to-many class="datos.Tarjeta"/>
+		</set>
+	</class>
+</hibernate-mapping>
