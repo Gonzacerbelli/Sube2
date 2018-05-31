@@ -1,18 +1,31 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<property name="connection.driver_class">
-			com.mysql.jdbc.Driver </property>
-		<property name="connection.url"> jdbc:mysql://localhost/sube </property>
-		<property name="connection.username"> root </property>
-		<property name="connection.password">  </property>
-		<property name="connection.pool_size"> 1 </property>
-		<property name="dialect"> org.hibernate.dialect.MySQLDialect </property>
-		<property name="show_sql"> true </property> <!-- en true muestra hql en consola -->
-		<!-- Mapeo Entidades -->
-		<mapping resource="mapeos/Usuario.hbm.xml"/>
-		<mapping resource="mapeos/Tarjeta.hbm.xml"/>
-	</session-factory>
+ <session-factory name="">
+  <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="connection.url">jdbc:mysql://localhost/sube2</property>
+  <property name="connection.username">root</property>
+  <property name="connection.password"/>
+  <property name="connection.pool_size">1</property>
+  <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="show_sql">true</property>
+  <!-- en true muestra hql en consola 
+ Mapeo Entidades -->
+  <mapping resource="mapeos/Usuario.hbm.xml"/>
+  
+  <mapping resource="mapeos/Tarjeta.hbm.xml"/>
+  
+  <mapping resource="mapeos/Boleto.hbm.xml"/>
+  
+  <mapping resource="mapeos/Estacion.hbm.xml"/>
+  
+  <mapping resource="mapeos/Linea.hbm.xml"/>
+  
+  <mapping resource="mapeos/Ramal.hbm.xml"/>
+  
+  <mapping resource="mapeos/Transporte.hbm.xml"/>
+  
+  <mapping resource="mapeos/Viaje.hbm.xml"/>
+ </session-factory>
 </hibernate-configuration>
