@@ -1,8 +1,14 @@
 package dao;
 
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import datos.Transporte;
+import javassist.bytecode.Descriptor.Iterator;
 import datos.Transporte;
 
 public class TransporteDao {
@@ -58,5 +64,63 @@ public class TransporteDao {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public Transporte traerTransporte(int idTransporte) throws HibernateException {
+		Transporte objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Transporte) session.get(Transporte.class, idTransporte);
+			if(objeto != null)
+			{
+				Hibernate.initialize(objeto.getLineas());
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	public Transporte traerTransporte(String nombre) throws HibernateException {
+		Transporte objeto = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Transporte c where c.nombre = '" + nombre + "'";
+			objeto = (Transporte) session.createQuery(hql).uniqueResult();
+			if(objeto != null)
+			{
+				Hibernate.initialize(objeto.getLineas());
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Transporte> traerTransporte() throws HibernateException {
+		List<Transporte> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Transporte";
+			list = (List<Transporte>) session.createQuery(hql).list();
+			if(list != null)
+			{
+				for(Transporte trans : list) {
+					Hibernate.initialize(trans.getLineas());
+				}
+//				Iterator it =  (Iterator) list.iterator();
+//				while(it.hasNext())
+//				{
+//					Hibernate.initialize(list.get(it.next()).getLineas());
+//				}
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 }

@@ -9,11 +9,9 @@
 		<property column="numTarjeta" name="numTarjeta" type="int" />
 		<property column="saldo" name="saldo" type="double" />
 		<property column="activa" name="activa" type="boolean" />
-		
 		<many-to-one name="usuario" class="datos.Usuario" column="idUsuario" not-null="true"/>
-	
-		<set name="lstViaje" cascade="save-update" table="viaje" order-by="fechaHora asc" inverse="true" lazy="true" fetch="select">
-			<key column="idTarjeta" not-null="true"/>
+		<set name="lstViaje" cascade="all" table="viaje" inverse="true" lazy="true" fetch="select">
+			<key column="idTarjeta"/>
 			<one-to-many class="datos.Viaje"/>
 		</set>
 	</class>

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
+ <session-factory>
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="connection.url">jdbc:mysql://localhost/sube2</property>
   <property name="connection.username">root</property>
@@ -27,5 +27,7 @@
   <mapping resource="mapeos/Transporte.hbm.xml"/>
   
   <mapping resource="mapeos/Viaje.hbm.xml"/>
+  
+  <mapping resource="mapeos/Ramal_tiene_estacion.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

@@ -80,6 +80,13 @@ public class Movimiento {
 		this.detalle = detalle;
 	}
 
+	@Override
+	public String toString() {
+		return "Movimiento [idMovimiento=" + idMovimiento + ", tarjeta=" + tarjeta + ", boleto=" + boleto + ", valor="
+				+ valor + ", fechaHora=" + fechaHora + ", tipo=" + tipo + ", detalle=" + detalle + "]";
+	}
+
+	
 	
 	
 }

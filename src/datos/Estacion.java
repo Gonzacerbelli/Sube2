@@ -1,18 +1,33 @@
 package datos;
 
+import java.util.Set;
+
 public class Estacion {
 	private int idEstacion;
 	private String nombre;
-	private Ramal ramal;
 	private Linea linea;
-	
+	private int nroEstacion;
+	private Set<Ramal> ramales;
 	public Estacion() {}
+	
+	public int getNroEstacion() {
+		return nroEstacion;
+	}
 
-	public Estacion(String nombre, Ramal ramal, Linea linea) {
-		super();
+	public void setNroEstacion(int nroEstacion) {
+		this.nroEstacion = nroEstacion;
+	}
+
+	public Set<Ramal> getRamales() {
+		return ramales;
+	}
+
+	public void setRamales(Set<Ramal> ramales) {
+		this.ramales = ramales;
+	}
+
+	public Estacion(String nombre) {
 		this.nombre = nombre;
-		this.ramal = ramal;
-		this.linea = linea;
 	}
 
 	public int getIdEstacion() {
@@ -31,14 +46,6 @@ public class Estacion {
 		this.nombre = nombre;
 	}
 
-	public Ramal getRamal() {
-		return ramal;
-	}
-
-	public void setRamal(Ramal ramal) {
-		this.ramal = ramal;
-	}
-
 	public Linea getLinea() {
 		return linea;
 	}
@@ -47,5 +54,11 @@ public class Estacion {
 		this.linea = linea;
 	}
 
+	@Override
+	public String toString() {
+		return "Estacion [idEstacion=" + idEstacion + ", nombre=" + nombre + "]";
+	}
+
+	
 	
 }
