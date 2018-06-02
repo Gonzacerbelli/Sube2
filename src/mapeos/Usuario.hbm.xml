@@ -15,7 +15,7 @@
 		<property column="estudiantil" name="estudiantil" type="boolean" />
 		
 		<set name="lstTarjetas" cascade="save-update" table="tarjeta" order-by="idTarjeta asc" inverse="true" lazy="true" fetch="select">
-			<key column="idUsuario" not-null="true"/>
+			<key column="idUsuario"/>
 			<one-to-many class="datos.Tarjeta"/>
 		</set>
 	</class>

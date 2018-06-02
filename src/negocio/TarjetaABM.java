@@ -20,6 +20,15 @@ public class TarjetaABM {
 		return dao.agregar(t);
 	}
 	
+	public int agregar(int numTarjeta, double saldo, boolean activa) throws Exception {
+//		Tarjeta tarjetaAux = dao.traerTarjeta(numTarjeta);
+//		if (tarjetaAux != null) {
+//			throw new Exception("Existe una tarjeta con el mismo número.");
+//		}
+		Tarjeta t = new Tarjeta(numTarjeta, saldo, activa);
+		return dao.agregar(t);
+	}
+	
 	public void modificar(Tarjeta t) throws Exception {
 		Tarjeta tarjetaAux = dao.traerTarjeta(t.getNumTarjeta());
 		if (tarjetaAux != null) {

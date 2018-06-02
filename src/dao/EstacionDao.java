@@ -1,8 +1,15 @@
 package dao;
 
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import datos.Estacion;
+import datos.Linea;
+import datos.Ramal;
 import datos.Estacion;
 
 public class EstacionDao {
@@ -59,4 +66,62 @@ public class EstacionDao {
 			session.close();
 		}
 	}
+	
+	public Estacion traerEstacion(int idEstacion) throws HibernateException {
+		Estacion objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Estacion) session.get(Estacion.class, idEstacion);
+			if(objeto !=null)
+			{
+				Hibernate.initialize(objeto.getRamales());
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	public Estacion traerEstacion(String nombre) throws HibernateException {
+		Estacion objeto = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Estacion c where c.nombre = '" + nombre + "'";
+			objeto = (Estacion) session.createQuery(hql).uniqueResult();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Set<Estacion> traerEstacion(Linea linea) throws HibernateException {
+		Set<Estacion> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Estacion c where c.idLinea = " + linea.getIdLinea();
+			list = (Set<Estacion>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Set<Estacion> traerEstacion(Ramal ramal) throws HibernateException {
+		Set<Estacion> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Estacion c select * inner join ramal_tiene_estacion as r_e on r_e.idRamal = " + ramal.getIdRamal();
+			list = (Set<Estacion>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
 }

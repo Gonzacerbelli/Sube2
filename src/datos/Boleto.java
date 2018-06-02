@@ -103,6 +103,13 @@ public class Boleto {
 	public void setEstacion(Estacion estacion) {
 		this.estacion = estacion;
 	}
+
+	@Override
+	public String toString() {
+		return "Boleto [idBoleto=" + idBoleto + ", transporte=" + transporte + ", fechaHora=" + fechaHora + ", cerrado="
+				+ cerrado + ", precioFinal=" + precioFinal + ", viaje=" + viaje + ", linea=" + linea + ", ramal="
+				+ ramal + ", estacion=" + estacion + "]";
+	}
 	
 	
 	

@@ -23,6 +23,15 @@ public class Tarjeta {
 		this.activa = activa;
 		this.lstMovimiento = lstMovimiento;
 	}
+	
+	
+
+	public Tarjeta(int numTarjeta, double saldo, boolean activa) {
+		super();
+		this.numTarjeta = numTarjeta;
+		this.saldo = saldo;
+		this.activa = activa;
+	}
 
 	public int getIdTarjeta() {
 		return idTarjeta;
@@ -78,6 +87,12 @@ public class Tarjeta {
 
 	public void setLstMovimiento(Set<Movimiento> lstMovimiento) {
 		this.lstMovimiento = lstMovimiento;
+	}
+
+	@Override
+	public String toString() {
+		return "Tarjeta [idTarjeta=" + idTarjeta + ", numTarjeta=" + numTarjeta + ", saldo=" + saldo + ", lstViaje="
+				+ lstViaje + ", usuario=" + usuario + ", activa=" + activa + ", lstMovimiento=" + lstMovimiento + "]";
 	}
 
 	

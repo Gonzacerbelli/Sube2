@@ -8,9 +8,10 @@
 		</id>
 		<property column="nombre" name="nombre" type="string" />
 		<many-to-one name="linea" class="datos.Linea" column="idLinea"/>
-		<set name="lstEstaciones" cascade="save-update" table="ramal_tiene_estacion" order-by="nroEstacion asc" inverse="true" lazy="true" fetch="select">
-			<key column="idRamal" not-null="true"/>
-			<many-to-many class="datos.Estacion"/>
+		<set name="estaciones" cascade="save-update" table="ramal_tiene_estacion" order-by="nroEstacion asc" inverse="false" lazy="true" fetch="select">
+			<key column="idRamal" not-null="false"/>
+			<many-to-many column="idEstacion" class="datos.Estacion" />
 		</set>
+		
 	</class>
 </hibernate-mapping>
