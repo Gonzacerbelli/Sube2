@@ -22,6 +22,9 @@ SET time_zone = "+00:00";
 -- Base de datos: `sube2`
 --
 
+create database sube2;
+
+use sube2;
 -- --------------------------------------------------------
 
 --

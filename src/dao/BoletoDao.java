@@ -3,6 +3,8 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import dao.HibernateUtil;
 import datos.Boleto;
 
 public class BoletoDao {
