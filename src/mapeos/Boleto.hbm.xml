@@ -9,19 +9,17 @@
 		
 		<property column="fechaHora" name="fechaHora" type="calendar" />
 		
-		<property column="cerrado" name="cerrado" type="boolean" />
-		
 		<property column="precioFinal" name="precioFinal" type="double" />
 		
-		<many-to-one name="viaje" class="datos.Viaje" column="idViaje" not-null="false"/>
+		<many-to-one name="tarifa" class="datos.Tarifa" column="idTarifa" />
 		
-		<many-to-one name="transporte" class="datos.Transporte" column="idTransporte" not-null="false"/>
-		
-		<many-to-one name="linea" class="datos.Linea" column="idLinea" not-null="false"/>
+		<many-to-one name="estacion" class="datos.Estacion" column="idEstacion" not-null="true"/>
 		
 		<many-to-one name="ramal" class="datos.Ramal" column="idRamal" not-null="true"/>
 		
-		<many-to-one name="estacion" class="datos.Estacion" column="idEstacion" not-null="false"/>
+		<many-to-one name="linea" class="datos.Linea" column="idLinea" />
+		
+		<many-to-one name="transporte" class="datos.Transporte" column="idTransporte"/>
 		
 	</class>
 </hibernate-mapping>

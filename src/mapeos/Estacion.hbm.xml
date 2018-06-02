@@ -6,7 +6,7 @@
 		<id column="idEstacion" name="idEstacion">
 			<generator class="identity" />
 		</id>
-		<property column="nombre" name="nombre" type="string" />		
+		<property column="nombre" name="nombre" type="string" />
 		<many-to-one name="linea" class="datos.Linea" column="idLinea"/>
 		<set name="ramales" cascade="all" table="ramal_tiene_estacion" order-by="nroEstacion asc" inverse="true" lazy="true" fetch="select">
 			<key column="idEstacion" not-null="false"/>

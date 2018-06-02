@@ -5,8 +5,8 @@ import java.util.Set;
 public class Estacion {
 	private int idEstacion;
 	private String nombre;
-	private Linea linea;
 	private int nroEstacion;
+	private Linea linea;
 	private Set<Ramal> ramales;
 	public Estacion() {}
 	

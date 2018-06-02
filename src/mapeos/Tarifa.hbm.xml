@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.Boleto" table="boleto">
+		<id column="idBoleto" name="idBoleto">
+			<generator class="identity" />
+		</id>
+		
+		<property column="nombre" name="nombre" type="string" />
+		
+		<property column="cantEstaciones" name="cantEstaciones" type="int" />
+		
+		<property column="monto" name="monto" type="double" />
+		
+		<property name="idTransporte" column="idEstacion"/>
+		
+	</class>
+</hibernate-mapping>

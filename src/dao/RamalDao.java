@@ -2,6 +2,7 @@ package dao;
 
 import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -71,12 +72,34 @@ public class RamalDao {
 		try {
 			iniciaOperacion();
 			objeto = (Ramal) session.get(Ramal.class, idRamal);
+			if(objeto!=null)
+			{
+				Hibernate.initialize(objeto.getEstaciones());
+			}
 			tx.commit();
 		} finally {
 			session.close();
 		}
 		return objeto;
 	}
+	
+	public Ramal traerRamal(String nombre) throws HibernateException {
+		Ramal objeto = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Ramal c where c.nombre = '" + nombre + "'";
+			objeto = (Ramal) session.createQuery(hql).uniqueResult();
+			if(objeto != null)
+			{
+				Hibernate.initialize(objeto.getEstaciones());
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public Set<Ramal> traerRamal(Linea linea) throws HibernateException {

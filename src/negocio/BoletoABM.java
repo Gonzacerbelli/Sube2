@@ -5,6 +5,7 @@ import datos.Boleto;
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
+import datos.Tarifa;
 import datos.Viaje;
 import datos.Transporte;
 import java.util.GregorianCalendar;
@@ -12,9 +13,9 @@ import java.util.GregorianCalendar;
 public class BoletoABM {
 	BoletoDao dao = new BoletoDao();
 	
-	public int agregar(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, double precioFinal, Viaje viaje,
+	public int agregar(Transporte transporte, GregorianCalendar fechaHora, Tarifa tarifa, double precioFinal, Viaje viaje,
 			Linea linea, Ramal ramal, Estacion estacion) {
-		Boleto boleto = new Boleto(transporte, fechaHora, cerrado, precioFinal, viaje, linea, ramal, estacion);
+		Boleto boleto = new Boleto(fechaHora, precioFinal, tarifa, estacion, ramal, linea, transporte, viaje);
 		return dao.agregar(boleto);
 	}
 	

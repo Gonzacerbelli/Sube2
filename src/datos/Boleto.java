@@ -8,29 +8,30 @@ import java.util.GregorianCalendar;
 
 public class Boleto {
 	private int idBoleto;
-	private Transporte transporte;
 	private GregorianCalendar fechaHora;
-	private boolean cerrado;
 	private double precioFinal;
-	private Viaje viaje;
-	private Linea linea;
-	private Ramal ramal;
+	private Tarifa tarifa;
 	private Estacion estacion;
-	
+	private Ramal ramal;
+	private Linea linea;
+	private Transporte transporte;
+	private Viaje viaje;
 	public Boleto() {}
-	
-	public Boleto(Transporte transporte, GregorianCalendar fechaHora, boolean cerrado, double precioFinal, Viaje viaje,
-			Linea linea, Ramal ramal, Estacion estacion) {
+
+	public Boleto(GregorianCalendar fechaHora, double precioFinal, Tarifa tarifa, Estacion estacion, Ramal ramal,
+			Linea linea, Transporte transporte, Viaje viaje) {
 		super();
-		this.transporte = transporte;
 		this.fechaHora = fechaHora;
-		this.cerrado = cerrado;
 		this.precioFinal = precioFinal;
-		this.viaje = viaje;
-		this.linea = linea;
-		this.ramal = ramal;
+		this.tarifa = tarifa;
 		this.estacion = estacion;
+		this.ramal = ramal;
+		this.linea = linea;
+		this.transporte = transporte;
+		this.viaje = viaje;
 	}
+
+
 
 	public int getIdBoleto() {
 		return idBoleto;
@@ -38,14 +39,6 @@ public class Boleto {
 
 	public void setIdBoleto(int idBoleto) {
 		this.idBoleto = idBoleto;
-	}
-
-	public Transporte getTransporte() {
-		return transporte;
-	}
-
-	public void setTransporte(Transporte transporte) {
-		this.transporte = transporte;
 	}
 
 	public GregorianCalendar getFechaHora() {
@@ -56,14 +49,6 @@ public class Boleto {
 		this.fechaHora = fechaHora;
 	}
 
-	public boolean isCerrado() {
-		return cerrado;
-	}
-
-	public void setCerrado(boolean cerrado) {
-		this.cerrado = cerrado;
-	}
-
 	public double getPrecioFinal() {
 		return precioFinal;
 	}
@@ -72,13 +57,22 @@ public class Boleto {
 		this.precioFinal = precioFinal;
 	}
 
-	public Viaje getViaje() {
-		return viaje;
+	public Tarifa getTarifa() {
+		return tarifa;
 	}
 
-	public void setViaje(Viaje viaje) {
-		this.viaje = viaje;
+	public void setTarifa(Tarifa tarifa) {
+		this.tarifa = tarifa;
 	}
+
+	public Estacion getEstacion() {
+		return estacion;
+	}
+
+	public void setEstacion(Estacion estacion) {
+		this.estacion = estacion;
+	}
+	
 
 	public Linea getLinea() {
 		return linea;
@@ -96,26 +90,33 @@ public class Boleto {
 		this.ramal = ramal;
 	}
 
-	public Estacion getEstacion() {
-		return estacion;
+	public Transporte getTransporte() {
+		return transporte;
 	}
 
-	public void setEstacion(Estacion estacion) {
-		this.estacion = estacion;
+	public void setTransporte(Transporte transporte) {
+		this.transporte = transporte;
 	}
 
 	@Override
 	public String toString() {
-		return "Boleto [idBoleto=" + idBoleto + ", transporte=" + transporte + ", fechaHora=" + fechaHora + ", cerrado="
-				+ cerrado + ", precioFinal=" + precioFinal + ", viaje=" + viaje + ", linea=" + linea + ", ramal="
-				+ ramal + ", estacion=" + estacion + "]";
+		return "/nBoleto /n ID: " + idBoleto + "/nHORA: " + fechaHora + "/nMonto: " + precioFinal + "/nTransporte: " + linea.getTransporte().getNombre() + "/nLinea: " + linea.getNombre() + "/n";
 	}
 	
+	public String descripcionTren() {
+		return this.toString() + "Ramal: " + ramal.getNombre() + "/n Estacion: " + estacion.getNombre() + "/n";
+	}
 	
-	
-	
-	
-	
-	
+	public String descripcionColectivo() {
+		return this.toString();
+	}
+
+	public Viaje getViaje() {
+		return viaje;
+	}
+
+	public void setViaje(Viaje viaje) {
+		this.viaje = viaje;
+	}
 	
 }
