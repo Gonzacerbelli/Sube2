@@ -1,9 +1,14 @@
 package dao;
 
+import java.util.Set;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Ramal;
+import datos.Linea;
+import datos.Ramal;
 import datos.Ramal;
 
 public class RamalDao {
@@ -61,7 +66,7 @@ public class RamalDao {
 		}
 	}
 	
-	public Ramal traerBoleto(int idRamal) throws HibernateException {
+	public Ramal traerRamal(int idRamal) throws HibernateException {
 		Ramal objeto = null;
 		try {
 			iniciaOperacion();
@@ -71,5 +76,19 @@ public class RamalDao {
 			session.close();
 		}
 		return objeto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Set<Ramal> traerRamal(Linea linea) throws HibernateException {
+		Set<Ramal> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Ramal c where c.idLinea = " + linea.getIdLinea();
+			list = (Set<Ramal>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 }

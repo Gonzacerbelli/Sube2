@@ -1,9 +1,16 @@
 package dao;
 
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Estacion;
+import datos.Linea;
+import datos.Linea;
 import datos.Linea;
 
 public class LineaDao {
@@ -62,7 +69,7 @@ public class LineaDao {
 		}
 	}
 	
-	public Linea traerBoleto(int idLinea) throws HibernateException {
+	public Linea traerLinea(int idLinea) throws HibernateException {
 		Linea objeto = null;
 		try {
 			iniciaOperacion();
@@ -73,5 +80,50 @@ public class LineaDao {
 		}
 		return objeto;
 	}
+	
+	public Linea traerLinea(String nombre) throws HibernateException {
+		Linea objeto = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Linea c where c.nombre = '" + nombre + "'";
+			objeto = (Linea) session.createQuery(hql).uniqueResult();
+			if(objeto != null)
+			{
+				Hibernate.initialize(objeto.getEstaciones());
+				Hibernate.initialize(objeto.getRamales());
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Linea> traerLinea() throws HibernateException {
+		List<Linea> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Linea";
+			list = (List<Linea>) session.createQuery(hql).list();
+			if(list != null)
+			{
+				for(Linea trans : list) {
+					Hibernate.initialize(trans.getEstaciones());
+					Hibernate.initialize(trans.getRamales());
+				}
+//				Iterator it =  (Iterator) list.iterator();
+//				while(it.hasNext())
+//				{
+//					Hibernate.initialize(list.get(it.next()).getLineas());
+//				}
+			}
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
 
 }

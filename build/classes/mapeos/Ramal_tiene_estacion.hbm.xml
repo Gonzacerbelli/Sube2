@@ -2,12 +2,16 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="datos.Ramal_tiene_estacion" table="ramal_tiene_estacion">
+	<class name="datos.RamalEstacion" table="ramal_tiene_estacion">
 		<id column="idRelacion" name="idRelacion">
 			<generator class="identity" />
 		</id> 
 		<property column="nroEstacion" name="nroEstacion" type="int" />
-		<many-to-one name="estacion" class="datos.Estacion" column="idEstacion"/>
-		<many-to-one name="ramal" class="datos.Ramal" column="idRamal"/>
+		<many-to-one name="estacion" class="datos.Estacion" fetch="join">
+            <column name="IDESTACION" />
+        </many-to-one>
+        <many-to-one name="ramal" class="datos.Ramal" fetch="join">
+            <column name="IDRAMAL" />
+        </many-to-one>
 	</class>
 </hibernate-mapping>

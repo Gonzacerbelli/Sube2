@@ -27,6 +27,7 @@ public class Usuario {
 		this.estudiantil = estudiantil;
 		this.lstTarjetas = lstTarjetas;
 	}
+	
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -98,6 +99,13 @@ public class Usuario {
 
 	public void setLstTarjetas(Set<Tarjeta> lstTarjetas) {
 		this.lstTarjetas = lstTarjetas;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+				+ ", pass=" + pass + ", email=" + email + ", tarifaSocial=" + tarifaSocial + ", estudiantil="
+				+ estudiantil + ", lstTarjetas=" + lstTarjetas + "]";
 	}
 
 	

@@ -1,9 +1,12 @@
 package datos;
 
+import java.util.Set;
+
 public class Ramal {
 	private int idRamal;
 	private String nombre;
 	private Linea linea;
+	private Set<Estacion> estaciones;
 	
 	public Ramal() {}
 
@@ -11,6 +14,16 @@ public class Ramal {
 		super();
 		this.nombre = nombre;
 		this.linea = linea;
+	}
+
+	
+
+	public Set<Estacion> getEstaciones() {
+		return estaciones;
+	}
+
+	public void setEstaciones(Set<Estacion> estaciones) {
+		this.estaciones = estaciones;
 	}
 
 	public int getIdRamal() {
@@ -35,6 +48,11 @@ public class Ramal {
 
 	public void setLinea(Linea linea) {
 		this.linea = linea;
+	}
+
+	@Override
+	public String toString() {
+		return "Ramal [idRamal=" + idRamal + ", nombre=" + nombre + "]";
 	}
 	
 	
