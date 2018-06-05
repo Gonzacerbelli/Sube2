@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 
 import dao.HibernateUtil;
 import datos.Beneficio;
-import datos.Beneficio;
 
 public class BeneficioDao {
 	private static Session session;
