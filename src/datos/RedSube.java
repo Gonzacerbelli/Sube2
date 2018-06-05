@@ -2,13 +2,13 @@ package datos;
 
 public class RedSube {
 	private int idRedSube;
-	private double procentaje;
+	private double porcentaje;
 	private int cantidadBoletos;
 	private String descripcion;
 	
-	public RedSube(double procentaje, int cantidadBoletos, String descripcion) {
+	public RedSube(double porcentaje, int cantidadBoletos, String descripcion) {
 		super();
-		this.procentaje = procentaje;
+		this.porcentaje = porcentaje;
 		this.cantidadBoletos = cantidadBoletos;
 		this.descripcion = descripcion;
 	}
@@ -21,12 +21,12 @@ public class RedSube {
 		this.idRedSube = idRedSube;
 	}
 
-	public double getProcentaje() {
-		return procentaje;
+	public double getPorcentaje() {
+		return porcentaje;
 	}
 
-	public void setProcentaje(double procentaje) {
-		this.procentaje = procentaje;
+	public void setPorcentaje(double porcentaje) {
+		this.porcentaje = porcentaje;
 	}
 
 	public int getCantidadBoletos() {
@@ -45,8 +45,9 @@ public class RedSube {
 		this.descripcion = descripcion;
 	}
 	
-}
-
 	public double aplicarDescuento(double monto) {
 		return (monto*100)/porcentaje;
 	}
+	
+}
+

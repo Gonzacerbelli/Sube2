@@ -25,15 +25,13 @@ public class TestTraerTransporte {
 		{
 			Facade f = new Facade();
 			TransporteABM tABM = new TransporteABM();
-			Transporte transporte = tABM.traerTransporte("Tren");
-			System.out.println(transporte.toString());
 			List<Transporte> list = tABM.traerTransporte();
 			System.out.println(list);
 			Transporte transporte = list.get(0);
 			List<Linea> lineas = f.getLineaABM().traerLineas(transporte.getIdTransporte());
 			System.out.println(lineas);
 			Linea linea = lineas.get(0);
-			List<Ramales> ramales = f.getRamalABM().traerRamales(linea.getIdLinea());
+			List<Ramal> ramales = f.getRamalABM().traerRamales(linea.getIdLinea());
 			System.out.println(ramales);
 			Ramal ramal = ramales.get(0);
 			List<Estacion> estaciones = f.getEstacionABM().traerEstaciones(ramal.getIdRamal());
