@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2018 a las 16:28:25
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Tiempo de generación: 05-06-2018 a las 20:26:40
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -231,10 +231,21 @@ INSERT INTO `ramal_tiene_estacion` (`idRelacion`, `idRamal`, `idEstacion`, `nroE
 
 CREATE TABLE `red_sube` (
   `idRedSube` int(11) NOT NULL,
-  `numeroDescuento` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `porcentaje` float NOT NULL
+  `cantidadBoletos` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL,
+  `porcentaje` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `red_sube`
+--
+
+INSERT INTO `red_sube` (`idRedSube`, `cantidadBoletos`, `descripcion`, `porcentaje`) VALUES
+(1, 1, 'RED SUBE 1', 50),
+(2, 2, 'RED SUBE 2', 75),
+(3, 3, 'RED SUBE 3', 75),
+(4, 4, 'RED SUBE 4', 75),
+(5, 5, 'RED SUBE 5', 75);
 
 -- --------------------------------------------------------
 
@@ -283,17 +294,6 @@ INSERT INTO `tarjeta` (`idTarjeta`, `numTarjeta`, `saldo`, `activa`, `idUsuario`
 (10, 1237, 0, b'0', NULL),
 (11, 1238, 0, b'0', NULL),
 (14, 1239, 0, b'0', NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tipomovimiento`
---
-
-CREATE TABLE `tipomovimiento` (
-  `idTipoMovimiento` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -490,13 +490,6 @@ ALTER TABLE `tarjeta`
   ADD KEY `fk_usuario_tarjeta` (`idUsuario`);
 
 --
--- Indices de la tabla `tipomovimiento`
---
-ALTER TABLE `tipomovimiento`
-  ADD PRIMARY KEY (`idTipoMovimiento`),
-  ADD UNIQUE KEY `idtipoMovimiento_UNIQUE` (`idTipoMovimiento`);
-
---
 -- Indices de la tabla `transporte`
 --
 ALTER TABLE `transporte`
@@ -586,6 +579,12 @@ ALTER TABLE `ramal_tiene_estacion`
   MODIFY `idRelacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `red_sube`
+--
+ALTER TABLE `red_sube`
+  MODIFY `idRedSube` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `tarifa`
 --
 ALTER TABLE `tarifa`
@@ -596,12 +595,6 @@ ALTER TABLE `tarifa`
 --
 ALTER TABLE `tarjeta`
   MODIFY `idTarjeta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de la tabla `tipomovimiento`
---
-ALTER TABLE `tipomovimiento`
-  MODIFY `idTipoMovimiento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `transporte`
@@ -664,8 +657,7 @@ ALTER TABLE `linea`
 -- Filtros para la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  ADD CONSTRAINT `fk_movimiento_tarjeta` FOREIGN KEY (`idTarjeta`) REFERENCES `tarjeta` (`idTarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_movimiento_tipo` FOREIGN KEY (`idTipoMovimiento`) REFERENCES `tipomovimiento` (`idtipoMovimiento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_movimiento_tarjeta` FOREIGN KEY (`idTarjeta`) REFERENCES `tarjeta` (`idTarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `ramal`
