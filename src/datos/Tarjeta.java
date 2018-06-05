@@ -83,23 +83,15 @@ public class Tarjeta {
 	public Viaje getUltimoViaje()
 	{
 		Viaje viaje = null;
-		if(lstViaje != null && lstViaje.size() > 1)
-		{
-			Iterator<Viaje> it = lstViaje.iterator();
-			while(it.hasNext())
-			{
-				it.next();
-			}
+		Iterator<Viaje> it = lstViaje.iterator();
+		while(it.hasNext()) {
+			viaje = it.next();
 		}
 		return viaje;
 	}
 	
-	public void cobrarBoleto(float monto) throws Exception
+	public void cobrarBoleto(double monto) throws Exception
 	{
-		if(this.saldo - monto < -20)
-		{
-			throw new Exception("Saldo insuficiente");
-		}
 		setSaldo(getSaldo() - monto);
 	}
 	
@@ -109,7 +101,7 @@ public class Tarjeta {
 
 	@Override
 	public String toString() {
-		return "Tarjeta [idTarjeta=" + idTarjeta + ", numTarjeta=" + numTarjeta + ", saldo=" + saldo + ", usuario="+ usuario.toString() + ", activa=" + activa + "]";
+		return "Tarjeta [idTarjeta=" + idTarjeta + ", numTarjeta=" + numTarjeta + ", saldo=" + saldo + ", activa=" + activa + "]";
 	}
 	
 }

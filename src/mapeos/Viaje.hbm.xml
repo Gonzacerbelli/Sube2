@@ -11,7 +11,7 @@
 		<property column="cantBoletos" name="cantBoletos" type="int" />
 	
 		<set name="lstBoleto" cascade="save-update" table="boleto" order-by="fechaHora asc" inverse="true" lazy="true" fetch="select">
-			<key column="idBoleto" not-null="true"/>
+			<key column="idViaje" not-null="true"/>
 			<one-to-many class="datos.Boleto"/>
 		</set>
 		

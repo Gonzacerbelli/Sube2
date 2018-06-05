@@ -32,8 +32,8 @@ public class Descuento {
 		this.porcentaje = porcentaje;
 	}
 
-	public float aplicarDescuento(float monto) {
-		return (float) ((monto/100.0) * porcentaje); 
+	public double aplicarDescuento(double monto) {
+		return (monto/100.0) * porcentaje;
 	}
 	
 }

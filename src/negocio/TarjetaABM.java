@@ -30,9 +30,9 @@ public class TarjetaABM {
 	}
 	
 	public void modificar(Tarjeta t) throws Exception {
-		Tarjeta tarjetaAux = dao.traerTarjeta(t.getNumTarjeta());
+		Tarjeta tarjetaAux = dao.traerTarjetaPorNum(t.getNumTarjeta());
 		if (tarjetaAux != null) {
-			dao.actualizar(tarjetaAux);
+			dao.actualizar(t);
 		} else {
 			throw new Exception("No existe una tarjeta con ese número.");
 		}
@@ -46,13 +46,22 @@ public class TarjetaABM {
 		dao.eliminar(t);
 	}
 	
-	public Tarjeta traerTarjeta(int numTarjeta) throws Exception {
-		Tarjeta t = dao.traerTarjeta(numTarjeta);
+	public Tarjeta traerTarjeta(int idTarjeta) throws Exception {
+		Tarjeta t = dao.traerTarjeta(idTarjeta);
 		if (t == null) {
 			throw new Exception("La tarjeta no existe en la base de datos.");
 		}
 		return t;
 	}
+	
+	public Tarjeta traerTarjetaPorNum(int numTarjeta) throws Exception {
+		Tarjeta t = dao.traerTarjetaPorNum(numTarjeta);
+		if (t == null) {
+			throw new Exception("La tarjeta no existe en la base de datos.");
+		}
+		return t;
+	}
+	
 	
 	public Tarjeta traerTarjeta(Usuario usuario) throws Exception {
 		Tarjeta t = dao.traerTarjeta(usuario);

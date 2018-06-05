@@ -63,6 +63,13 @@ public class LineaABM {
 		}
 		return list;
 	}
+	public List<Linea> traerLineas(int idTransporte) throws Exception {
+		List<Linea> list = dao.traerLineas(idTransporte);
+		if (list == null) {
+			throw new Exception("La Linea no existe en la base de datos.");
+		}
+		return list;
+	}
 	
 	
 }

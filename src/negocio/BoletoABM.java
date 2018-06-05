@@ -5,9 +5,13 @@ import datos.Boleto;
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
+import datos.RedSube;
 import datos.Tarifa;
+import datos.Tarjeta;
 import datos.Viaje;
 import datos.Transporte;
+import datos.Usuario;
+
 import java.util.GregorianCalendar;
 
 public class BoletoABM {
@@ -42,6 +46,32 @@ public class BoletoABM {
 			throw new Exception("El boleto no existe.");
 		}
 		return b;
+	}
+	
+	public Boleto generarBoleto(GregorianCalendar fechaHora, Tarifa tarifa, Estacion estacion, Ramal ramal, Linea linea, Transporte transporte, Viaje viaje, Usuario usuario, RedSube redSube) {
+		
+		double precioFinal = tarifa.getMonto();
+		
+		if(usuario != null) {
+			precioFinal = usuario.aplicarDescuentos(precioFinal);
+		}
+		
+		if(redSube != null) {
+			precioFinal = redSube.aplicarDescuento(precioFinal);
+		}
+		
+		Boleto b = new Boleto(fechaHora, precioFinal, tarifa, estacion, ramal, linea, transporte, viaje);
+		
+		return b;
+	}
+	
+	public void cobrarBoleto(Boleto boleto, Tarjeta tarjeta) throws Exception {
+		double saldo = tarjeta.getSaldo();
+		if(saldo - boleto.getPrecioFinal() < -20) {
+			saldo += boleto.getPrecioFinal();
+			throw new Exception("Saldo Insuficiente: " + tarjeta.getSaldo());
+		}
+		tarjeta.setSaldo(tarjeta.getSaldo() - boleto.getPrecioFinal());
 	}
 	
 	

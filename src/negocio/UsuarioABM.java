@@ -42,6 +42,31 @@ public class UsuarioABM {
 	}
 	
 	
+	//devuelve false si esta mal la contraseña, ex si esta mal el dni
+	public boolean autenticar(int dni, String pass) {
+		try {
+			Usuario usuario = dao.traerUsuario(dni);
+			return pass.equals(usuario.getPass());
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public void asignarTarjeta(Tarjeta tarjeta, Usuario usuario) throws Exception {
+		
+		if(usuario.getTarjetas().contains(tarjeta)) {
+			throw new Exception("La tarjeta ya estaba asignada.");
+		}
+		
+		for(Tarjeta t : usuario.getTarjetas()) {
+			if(t.isActiva()) {
+				throw new Exception("El usuario ya tiene una tarjeta activa.");
+			}
+		}
+		usuario.asignarTarjeta(tarjeta);
+		modificar(usuario);
+	}
 	
 	
 }

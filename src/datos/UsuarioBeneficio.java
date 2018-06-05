@@ -69,27 +69,7 @@ public class UsuarioBeneficio {
 		this.fechaAsignado = fechaAsignado;
 	}
 	
-	public boolean estaParaAplicar() {
-		if(activo)
-		{
-			GregorianCalendar aux = (GregorianCalendar) Calendar.getInstance(); 
-			aux.add(Calendar.MONTH,-1);
-			if(fechaCobro.before(aux))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 	
-	public double aplicarBeneficio(double saldo) {
-		if(estaParaAplicar())
-		{
-			saldo = beneficio.aplicarBeneficio(saldo);
-			fechaCobro = (GregorianCalendar) Calendar.getInstance(); 
-		}
-		return saldo;
-	}
 
 	@Override
 	public String toString() {

@@ -6,7 +6,7 @@ public class Viaje {
 	private int idViaje;
 	private GregorianCalendar fechaHora;
 	private int cantBoletos;
-	private Set<Boleto> lstBoleto;
+	private Set<Boleto> lstBoleto = new HashSet<Boleto>();;
 	private Tarjeta tarjeta;
 	
 	public Viaje() {}
@@ -55,15 +55,12 @@ public class Viaje {
 		return cantBoletos;
 	}
 
-	
-	
 	public void setCantBoletos(int cantBoletos) {
 		this.cantBoletos = cantBoletos;
 	}
 
 	public void agregarBoleto(Boleto boleto) {
-		
+		this.getLstBoleto().add(boleto);
 	}
-	
 	
 }

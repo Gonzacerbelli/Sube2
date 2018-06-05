@@ -87,4 +87,19 @@ public class TarjetaDao {
 		}
 		return objeto;
 	}
+	
+	public Tarjeta traerTarjetaPorNum(int numTarjeta) throws HibernateException {
+		Tarjeta objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Tarjeta) session.createQuery("from Tarjeta t where t.numTarjeta = " + numTarjeta).uniqueResult();
+			if(objeto!=null) {
+				Hibernate.initialize(objeto.getLstMovimiento());
+				Hibernate.initialize(objeto.getLstViaje());
+			}
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -66,6 +67,9 @@ public class ViajeDao {
 		try {
 			iniciaOperacion();
 			objeto = (Viaje) session.get(Viaje.class, idViaje);
+			if(objeto != null) {
+				Hibernate.initialize(objeto.getLstBoleto());
+			}
 			tx.commit();
 		} finally {
 			session.close();

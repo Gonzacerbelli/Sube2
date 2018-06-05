@@ -100,11 +100,11 @@ public class RamalDao {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Ramal> traerRamales(Linea linea) throws HibernateException {
+	public List<Ramal> traerRamales(int idLinea) throws HibernateException {
 		List<Ramal> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Ramal c where c.idLinea = " + linea.getIdLinea();
+			String hql = "from Ramal c where c.idLinea = " + idLinea;
 			list = (List<Ramal>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
@@ -112,4 +112,5 @@ public class RamalDao {
 		}
 		return list;
 	}
+	
 }

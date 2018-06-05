@@ -46,3 +46,7 @@ public class RedSube {
 	}
 	
 }
+
+	public double aplicarDescuento(double monto) {
+		return (monto*100)/porcentaje;
+	}

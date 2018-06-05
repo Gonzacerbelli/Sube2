@@ -71,6 +71,7 @@ public class UsuarioDao {
 			iniciaOperacion();
 			objeto = (Usuario) session.createQuery("from Usuario u where u.dni=" + dni).uniqueResult();
 			if(objeto!=null) {
+				Hibernate.initialize(objeto.getTarjetas());
 				Hibernate.initialize(objeto.getUsuarioBeneficios());
 				Hibernate.initialize(objeto.getUsuarioDescuentos());
 			}
