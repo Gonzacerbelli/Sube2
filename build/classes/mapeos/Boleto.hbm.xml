@@ -21,5 +21,7 @@
 		
 		<many-to-one name="transporte" class="datos.Transporte" column="idTransporte"/>
 		
+		<many-to-one name="viaje" class="datos.Viaje" column="idViaje"/>
+		
 	</class>
 </hibernate-mapping>

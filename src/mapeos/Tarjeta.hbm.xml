@@ -9,10 +9,14 @@
 		<property column="numTarjeta" name="numTarjeta" type="int" />
 		<property column="saldo" name="saldo" type="double" />
 		<property column="activa" name="activa" type="boolean" />
-		<many-to-one name="usuario" class="datos.Usuario" column="idUsuario" not-null="true"/>
-		<set name="lstViaje" cascade="all" table="viaje" inverse="true" lazy="true" fetch="select">
+		<many-to-one name="usuario" class="datos.Usuario" column="idUsuario"/>
+		<set name="lstViaje" cascade="all" table="viaje" order-by="fechaHora asc" inverse="true" lazy="false" fetch="select">
 			<key column="idTarjeta"/>
 			<one-to-many class="datos.Viaje"/>
+		</set>
+		<set name="lstMovimiento" cascade="all" table="Movimiento" order-by="fechaHora asc" inverse="true" lazy="false" fetch="select">
+			<key column="idTarjeta"/>
+			<one-to-many class="datos.Movimiento"/>
 		</set>
 	</class>
 </hibernate-mapping>

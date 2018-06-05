@@ -12,8 +12,8 @@ public class ViajeABM {
 	
 	ViajeDao dao = new ViajeDao();
 	
-	public int agregar(GregorianCalendar fechaHora, Set<Boleto> lstBoleto, Tarjeta tarjeta) {
-		Viaje viaje = new Viaje(fechaHora, lstBoleto, tarjeta);
+	public int agregar(GregorianCalendar fechaHora, Tarjeta tarjeta) {
+		Viaje viaje = new Viaje(fechaHora, tarjeta);
 		return dao.agregar(viaje);
 	}
 	
@@ -34,10 +34,10 @@ public class ViajeABM {
 		dao.eliminar(v);
 	}
 	
-	public Viaje traerBoleto(int idViaje) throws Exception {
+	public Viaje traerViaje(int idViaje) throws Exception {
 		Viaje v = dao.traerViaje(idViaje);
 		if (v == null) {
-			throw new Exception("El boleto no existe.");
+			throw new Exception("El Viaje no existe.");
 		}
 		return v;
 	}

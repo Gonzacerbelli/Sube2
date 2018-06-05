@@ -20,7 +20,7 @@ public class TestAgregarTarjeta {
 		try 
 		{
 			TarjetaABM tABM = new TarjetaABM();
-			int ultimoId = tABM.agregar(1239, 0, false);
+			int ultimoId = tABM.agregar(1239);
 			System.out.println("Agregar tarjeta --" + ultimoId);
 		} 
 		catch (Exception e) 

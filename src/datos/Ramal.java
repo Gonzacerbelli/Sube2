@@ -6,7 +6,7 @@ public class Ramal {
 	private int idRamal;
 	private String nombre;
 	private Linea linea;
-	private Set<Estacion> estaciones;
+	private Set<RamalEstacion> ramalEstaciones;
 	
 	public Ramal() {}
 
@@ -16,14 +16,12 @@ public class Ramal {
 		this.linea = linea;
 	}
 
-	
-
-	public Set<Estacion> getEstaciones() {
-		return estaciones;
+	public Set<RamalEstacion> getRamalEstaciones() {
+		return ramalEstaciones;
 	}
 
-	public void setEstaciones(Set<Estacion> estaciones) {
-		this.estaciones = estaciones;
+	public void setRamalEstaciones(Set<RamalEstacion> ramalEstaciones) {
+		this.ramalEstaciones = ramalEstaciones;
 	}
 
 	public int getIdRamal() {

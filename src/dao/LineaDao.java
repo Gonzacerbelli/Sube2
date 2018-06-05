@@ -1,16 +1,12 @@
 package dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import datos.Estacion;
-import datos.Linea;
-import datos.Linea;
 import datos.Linea;
 
 public class LineaDao {

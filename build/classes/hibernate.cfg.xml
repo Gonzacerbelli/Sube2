@@ -9,7 +9,7 @@
   <property name="connection.password"/>
   <property name="connection.pool_size">1</property>
   <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="show_sql">true</property>
+  <property name="show_sql">false</property>
   <!-- en true muestra hql en consola 
  Mapeo Entidades -->
   <mapping resource="mapeos/Usuario.hbm.xml"/>
@@ -28,6 +28,20 @@
   
   <mapping resource="mapeos/Viaje.hbm.xml"/>
   
-  <mapping resource="mapeos/Ramal_tiene_estacion.hbm.xml"/>
+  <mapping resource="mapeos/RamalEstacion.hbm.xml"/>
+  
+  <mapping resource="mapeos/usuario_tiene_beneficio.hbm.xml"/>
+  
+  <mapping resource="mapeos/UsuarioDescuento.hbm.xml"/>
+ 
+  <mapping resource="mapeos/Descuento.hbm.xml"/>
+  
+  <mapping resource="mapeos/Beneficio.hbm.xml"/>
+  
+  <mapping resource="mapeos/Movimiento.hbm.xml"/>
+  
+  <mapping resource="mapeos/Tarifa.hbm.xml"/>
+  
+  <mapping resource="mapeos/TipoMovimiento.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

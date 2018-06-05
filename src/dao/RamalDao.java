@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -9,8 +9,6 @@ import org.hibernate.Transaction;
 
 import datos.Ramal;
 import datos.Linea;
-import datos.Ramal;
-import datos.Ramal;
 
 public class RamalDao {
 	private static Session session;
@@ -74,7 +72,7 @@ public class RamalDao {
 			objeto = (Ramal) session.get(Ramal.class, idRamal);
 			if(objeto!=null)
 			{
-				Hibernate.initialize(objeto.getEstaciones());
+				Hibernate.initialize(objeto.getRamalEstaciones());
 			}
 			tx.commit();
 		} finally {
@@ -91,7 +89,7 @@ public class RamalDao {
 			objeto = (Ramal) session.createQuery(hql).uniqueResult();
 			if(objeto != null)
 			{
-				Hibernate.initialize(objeto.getEstaciones());
+				Hibernate.initialize(objeto.getRamalEstaciones());
 			}
 			tx.commit();
 		} finally {
@@ -102,12 +100,12 @@ public class RamalDao {
 	
 	
 	@SuppressWarnings("unchecked")
-	public Set<Ramal> traerRamal(Linea linea) throws HibernateException {
-		Set<Ramal> list = null;
+	public List<Ramal> traerRamales(Linea linea) throws HibernateException {
+		List<Ramal> list = null;
 		try {
 			iniciaOperacion();
 			String hql = "from Ramal c where c.idLinea = " + linea.getIdLinea();
-			list = (Set<Ramal>) session.createQuery(hql).list();
+			list = (List<Ramal>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
 			session.close();

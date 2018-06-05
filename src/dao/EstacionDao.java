@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -10,7 +9,6 @@ import org.hibernate.Transaction;
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
-import datos.Estacion;
 
 public class EstacionDao {
 	private static Session session;
@@ -93,12 +91,12 @@ public class EstacionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Set<Estacion> traerEstacion(Linea linea) throws HibernateException {
-		Set<Estacion> list = null;
+	public List<Estacion> traerEstacion(Linea linea) throws HibernateException {
+		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
 			String hql = "from Estacion c where c.idLinea = " + linea.getIdLinea();
-			list = (Set<Estacion>) session.createQuery(hql).list();
+			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
 			session.close();
@@ -107,12 +105,12 @@ public class EstacionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Set<Estacion> traerEstacion(Ramal ramal) throws HibernateException {
-		Set<Estacion> list = null;
+	public List<Estacion> traerEstacion(Ramal ramal) throws HibernateException {
+		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
 			String hql = "from Estacion c select * inner join ramal_tiene_estacion as r_e on r_e.idRamal = " + ramal.getIdRamal();
-			list = (Set<Estacion>) session.createQuery(hql).list();
+			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
 			session.close();

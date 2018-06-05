@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -61,11 +62,15 @@ public class TarjetaDao {
 		}
 	}
 	
-	public Tarjeta traerTarjeta(int numTarjeta) throws HibernateException {
+	public Tarjeta traerTarjeta(int idTarjeta) throws HibernateException {
 		Tarjeta objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Tarjeta) session.get(Tarjeta.class, numTarjeta);
+			objeto = (Tarjeta) session.get(Tarjeta.class, idTarjeta);
+			if(objeto != null) {
+				Hibernate.initialize(objeto.getLstMovimiento());
+				Hibernate.initialize(objeto.getLstViaje());
+			}
 		} finally {
 			session.close();
 		}

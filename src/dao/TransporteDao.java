@@ -8,8 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import datos.Transporte;
-import javassist.bytecode.Descriptor.Iterator;
-import datos.Transporte;
 
 public class TransporteDao {
 	private static Session session;

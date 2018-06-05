@@ -7,10 +7,10 @@
 			<generator class="identity" />
 		</id> 
 		<property column="nroEstacion" name="nroEstacion" type="int" />
-		<many-to-one name="estacion" class="datos.Estacion" fetch="join">
+		<many-to-one name="estacion" class="datos.Estacion" fetch="select">
             <column name="IDESTACION" />
         </many-to-one>
-        <many-to-one name="ramal" class="datos.Ramal" fetch="join">
+        <many-to-one name="ramal" class="datos.Ramal" fetch="select">
             <column name="IDRAMAL" />
         </many-to-one>
 	</class>

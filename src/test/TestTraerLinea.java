@@ -33,7 +33,7 @@ public class TestTraerLinea {
 			EstacionABM eABM = new EstacionABM();
 			e = eABM.traerEstacion(e.getIdEstacion());
 			System.out.println("Estacion " + e.toString());
-			System.out.println("Esta en ramales " + e.getRamales());
+			System.out.println("Esta en ramales " + e.getEstacionRamales());
 //			List<Linea> list = tABM.traerLinea();
 //			System.out.println(list);
 		} 

@@ -1,6 +1,5 @@
 package datos;
 
-import java.util.List;
 import java.util.Set;
 
 public class Transporte {
@@ -27,8 +26,6 @@ public class Transporte {
 		this.nombre = nombre;
 	}
 	
-	
-	
 	public Set<Linea> getLineas() {
 		return lineas;
 	}
@@ -39,8 +36,5 @@ public class Transporte {
 	public String toString() {
 		return "Transporte [idTransporte=" + idTransporte + ", nombre=" + nombre + ", lineas=" + lineas + "]";
 	}
-	
-	
-	
 	
 }

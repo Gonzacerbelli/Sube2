@@ -2,35 +2,26 @@ package datos;
 
 import java.util.*;
 
+
 public class Tarjeta {
 	private int idTarjeta;
 	private int numTarjeta;
 	private double saldo;
-	private Set<Viaje> lstViaje;
 	private Usuario usuario;
 	private boolean activa;
+	private Set<Viaje> lstViaje;
 	private Set<Movimiento> lstMovimiento;
 	
 	public Tarjeta() {}
 
-	public Tarjeta(int numTarjeta, double saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
-			Set<Movimiento> lstMovimiento) {
+	public Tarjeta(int numTarjeta) {
 		super();
 		this.numTarjeta = numTarjeta;
-		this.saldo = saldo;
-		this.lstViaje = lstViaje;
-		this.usuario = usuario;
-		this.activa = activa;
-		this.lstMovimiento = lstMovimiento;
-	}
-	
-	
-
-	public Tarjeta(int numTarjeta, double saldo, boolean activa) {
-		super();
-		this.numTarjeta = numTarjeta;
-		this.saldo = saldo;
-		this.activa = activa;
+		this.activa = true;
+		this.saldo = 0;
+		this.lstMovimiento = new HashSet<Movimiento>();
+		this.lstViaje = new HashSet<Viaje>();
+		this.usuario = null;
 	}
 
 	public int getIdTarjeta() {
@@ -88,14 +79,37 @@ public class Tarjeta {
 	public void setLstMovimiento(Set<Movimiento> lstMovimiento) {
 		this.lstMovimiento = lstMovimiento;
 	}
+	
+	public Viaje getUltimoViaje()
+	{
+		Viaje viaje = null;
+		if(lstViaje != null && lstViaje.size() > 1)
+		{
+			Iterator<Viaje> it = lstViaje.iterator();
+			while(it.hasNext())
+			{
+				it.next();
+			}
+		}
+		return viaje;
+	}
+	
+	public void cobrarBoleto(float monto) throws Exception
+	{
+		if(this.saldo - monto < -20)
+		{
+			throw new Exception("Saldo insuficiente");
+		}
+		setSaldo(getSaldo() - monto);
+	}
+	
+	public void agregarMovimiento(Movimiento movimiento) {
+		this.lstMovimiento.add(movimiento);
+	}
 
 	@Override
 	public String toString() {
-		return "Tarjeta [idTarjeta=" + idTarjeta + ", numTarjeta=" + numTarjeta + ", saldo=" + saldo + ", lstViaje="
-				+ lstViaje + ", usuario=" + usuario + ", activa=" + activa + ", lstMovimiento=" + lstMovimiento + "]";
+		return "Tarjeta [idTarjeta=" + idTarjeta + ", numTarjeta=" + numTarjeta + ", saldo=" + saldo + ", usuario="+ usuario.toString() + ", activa=" + activa + "]";
 	}
-
-	
-	
 	
 }

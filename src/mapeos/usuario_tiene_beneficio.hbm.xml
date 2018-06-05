@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.UsuarioBeneficio" table="usuario_tiene_beneficio">
+		<id column="idRelacion" name="idRelacion">
+			<generator class="identity" />
+		</id> 
+		<many-to-one name="usuario" class="datos.Usuario" fetch="join">
+            <column name="IDUSUARIO" />
+        </many-to-one>
+        <many-to-one name="beneficio" class="datos.Beneficio" fetch="join">
+            <column name="IDBENEFICIO" />
+        </many-to-one>
+		<property column="activo" name="activo" type="boolean" />
+		<property column="fechaCobro" name="fechaCobro" type="calendar" />
+		<property column="fechaAsignado" name="fechaAsignado" type="calendar" />
+	</class>
+</hibernate-mapping>

@@ -11,12 +11,13 @@
 		<property column="dni" name="dni" type="int" />
 		<property column="pass" name="pass" type="string" />
 		<property column="email" name="email" type="string" />
-		<property column="tarifaSocial" name="tarifaSocial" type="boolean" />
-		<property column="estudiantil" name="estudiantil" type="boolean" />
-		
-		<set name="lstTarjetas" cascade="save-update" table="tarjeta" order-by="idTarjeta asc" inverse="true" lazy="true" fetch="select">
+		<set name="usuarioBeneficios" cascade="save-update" table="usuario_tiene_beneficio" order-by="fechaAsignado asc" lazy="true" fetch="join">
 			<key column="idUsuario"/>
-			<one-to-many class="datos.Tarjeta"/>
+			<one-to-many class="datos.UsuarioBeneficio"/>
+		</set>
+		<set name="usuarioDescuentos" cascade="save-update" table="usuario_tiene_descuento" order-by="fechaAsignado asc" lazy="true" fetch="join">
+			<key column="idUsuario"/>
+			<one-to-many class="datos.UsuarioDescuento"/>
 		</set>
 	</class>
 </hibernate-mapping>

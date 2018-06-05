@@ -16,16 +16,16 @@ public class TarjetaABM {
 		if (tarjetaAux != null) {
 			throw new Exception("Existe una tarjeta con el mismo número.");
 		}
-		Tarjeta t = new Tarjeta(numTarjeta, saldo, lstViaje, usuario, activa, lstMovimiento);
+		Tarjeta t = new Tarjeta(numTarjeta);
 		return dao.agregar(t);
 	}
 	
-	public int agregar(int numTarjeta, double saldo, boolean activa) throws Exception {
+	public int agregar(int numTarjeta) throws Exception {
 //		Tarjeta tarjetaAux = dao.traerTarjeta(numTarjeta);
 //		if (tarjetaAux != null) {
 //			throw new Exception("Existe una tarjeta con el mismo número.");
 //		}
-		Tarjeta t = new Tarjeta(numTarjeta, saldo, activa);
+		Tarjeta t = new Tarjeta(numTarjeta);
 		return dao.agregar(t);
 	}
 	

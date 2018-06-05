@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.Movimiento" table="Movimiento">
+		<id column="idMovimiento" name="idMovimiento">
+			<generator class="identity" />
+		</id>
+		
+		<many-to-one name="tipoMovimiento" class="datos.TipoMovimiento" fetch="join">
+            <column name="idTipoMovimiento" />
+        </many-to-one>
+              
+  		<many-to-one name="tarjeta" class="datos.Tarjeta" fetch="join">
+            <column name="idTarjeta" />
+        </many-to-one>
+		
+		<property column="fechaHora" name="fechaHora" type="calendar"/>	
+		
+		<property column="detalle" name="detalle" type="string"/>
+		
+		<property column="valor" name="valor" type="double"/>
+		
+	
+
+	</class>
+</hibernate-mapping>

@@ -26,7 +26,7 @@ public class TestTraerRamal {
 			RamalABM tABM = new RamalABM();
 			Ramal Ramal = tABM.traerRamal(1);
 			System.out.println(Ramal.toString());
-			System.out.println(Ramal.getEstaciones());
+			System.out.println(Ramal.getRamalEstaciones());
 //			Iterator it = Ramal.getEstaciones().iterator();
 //			Estacion e = (Estacion) it.next();
 //			EstacionABM eABM = new EstacionABM();

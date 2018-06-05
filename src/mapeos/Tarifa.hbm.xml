@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="datos.Boleto" table="boleto">
-		<id column="idBoleto" name="idBoleto">
+	<class name="datos.Tarifa" table="tarifa">
+		<id column="idTarifa" name="idTarifa">
 			<generator class="identity" />
 		</id>
 		
@@ -13,7 +13,7 @@
 		
 		<property column="monto" name="monto" type="double" />
 		
-		<property name="idTransporte" column="idEstacion"/>
+		<many-to-one name="transporte" column="idTransporte" class="datos.Transporte"/>
 		
 	</class>
 </hibernate-mapping>

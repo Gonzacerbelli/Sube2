@@ -16,6 +16,7 @@ public class Boleto {
 	private Linea linea;
 	private Transporte transporte;
 	private Viaje viaje;
+	
 	public Boleto() {}
 
 	public Boleto(GregorianCalendar fechaHora, double precioFinal, Tarifa tarifa, Estacion estacion, Ramal ramal,

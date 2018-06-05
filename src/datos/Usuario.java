@@ -9,25 +9,19 @@ public class Usuario {
 	private int dni;
 	private String pass;
 	private String email;
-	private boolean tarifaSocial;
-	private boolean estudiantil;
-	private Set<Tarjeta> lstTarjetas;
+	private Set<UsuarioDescuento> usuarioDescuentos;
+	private Set<UsuarioBeneficio> usuarioBeneficios;
 	
 	public Usuario() {}
-
-	public Usuario(String nombre, String apellido, int dni, String pass, String email, boolean tarifaSocial,
-			boolean estudiantil, Set<Tarjeta> lstTarjetas) {
+	
+	public Usuario(String nombre, String apellido, int dni, String pass, String email) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.pass = pass;
 		this.email = email;
-		this.tarifaSocial = tarifaSocial;
-		this.estudiantil = estudiantil;
-		this.lstTarjetas = lstTarjetas;
 	}
-	
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -77,39 +71,66 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public boolean isTarifaSocial() {
-		return tarifaSocial;
+	public Set<UsuarioDescuento> getUsuarioDescuentos() {
+		return usuarioDescuentos;
 	}
 
-	public void setTarifaSocial(boolean tarifaSocial) {
-		this.tarifaSocial = tarifaSocial;
+	public void setUsuarioDescuentos(Set<UsuarioDescuento> usuarioDescuentos) {
+		this.usuarioDescuentos = usuarioDescuentos;
+	}
+	
+	public Set<UsuarioBeneficio> getUsuarioBeneficios() {
+		return usuarioBeneficios;
 	}
 
-	public boolean isEstudiantil() {
-		return estudiantil;
+	public void setUsuarioBeneficios(Set<UsuarioBeneficio> usuarioBeneficios) {
+		this.usuarioBeneficios = usuarioBeneficios;
 	}
 
-	public void setEstudiantil(boolean estudiantil) {
-		this.estudiantil = estudiantil;
+	public float aplicarDescuentos(float monto ) {
+		for(UsuarioDescuento usuarioDescuento: usuarioDescuentos)
+		{
+			monto = usuarioDescuento.aplicarDescuento(monto);
+		}
+		return monto;
 	}
-
-	public Set<Tarjeta> getLstTarjetas() {
-		return lstTarjetas;
+	
+	public double aplicarBeneficios(double saldo)
+	{
+		for(UsuarioBeneficio usuarioBeneficio: usuarioBeneficios)
+		{
+			saldo = usuarioBeneficio.aplicarBeneficio(saldo);
+		}
+		return saldo;
 	}
-
-	public void setLstTarjetas(Set<Tarjeta> lstTarjetas) {
-		this.lstTarjetas = lstTarjetas;
+	
+	public void agregarDescuento(UsuarioDescuento usuarioDescuento) throws Exception
+	{
+		if(usuarioDescuentos.contains(usuarioDescuento))
+		{
+			throw new Exception("El descuento ya había sido asignado.");
+		}
+		usuarioDescuentos.add(usuarioDescuento);
+	}
+	
+	public void agregarBeneficio(UsuarioBeneficio usuarioBeneficio) throws Exception
+	{
+		if(usuarioBeneficios.contains(usuarioBeneficio))
+		{
+			throw new Exception("El Beneficio ya había sido asignado.");
+		}
+		usuarioBeneficios.add(usuarioBeneficio);
 	}
 
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
-				+ ", pass=" + pass + ", email=" + email + ", tarifaSocial=" + tarifaSocial + ", estudiantil="
-				+ estudiantil + ", lstTarjetas=" + lstTarjetas + "]";
+				+ ", pass=" + pass + ", email=" + email + ", usuarioDescuentos="
+				+ usuarioDescuentos + ", usuarioBeneficios=" + usuarioBeneficios + "]";
 	}
-
 	
-
+	
+	
 	
 	
 	

@@ -69,6 +69,4 @@ public class Linea {
 		this.ramales = ramales;
 	}
 	
-	
-
 }

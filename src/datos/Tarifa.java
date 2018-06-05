@@ -3,13 +3,27 @@ package datos;
 public class Tarifa {
 	private int idTarifa;
 	private String nombre;
-	private int cantTransportees;
-	private int idTransporte;
-	private float monto;
+	private int cantEstaciones;
+	private double monto;
+	private Transporte transporte;
 	
 	public Tarifa() {}
 	
+	public Tarifa(String nombre, int cantEstaciones, Transporte transporte, double monto) {
+		super();
+		this.nombre = nombre;
+		this.cantEstaciones = cantEstaciones;
+		this.transporte = transporte;
+		this.monto = monto;
+	}
 
+	public int getCantEstaciones() {
+		return cantEstaciones;
+	}
+
+	public void setCantEstaciones(int cantEstaciones) {
+		this.cantEstaciones = cantEstaciones;
+	}
 
 	public int getIdTarifa() {
 		return idTarifa;
@@ -19,58 +33,28 @@ public class Tarifa {
 		this.idTarifa = idTarifa;
 	}
 
-
-
 	public String getNombre() {
 		return nombre;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-	public int getCantTransportees() {
-		return cantTransportees;
+	public Transporte getTransporte() {
+		return transporte;
 	}
 
-
-
-	public void setCantTransportees(int cantTransportees) {
-		this.cantTransportees = cantTransportees;
+	public void setTransporte(Transporte transporte) {
+		this.transporte = transporte;
 	}
-
-
-
-	public int getIdTransporte() {
-		return idTransporte;
-	}
-
-
-
-	public void setIdTransporte(int idTransporte) {
-		this.idTransporte = idTransporte;
-	}
-
-
-
-	public float getMonto() {
+	
+	public double getMonto() {
 		return monto;
 	}
 
-
-
-	public void setMonto(float monto) {
+	public void setMonto(double monto) {
 		this.monto = monto;
-	}
-
-	@Override
-	public String toString() {
-		return "Tarifa [idTarifa=" + idTarifa + ", nombre=" + nombre + ", cantTransportees=" + cantTransportees
-				+ ", idTransporte=" + idTransporte + ", monto=" + monto + "]";
 	}
 	
 }

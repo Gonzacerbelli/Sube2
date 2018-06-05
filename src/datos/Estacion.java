@@ -7,8 +7,13 @@ public class Estacion {
 	private String nombre;
 	private int nroEstacion;
 	private Linea linea;
-	private Set<Ramal> ramales;
+	private Set<RamalEstacion> estacionRamales;
+	
 	public Estacion() {}
+
+	public Estacion(String nombre) {
+		this.nombre = nombre;
+	}
 	
 	public int getNroEstacion() {
 		return nroEstacion;
@@ -18,16 +23,12 @@ public class Estacion {
 		this.nroEstacion = nroEstacion;
 	}
 
-	public Set<Ramal> getRamales() {
-		return ramales;
+	public Set<RamalEstacion> getEstacionRamales() {
+		return estacionRamales;
 	}
 
-	public void setRamales(Set<Ramal> ramales) {
-		this.ramales = ramales;
-	}
-
-	public Estacion(String nombre) {
-		this.nombre = nombre;
+	public void setEstacionRamales(Set<RamalEstacion> estacionRamales) {
+		this.estacionRamales = estacionRamales;
 	}
 
 	public int getIdEstacion() {
@@ -54,6 +55,8 @@ public class Estacion {
 		this.linea = linea;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Estacion [idEstacion=" + idEstacion + ", nombre=" + nombre + "]";
