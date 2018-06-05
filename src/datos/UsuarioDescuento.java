@@ -54,7 +54,7 @@ public class UsuarioDescuento {
 		this.activo = activo;
 	}
 
-	public float aplicarDescuento(float monto) {
+	public double aplicarDescuento(double monto) {
 		if(activo) {
 			return descuento.aplicarDescuento(monto);
 		}

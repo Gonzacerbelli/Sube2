@@ -41,7 +41,5 @@
   <mapping resource="mapeos/Movimiento.hbm.xml"/>
   
   <mapping resource="mapeos/Tarifa.hbm.xml"/>
-  
-  <mapping resource="mapeos/TipoMovimiento.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

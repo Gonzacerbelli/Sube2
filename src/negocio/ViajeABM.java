@@ -2,6 +2,7 @@ package negocio;
 
 import dao.ViajeDao;
 import datos.Viaje;
+import util.Funciones;
 import datos.Boleto;
 import datos.Transporte;
 import datos.Tarjeta;
@@ -40,6 +41,14 @@ public class ViajeABM {
 			throw new Exception("El Viaje no existe.");
 		}
 		return v;
+	}
+	
+	public Viaje viajeCorrespondiente(Tarjeta tarjeta, GregorianCalendar fechaHora) {
+		Viaje ultimo = tarjeta.getUltimoViaje();
+		if(ultimo == null || ultimo.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimo.getFechaHora(), fechaHora) > 2) {
+			return new Viaje(fechaHora, tarjeta);
+		}
+		return ultimo;
 	}
 
 }

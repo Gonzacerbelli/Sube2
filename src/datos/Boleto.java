@@ -2,6 +2,7 @@ package datos;
 
 import datos.Linea;
 import datos.Ramal;
+import util.Funciones;
 import datos.Estacion;
 
 import java.util.GregorianCalendar;
@@ -101,7 +102,7 @@ public class Boleto {
 
 	@Override
 	public String toString() {
-		return "/nBoleto /n ID: " + idBoleto + "/nHORA: " + fechaHora + "/nMonto: " + precioFinal + "/nTransporte: " + linea.getTransporte().getNombre() + "/nLinea: " + linea.getNombre() + "/n";
+		return "/nBoleto /n ID: " + idBoleto + "/nHORA: " + Funciones.traerFechaCorta(fechaHora) + "/nMonto: " + precioFinal + "/nTransporte: " + "/nLinea: " + linea.getNombre() + "/n";
 	}
 	
 	public String descripcionTren() {
@@ -119,5 +120,32 @@ public class Boleto {
 	public void setViaje(Viaje viaje) {
 		this.viaje = viaje;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fechaHora == null) ? 0 : fechaHora.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Boleto other = (Boleto) obj;
+		if (fechaHora == null) {
+			if (other.fechaHora != null)
+				return false;
+		} else if (!fechaHora.equals(other.fechaHora))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

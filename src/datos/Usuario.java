@@ -9,6 +9,7 @@ public class Usuario {
 	private int dni;
 	private String pass;
 	private String email;
+	private Set<Tarjeta> tarjetas;
 	private Set<UsuarioDescuento> usuarioDescuentos;
 	private Set<UsuarioBeneficio> usuarioBeneficios;
 	
@@ -87,21 +88,20 @@ public class Usuario {
 		this.usuarioBeneficios = usuarioBeneficios;
 	}
 
-	public float aplicarDescuentos(float monto ) {
+	public Set<Tarjeta> getTarjetas() {
+		return tarjetas;
+	}
+
+	public void setTarjetas(Set<Tarjeta> tarjetas) {
+		this.tarjetas = tarjetas;
+	}
+
+	public double aplicarDescuentos(double monto ) {
 		for(UsuarioDescuento usuarioDescuento: usuarioDescuentos)
 		{
 			monto = usuarioDescuento.aplicarDescuento(monto);
 		}
 		return monto;
-	}
-	
-	public double aplicarBeneficios(double saldo)
-	{
-		for(UsuarioBeneficio usuarioBeneficio: usuarioBeneficios)
-		{
-			saldo = usuarioBeneficio.aplicarBeneficio(saldo);
-		}
-		return saldo;
 	}
 	
 	public void agregarDescuento(UsuarioDescuento usuarioDescuento) throws Exception
@@ -120,6 +120,10 @@ public class Usuario {
 			throw new Exception("El Beneficio ya había sido asignado.");
 		}
 		usuarioBeneficios.add(usuarioBeneficio);
+	}
+	
+	public void asignarTarjeta(Tarjeta tarjeta) {
+		tarjetas.add(tarjeta);
 	}
 
 	@Override

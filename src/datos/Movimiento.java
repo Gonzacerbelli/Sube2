@@ -4,14 +4,25 @@ import java.util.GregorianCalendar;
 
 public class Movimiento {
 	private int idMovimiento;
-	private TipoMovimiento tipoMovimiento;
+	private String tipo;
 	private Tarjeta tarjeta;
 	private double valor;
 	private GregorianCalendar fechaHora;
 	private String detalle;
 	
 	public Movimiento() {}
-	
+
+	public Movimiento(String tipo, Tarjeta tarjeta, double valor, GregorianCalendar fechaHora, String detalle) {
+		super();
+		this.tipo = tipo;
+		this.tarjeta = tarjeta;
+		this.valor = valor;
+		this.fechaHora = fechaHora;
+		this.detalle = detalle;
+	}
+
+
+
 	public int getIdMovimiento() {
 		return idMovimiento;
 	}
@@ -52,14 +63,15 @@ public class Movimiento {
 		this.detalle = detalle;
 	}
 
-	public TipoMovimiento getTipoMovimiento() {
-		return tipoMovimiento;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
-	
+
+
 	
 	
 }
