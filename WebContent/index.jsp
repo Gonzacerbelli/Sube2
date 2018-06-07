@@ -34,20 +34,18 @@
     <main role="main">
 
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
-	        <div class="carousel-inner">
-	          <div class="carousel-item active">
-	          <div class="subeHomeOpaco">
-		            <img style="width:100%; height:600px;" src="images/sube_home.jpg" >
-		            <div class="container">
-		              <div class="carousel-caption text-left">
-		                <h1>SUBE</h1>
-		                <p>Viajar en el país es cada vez más fácil y accesible.</p>
-		                <p><a class="btn btn-lg btn-primary" href="login.jsp" role="button">Ingresá</a></p>
-		              </div>
-		            </div>
-	            </div>
-	          </div>
-	        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+                
+            <img style="width:100%;" src="images/sube_home.jpg" >
+            <div class="carousel-caption text-left">
+            <h1>SUBE</h1>
+            <p>Viajar en el país es cada vez más fácil y accesible.</p>
+            <p><a class="btn btn-lg btn-primary" href="login.jsp" role="button">Ingresá</a></p>
+            </div>
+
+          </div>
+        </div>
       </div>
 		
 

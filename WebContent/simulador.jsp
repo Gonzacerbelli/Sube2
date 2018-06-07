@@ -14,75 +14,96 @@
 
 	<%@ include file="/barraSuperior.jsp"%>
 
+	
+	
 	<form class="form-horizontal">
-	<fieldset>
-	
-	<!-- Form Name -->
-	<legend>Simulador</legend>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectTransporte">Transporte</label>
-	  <div class="col-md-4">
-	    <select id="selectTransporte" name="selectTransporte" class="form-control">
-	    </select>
+	 
+	  <div class="container" style="margin-top:3%;margin-left:20%;width:60%;padding-left:15%;">
+	  
+		  <h2>Simulador</h2>
+
+		  <div class="row" style="margin-top:35px;">
+		  
+		  	<div class="col-4">
+		  		<div class="form-group">
+				    <label for="exampleSelect1">Transporte</label>
+				    <select class="form-control" id="selectTransporte">
+				      <option>Colectivo</option>
+				      <option>Subte</option>
+				      <option>Tren</option>
+				    </select>
+				</div>
+		  	</div>
+		  	<div class="col-4">
+		  		<div class="form-group">
+				    <label for="exampleSelect1">Línea</label>
+				    <select class="form-control" id="selectLinea">
+				      <option>1</option>
+				      <option>2</option>
+				      <option>3</option>
+				      <option>4</option>
+				      <option>5</option>
+				    </select>
+				</div>
+		  	</div>
+		  
+		  </div>
+		  <div class="row">
+		  
+		  	<div class="col-4">
+		  		<div class="form-group">
+				    <label for="exampleSelect1">Ramal</label>
+				    <select class="form-control" id="selectRamal">
+				      <option>1</option>
+				      <option>2</option>
+				      <option>3</option>
+				      <option>4</option>
+				      <option>5</option>
+				    </select>
+				</div>
+		  	</div>
+		  	<div class="col-4">
+		  		<div class="form-group">
+				    <label for="exampleSelect1">Estación</label>
+				    <select class="form-control" id="selectEstacion">
+				      <option>1</option>
+				      <option>2</option>
+				      <option>3</option>
+				      <option>4</option>
+				      <option>5</option>
+				    </select>
+				  </div>
+		  	</div>
+		  
+		  </div>
+		  <div class="row">
+		  
+		  	<div class="col-4">
+		  		<div class="form-group">
+				    <label for="exampleSelect1">Tarifa</label>
+				    <select class="form-control" id="selectTarifa">
+				      <option>1</option>
+				      <option>2</option>
+				      <option>3</option>
+				      <option>4</option>
+				      <option>5</option>
+				    </select>
+			  	</div>
+		  	</div>
+		  	<div class="col-4">
+				<div class="form-group">
+				    <label class="control-label" for="inputFechaHora">Fecha y hora</label>
+				    <input id="inputFechaHora" name="inputFechaHora" type="date" class="form-control" style="width:100%;">
+				</div>
+		  	</div>
+		  
+		  </div>
+		  
+		  <div class="row">
+		  	<button type="button" class="btn btn-primary" style="margin-left:15px;clear:left;">Atrás</button>
+		  	<button type="button" class="btn btn-primary" style="float:right;">Viajar</button>
+		  </div>
 	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectLinea">Línea</label>
-	  <div class="col-md-4">
-	    <select id="selectLinea" name="selectLinea" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectRamal">Ramal</label>
-	  <div class="col-md-4">
-	    <select id="selectRamal" name="selectRamal" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectEstacion">Estacion</label>
-	  <div class="col-md-4">
-	    <select id="selectEstacion" name="selectEstacion" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectTarifa">Tarifa</label>
-	  <div class="col-md-4">
-	    <select id="selectTarifa" name="selectTarifa" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Text input-->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="inputFechaHora">Fecha y hora</label>  
-	  <div class="col-md-4">
-	  <input id="inputFechaHora" name="inputFechaHora" type="date" placeholder="" class="form-control input-md">
-	    
-	  </div>
-	</div>
-	
-	<!-- Button -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="buttonApoyarTarjeta"></label>
-	  <div class="col-md-4">
-	    <button id="buttonApoyarTarjeta" name="buttonApoyarTarjeta" class="btn btn-primary">Viajar</button>
-	  </div>
-	</div>
-	
-	</fieldset>
 	</form>
 	
 

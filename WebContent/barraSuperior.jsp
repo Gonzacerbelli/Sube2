@@ -9,7 +9,7 @@
       
         <span class="navbar-brand"></span>
           
-         <button class="btn btn-primary ingresaBarraSuperior" type="submit">Ingresá</button>
+         <a class="btn btn-primary ingresaBarraSuperior" href="login.jsp" role="button">Ingresá</a></p>
           
       </nav>
     </header>
