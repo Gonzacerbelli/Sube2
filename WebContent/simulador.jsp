@@ -100,7 +100,7 @@
 		  </div>
 		  
 		  <div class="row">
-		  	<button type="button" class="btn btn-primary" style="margin-left:15px;clear:left;">Atrás</button>
+		  	<a href="home.jsp"><button type="button" class="btn btn-primary" style="margin-left:15px;clear:left;">Atrás</button></a>
 		  	<button type="button" class="btn btn-primary" style="float:right;">Viajar</button>
 		  </div>
 	  </div>
