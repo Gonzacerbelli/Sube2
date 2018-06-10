@@ -16,6 +16,18 @@
 
 	$(document).ready(function(){
 		
+		//cargar lista de transportes
+		$.ajax({
+			method:"POST",
+			url: "/Sube/Simulador",
+			data: {"accion" : "traerTransportes"},
+			async: true,
+			success: function (data) {
+            	console.log(data);
+			}
+		});//fin ajax
+		
+		
 		$(document).on('change','#selectTransporte',function(){
 			var transporte = $(this).val();
 			switch (transporte) {
@@ -23,21 +35,123 @@
 				$('#selectTarifa, #selectLinea').removeAttr("disabled");
 				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
 				$('#selectRamal, #selectEstacion').find('option').remove();
+				
+				//cargo lista de tarifas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de lineas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
 				break;
 				
 			case 'Subte':
 				$('#selectTarifa, #selectLinea, #selectEstacion').removeAttr("disabled");
 				$('#selectRamal').prop('disabled','disabled');
 				$('#selectRamal').find('option').remove();
+				
+				//cargo lista de tarifas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de lineas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de estaciones
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerEstaciones", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
 				break;
 				
 			case 'Tren':
 				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
+				
+				//cargo lista de tarifas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de lineas
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de ramales
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
+				//cargo lista de estaciones
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Simulador",
+					data: {"accion" : "traerEstaciones", "idRamal" : $('#selectRamal :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
+					async: true,
+					success: function (data) {
+		            	console.log(data);
+					}
+				});//fin ajax
+				
 				break;
 
 			default:
 				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
-			$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
+				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
 				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
 				break;
 			}
@@ -156,7 +270,7 @@
 		  </div>
 		  
 		  
-		  <div class="row">
+		  <div class="row" style="margin-bottom:30px;">
 		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
 		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
 		  	</div>
@@ -164,6 +278,11 @@
 		  
 	  </div>
 	</form>
+	
+	<footer class="container border-top">
+      <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
+      <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
 	
 
 </body>

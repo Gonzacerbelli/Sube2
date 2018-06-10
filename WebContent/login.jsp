@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema Único de Boleto Electrónico</title>
+<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -17,18 +17,22 @@
 	$(document).ready(function(){
 			
 		$(document).on('click','#btnIngresa', function(){
-			
+						
 			$.ajax({
 				method:"POST",
-				url: "Login",
+				url: "/Sube/Login",
 				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
-				async: false
-			}).done(function(data){
-				//hacer algo
-				console.log(data);
-			});
+				async: true,
+				success: function (data) {
+	            	if(data=='True'){
+						window.location = "home.jsp";
+					}else{
+						$('#divError').html(data);
+					}
+				}
+			});//fin ajax
 			
-		});
+		});//fin click btnIngresa
 		
 	});//fin ready
 
@@ -37,14 +41,12 @@
 </head>
 <body>
 	<div class="container">
-	<form class="form-signin" action="/Sube/Login" method="GET">
-      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
-      <label class="sr-only">DNI</label>
+	<form class="form-signin" method="POST" action="/Sube/Login">
+      <h1 class="h3 mb-3 font-weight-normal">Iniciar sesiï¿½n</h1>
       <input type="number" id="inputDni" class="form-control" placeholder="DNI" required autofocus>
-      <label id="inputPass" class="sr-only">Contraseña</label>
-      <input type="password" id="inputContrasena" class="form-control" placeholder="Contraseña" required>
-      <button class="btn btn-lg btn-primary btn-block" id="btnIngresa" type="submit">Ingresá</button>
+      <input type="password" id="inputPass" class="form-control" placeholder="Contraseï¿½a" required>
+      <button class="btn btn-lg btn-primary btn-block" id="btnIngresa" type="button">Ingresï¿½</button>
+      <div id="divError" style="margin-top:30px;text-align:center; width:100%;color:red;height:20px;"></div>
       <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
     </form>
     </div>
