@@ -4,85 +4,165 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="css/sube.css">
+
+<script src="js/jquery-3.3.1.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$(document).on('change','#selectTransporte',function(){
+			var transporte = $(this).val();
+			switch (transporte) {
+			case 'Colectivo':
+				$('#selectTarifa, #selectLinea').removeAttr("disabled");
+				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
+				$('#selectRamal, #selectEstacion').find('option').remove();
+				break;
+				
+			case 'Subte':
+				$('#selectTarifa, #selectLinea, #selectEstacion').removeAttr("disabled");
+				$('#selectRamal').prop('disabled','disabled');
+				$('#selectRamal').find('option').remove();
+				break;
+				
+			case 'Tren':
+				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
+				break;
+
+			default:
+				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
+			$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
+				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
+				break;
+			}
+		});
+		
+		$(document).on('change','#selectTarifa',function(){
+			if($(this).val() == ""){
+				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
+			}else{
+				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
+			}
+		});
+		
+		
+		
+	});//fin ready
+
+</script>
+
 </head>
 <body>
 
 	<%@ include file="/barraSuperior.jsp"%>
 
-	<form class="form-horizontal">
-	<fieldset>
 	
-	<!-- Form Name -->
-	<legend>Simulador</legend>
 	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectTransporte">Transporte</label>
-	  <div class="col-md-4">
-	    <select id="selectTransporte" name="selectTransporte" class="form-control">
-	    </select>
+	<form>
+	 
+	  <div class="container" style="margin-top:100px;">
+
+		  <div class="row" style="margin-top:35px;font-size:14pt;">
+		  
+			  <div class="container" style="height:100px;margin-bottom:50px;">
+			  
+			  	<h1 class="h2">Simulador</h1>
+			  
+	            <table class="tablaTarjeta">
+		            <tr style="font-size:14pt;">
+		            	<td>
+		            		<span>Fecha y hora</span>
+		            	</td>
+		            	<td>
+		            		<span>Transporte</span>
+		            	</td>
+		            	<td>
+		            		
+		            		<span>Tarifa</span>
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td style="padding-right:30px;">
+		            		<input id="inputFechaHora" name="inputFechaHora" type="datetime-local" class="form-control" style="width:100%;">
+		            		
+		            	</td>
+		            	<td style="padding-right:30px;">
+		            		<select class="form-control" id="selectTransporte">
+		            		  <option></option>
+						      <option>Colectivo</option>
+						      <option>Subte</option>
+						      <option>Tren</option>
+						    </select>
+		            	</td>
+		            	<td style="padding-right:30px;">
+						    <select class="form-control" id="selectTarifa" disabled>
+						    </select>
+		            	</td>
+		            </tr>
+	            </table>
+	          </div>
+		  
+		  </div>
+		  <div class="row">
+		  
+		 	 <div class="container" style="height:100px;margin-bottom:20px;">
+			  
+	            <table class="tablaTarjeta">
+		            <tr style="font-size:14pt;">
+		            	<td>
+		            		<span id="camposLinea">Línea</span>
+		            	</td>
+		            	<td>
+		            		<span id="camposRamal">Ramal</span>
+		            	</td>
+		            	<td>
+		            		<span id="camposEstacion">Estación</span>
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td style="padding-right:30px;">
+		            		<select class="form-control" id="selectLinea" disabled>
+		            		</select>
+		            	</td>
+		            	<td style="padding-right:30px;">
+		            		<select class="form-control" id="selectRamal" disabled>
+		            		</select>
+		            	</td>
+		            	<td style="padding-right:30px;">
+		            		<select class="form-control" id="selectEstacion" disabled>
+		            		</select>
+		            	</td>
+		            </tr>
+	            </table>
+	          </div>
+		  
+		  	
+		  
+		  </div>
+		  
+		  <div class="row" style="margin-bottom:20px;">
+		  	<div class="col-6">
+		  		<a href="home.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
+		  	</div>
+		  	<div class="col-6">
+		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Viajar</button>
+		  	</div>
+		  </div>
+		  
+		  
+		  <div class="row">
+		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
+		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
+		  	</div>
+		  </div>
+		  
 	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectLinea">Línea</label>
-	  <div class="col-md-4">
-	    <select id="selectLinea" name="selectLinea" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectRamal">Ramal</label>
-	  <div class="col-md-4">
-	    <select id="selectRamal" name="selectRamal" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectEstacion">Estacion</label>
-	  <div class="col-md-4">
-	    <select id="selectEstacion" name="selectEstacion" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Select Basic -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="selectTarifa">Tarifa</label>
-	  <div class="col-md-4">
-	    <select id="selectTarifa" name="selectTarifa" class="form-control">
-	    </select>
-	  </div>
-	</div>
-	
-	<!-- Text input-->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="inputFechaHora">Fecha y hora</label>  
-	  <div class="col-md-4">
-	  <input id="inputFechaHora" name="inputFechaHora" type="date" placeholder="" class="form-control input-md">
-	    
-	  </div>
-	</div>
-	
-	<!-- Button -->
-	<div class="form-group">
-	  <label class="col-md-4 control-label" for="buttonApoyarTarjeta"></label>
-	  <div class="col-md-4">
-	    <button id="buttonApoyarTarjeta" name="buttonApoyarTarjeta" class="btn btn-primary">Viajar</button>
-	  </div>
-	</div>
-	
-	</fieldset>
 	</form>
 	
 
