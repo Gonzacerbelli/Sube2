@@ -21,7 +21,7 @@
 			
 			$.ajax({
 				method:"POST",
-				url: "Loguearse",
+				url: "/Sube/Login",
 				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
 				async: false
 			}).done(function(data){
@@ -29,7 +29,7 @@
 				console.log(data);
 			});
 			
-		}):
+		});
 		
 		
 	});//fin ready

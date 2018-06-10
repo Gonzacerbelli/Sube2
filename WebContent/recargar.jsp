@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>SUBE - Sistema Único de Boleto Electrónico</title>
+
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -16,43 +17,6 @@
 
 	$(document).ready(function(){
 		
-		$(document).on('change','#selectTransporte',function(){
-			var transporte = $(this).val();
-			switch (transporte) {
-			case 'Colectivo':
-				$('#selectTarifa, #selectLinea').removeAttr("disabled");
-				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
-				$('#selectRamal, #selectEstacion').find('option').remove();
-				break;
-				
-			case 'Subte':
-				$('#selectTarifa, #selectLinea, #selectEstacion').removeAttr("disabled");
-				$('#selectRamal').prop('disabled','disabled');
-				$('#selectRamal').find('option').remove();
-				break;
-				
-			case 'Tren':
-				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
-				break;
-
-			default:
-				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
-			$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
-				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
-				break;
-			}
-		});
-		
-		$(document).on('change','#selectTarifa',function(){
-			if($(this).val() == ""){
-				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
-			}else{
-				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
-			}
-		});
-		
-		
-		
 	});//fin ready
 
 </script>
@@ -62,22 +26,18 @@
 
 	<%@ include file="/barraSuperior.jsp"%>
 
-	
-	
-	<form>
-	 
-	  <div class="container" style="margin-top:100px;">
+	 <div class="container" style="margin-top:100px;">
 
 		  <div class="row" style="margin-top:35px;font-size:14pt;">
 		  
 			  <div class="container" style="height:100px;margin-bottom:50px;">
 			  
-			  	<h1 class="h2">Simulador</h1>
+			  	<h1 class="h2">Recarga</h1>
 			  
 	            <table class="tablaTarjeta">
 		            <tr style="font-size:14pt;">
 		            	<td>
-		            		<span>Fecha y hora</span>
+		            		<span>Tarjeta</span>
 		            	</td>
 		            	<td>
 		            		<span>Transporte</span>
@@ -89,7 +49,7 @@
 		            </tr>
 		            <tr>
 		            	<td style="padding-right:30px;">
-		            		<input id="inputFechaHora" name="inputFechaHora" type="datetime-local" class="form-control" style="width:100%;">
+		            		<input id="inputTarjeta" name="inputTarjeta" type="number" class="form-control" style="width:100%;">
 		            		
 		            	</td>
 		            	<td style="padding-right:30px;">
@@ -156,20 +116,13 @@
 		  </div>
 		  
 		  
-		  <div class="row" style="margin-bottom:30px;">
+		  <div class="row">
 		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
 		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
 		  	</div>
 		  </div>
 		  
 	  </div>
-	</form>
-	
-	<footer class="container border-top">
-      <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
-      <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
-	
 
 </body>
 </html>
