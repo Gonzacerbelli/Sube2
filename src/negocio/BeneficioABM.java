@@ -16,6 +16,7 @@ import datos.UsuarioBeneficio;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
 
 public class BeneficioABM {
 	BeneficioDao dao = new BeneficioDao();
@@ -71,12 +72,8 @@ public class BeneficioABM {
 		return false;
 	}
 	
-	public void aplicarBeneficios(Tarjeta tarjeta, Terminal terminal) {
-		if(tarjeta.getUsuario() == null) {
-			return;
-		}
-		for(UsuarioBeneficio ub : tarjeta.getUsuario().getUsuarioBeneficios())
-		{
+	public void aplicarBeneficios(Tarjeta tarjeta, Set<UsuarioBeneficio> usuarioBeneficios, Terminal terminal) {
+		for(UsuarioBeneficio ub : usuarioBeneficios) {
 			if(estaParaAplicar(ub))
 			{
 				tarjeta.setSaldo(ub.getBeneficio().aplicarBeneficio(tarjeta.getSaldo()));

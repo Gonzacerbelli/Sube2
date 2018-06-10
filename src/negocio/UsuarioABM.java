@@ -1,10 +1,13 @@
 package negocio;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import dao.UsuarioDao;
 import datos.Tarjeta;
 import datos.Usuario;
+import datos.UsuarioBeneficio;
 import datos.Usuario;
 
 public class UsuarioABM {
@@ -66,6 +69,25 @@ public class UsuarioABM {
 		}
 		usuario.asignarTarjeta(tarjeta);
 		modificar(usuario);
+	}
+	
+	public void aplicarBeneficios(Tarjeta tarjeta) throws Exception {
+		try
+		{
+			Usuario usuario = traerUsuario(tarjeta.getUsuario().getDni());
+			
+			for(UsuarioBeneficio ub : usuario.getUsuarioBeneficios()) 
+			{
+				
+				tarjeta.setSaldo(tarjeta.getSaldo() + ub.getBeneficio().getValor());
+				GregorianCalendar fechaCobro = (GregorianCalendar)Calendar.getInstance();
+				ub.setFechaCobro(fechaCobro);
+			}	
+		}
+		catch(Exception ex)
+		{
+			throw new Exception("No existen recargas pendientes");
+		}
 	}
 	
 	

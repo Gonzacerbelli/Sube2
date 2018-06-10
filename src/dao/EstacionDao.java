@@ -91,11 +91,11 @@ public class EstacionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Estacion> traerEstacion(Linea linea) throws HibernateException {
+	public List<Estacion> traerEstacionesLinea(int idLinea) throws HibernateException {
 		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Estacion c where c.idLinea = " + linea.getIdLinea();
+			String hql = "from Estacion c where c.idLinea = " + idLinea;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
@@ -105,11 +105,11 @@ public class EstacionDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Estacion> traerEstacion(Ramal ramal) throws HibernateException {
+	public List<Estacion> traerEstacionesRamal(int idRamal) throws HibernateException {
 		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Estacion c select * inner join ramal_tiene_estacion as r_e on r_e.idRamal = " + ramal.getIdRamal();
+			String hql = "from Estacion c select * inner join ramal_tiene_estacion as r_e on r_e.idRamal = " + idRamal;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

@@ -25,18 +25,47 @@ public class TestTraerTransporte {
 		{
 			Facade f = new Facade();
 			TransporteABM tABM = new TransporteABM();
+			//traigo todos los transportes
 			List<Transporte> list = tABM.traerTransporte();
+			//los mando a la vista
 			System.out.println(list);
-			Transporte transporte = list.get(0);
-			List<Linea> lineas = f.getLineaABM().traerLineas(transporte.getIdTransporte());
-			System.out.println(lineas);
-			Linea linea = lineas.get(0);
-			List<Ramal> ramales = f.getRamalABM().traerRamales(linea.getIdLinea());
-			System.out.println(ramales);
-			Ramal ramal = ramales.get(0);
-			List<Estacion> estaciones = f.getEstacionABM().traerEstaciones(ramal.getIdRamal());
-			System.out.println(estaciones);
-			Estacion estacion = estaciones.get(0);
+			//el usuario selecciona uno
+			int idTransporte = 1;
+			//lo traigo con sus lineas
+			Transporte transporte = tABM.traerTransporte(idTransporte);
+			//mando las lineas a la vista
+			System.out.println(transporte.getLineas());
+			//el usuario selecciona una
+			int idLinea = 1;
+			//la traigo con sus estaciones y ramales
+			Linea linea = f.getLineaABM().traerLinea(idLinea);
+			//si tiene, mando los ramales a la vista
+			if(linea.getRamales().size() > 0) {
+				System.out.println(linea.getRamales());
+				//el usuario selecciona un ramal
+				int idRamal = 1;
+				//lo traigo con sus estaciones
+				Ramal ramal = f.getRamalABM().traerRamal(idRamal);
+				//mando las estaciones a la vista
+				
+				if(ramal.getRamalEstaciones().size() > 0)
+				{
+					System.out.println(ramal.getRamalEstaciones());
+					//el usuario selecciona una estacion del ramal
+					int idEstacionRamal = 1;
+					//traigo la estacion con sus ramales para posibles combinaciones
+					Estacion estacionRamal = f.getEstacionABM().traerEstacion(idEstacionRamal);
+					//fin	
+				}
+			}
+			else { //si no tienem mando las estaciones a la vista
+				System.out.println(linea.getEstaciones());
+				//el usuario secciona una estacion de la linea
+				int idEstacionLinea = 1;
+				//traigo la estacion con sus ramales para posibles combinaciones
+				Estacion estacionLinea = f.getEstacionABM().traerEstacion(idEstacionLinea);
+				//fin
+			}
 		} 
 		catch (Exception e) 
 		{

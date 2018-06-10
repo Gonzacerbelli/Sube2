@@ -63,6 +63,7 @@ public class LineaABM {
 		}
 		return list;
 	}
+	
 	public List<Linea> traerLineas(int idTransporte) throws Exception {
 		List<Linea> list = dao.traerLineas(idTransporte);
 		if (list == null) {
@@ -70,6 +71,5 @@ public class LineaABM {
 		}
 		return list;
 	}
-	
 	
 }

@@ -70,6 +70,10 @@ public class LineaDao {
 		try {
 			iniciaOperacion();
 			objeto = (Linea) session.get(Linea.class, idLinea);
+			if(objeto != null) {
+				Hibernate.initialize(objeto.getRamales());
+				Hibernate.initialize(objeto.getEstaciones());
+			}
 			tx.commit();
 		} finally {
 			session.close();

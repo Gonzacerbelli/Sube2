@@ -57,6 +57,14 @@ public class RamalABM {
 		return t;
 	}
 	
+	public List<Ramal> traerRamales(int idLinea) throws Exception {
+		List<Ramal> list = dao.traerRamales(idLinea);
+		if (list == null) {
+			throw new Exception("La linea no tiene ramales.");
+		}
+		return list;
+	}
+	
 //	public List<Ramal> traerRamal() throws Exception {
 //		List<Ramal> list = dao.traerRamal();
 //		if (list == null) {

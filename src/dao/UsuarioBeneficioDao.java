@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -96,6 +97,20 @@ public class UsuarioBeneficioDao {
 			iniciaOperacion();
 			String hql = "from usuario_tiene_beneficio";
 			list = (List<UsuarioBeneficio>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Set<UsuarioBeneficio> traerUsuarioBeneficios(int idUsuario) throws HibernateException {
+		Set<UsuarioBeneficio> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from usuario_tiene_beneficio ub where ub.idUsuario = " + idUsuario;
+			list = (Set<UsuarioBeneficio>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
 			session.close();

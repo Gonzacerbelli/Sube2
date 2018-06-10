@@ -2,6 +2,7 @@ package negocio;
 
 import datos.Estacion;
 import datos.Movimiento;
+import datos.Ramal;
 import datos.Estacion;
 import datos.Transporte;
 import datos.Usuario;
@@ -54,6 +55,14 @@ public class EstacionABM {
 			throw new Exception("El Estacion no existe en la base de datos.");
 		}
 		return t;
+	}
+	
+	public List<Estacion> traerEstacionesRamal(int idRamal) throws Exception {
+		List<Estacion> list = dao.traerEstacionesRamal(idRamal);
+		if (list == null) {
+			throw new Exception("La linea no tiene Estacioneses.");
+		}
+		return list;
 	}
 	
 //	public List<Estacion> traerEstacion() throws Exception {

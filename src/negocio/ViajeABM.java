@@ -43,12 +43,21 @@ public class ViajeABM {
 		return v;
 	}
 	
-	public Viaje viajeCorrespondiente(Tarjeta tarjeta, GregorianCalendar fechaHora) {
-		Viaje ultimo = tarjeta.getUltimoViaje();
-		if(ultimo == null || ultimo.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimo.getFechaHora(), fechaHora) > 2) {
-			return new Viaje(fechaHora, tarjeta);
+	public Viaje viajeCorrespondiente(Tarjeta tarjeta, Transporte transporte, GregorianCalendar fechaHora) throws Exception {
+		Viaje ultimoViaje = tarjeta.getUltimoViaje();
+		if(ultimoViaje != null) {
+			ultimoViaje = traerViaje(ultimoViaje.getIdViaje());
+			Boleto ultimoBoleto = ultimoViaje.getUltimoBoleto();
+			if(!ultimoBoleto.isCerrado() && transporte.equals(ultimoBoleto.getTransporte())) {
+				return ultimoViaje;
+			}
 		}
-		return ultimo;
+		if(ultimoViaje == null || ultimoViaje.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) > 2) {
+			Viaje viaje = new Viaje(fechaHora, tarjeta);
+			tarjeta.agregarViaje(viaje);
+			return viaje;
+		}
+		return ultimoViaje;
 	}
 
 }

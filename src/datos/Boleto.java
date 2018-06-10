@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 public class Boleto {
 	private int idBoleto;
 	private GregorianCalendar fechaHora;
+	private boolean cerrado;
 	private double precioFinal;
 	private Tarifa tarifa;
 	private Estacion estacion;
@@ -98,6 +99,14 @@ public class Boleto {
 
 	public void setTransporte(Transporte transporte) {
 		this.transporte = transporte;
+	}
+	
+	public boolean isCerrado() {
+		return cerrado;
+	}
+
+	public void setCerrado(boolean cerrado) {
+		this.cerrado = cerrado;
 	}
 
 	@Override
