@@ -13,8 +13,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
-	
+	<!-- CONTROLADOR LOGIN -->
 	<servlet>
 		<servlet-name>ControladorLogin</servlet-name>
 		<servlet-class>controladores.ControladorLogin</servlet-class>
@@ -22,6 +21,15 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	<servlet-mapping>
 		<servlet-name>ControladorLogin</servlet-name>
 		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<!-- CONTROLADOR SIMULADOR -->
+	<servlet>
+		<servlet-name>ControladorSimulador</servlet-name>
+		<servlet-class>controladores.ControladorSimulador</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControladorSimulador</servlet-name>
+		<url-pattern>/Simulador</url-pattern>
 	</servlet-mapping>
 
 </web-app>

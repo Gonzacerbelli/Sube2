@@ -25,16 +25,15 @@
 				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
 				async: true,
 				success: function (data) {
-	                  if(data=='True'){
-	                    window.location = "home.jsp";
-	                  }else{
-	                      $('#divError').html(data);
-	                  }
-	               }
+	            	if(data=='True'){
+						window.location = "home.jsp";
+					}else{
+						$('#divError').html(data);
+					}
+				}
+			});//fin ajax
 			
-			});
-			
-		});
+		});//fin click btnIngresa
 		
 		
 	});//fin ready
