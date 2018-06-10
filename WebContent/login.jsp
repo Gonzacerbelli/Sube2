@@ -18,15 +18,20 @@
 		
 		
 		$(document).on('click','#btnIngresa', function(){
-			
+						
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Login",
 				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
-				async: false
-			}).done(function(data){
-				//hacer algo
-				console.log(data);
+				async: true,
+				success: function (data) {
+	                  if(data=='True'){
+	                    window.location = "home.jsp";
+	                  }else{
+	                      $('#divError').html(data);
+	                  }
+	               }
+			
 			});
 			
 		});
@@ -39,14 +44,12 @@
 </head>
 <body>
 	<div class="container">
-	<form class="form-signin" action="">
-      <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+	<form class="form-signin" method="POST" action="/Sube/Login">
       <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
-      <label class="sr-only">DNI</label>
       <input type="number" id="inputDni" class="form-control" placeholder="DNI" required autofocus>
-      <label id="inputPass" class="sr-only">Contraseña</label>
-      <input type="password" id="inputContrasena" class="form-control" placeholder="Contraseña" required>
+      <input type="password" id="inputPass" class="form-control" placeholder="Contraseña" required>
       <button class="btn btn-lg btn-primary btn-block" id="btnIngresa" type="button">Ingresá</button>
+      <div id="divError" style="margin-top:30px;text-align:center; width:100%;color:red;height:20px;"></div>
       <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
     </form>
     </div>
