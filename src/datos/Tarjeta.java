@@ -98,6 +98,10 @@ public class Tarjeta {
 	public void agregarMovimiento(Movimiento movimiento) {
 		this.lstMovimiento.add(movimiento);
 	}
+	
+	public void agregarViaje(Viaje viaje) {
+		this.lstViaje.add(viaje);
+	}
 
 	@Override
 	public String toString() {

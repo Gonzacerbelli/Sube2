@@ -51,6 +51,14 @@ public class UsuarioBeneficioABM {
 		return t;
 	}
 	
+	public Set<UsuarioBeneficio> traerUsuarioBeneficios(int idUsuario) throws Exception {
+		Set<UsuarioBeneficio> t = dao.traerUsuarioBeneficios(idUsuario);
+		if (t == null) {
+			throw new Exception("El usuario no tiene beneficios");
+		}
+		return t;
+	}
+	
 	public List<UsuarioBeneficio> traerUsuarioBeneficio() throws Exception {
 		List<UsuarioBeneficio> list = dao.traerUsuarioBeneficio();
 		if (list == null) {

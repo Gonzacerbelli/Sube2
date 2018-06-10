@@ -70,4 +70,16 @@ public class TarjetaABM {
 		}
 		return t;
 	}
+	
+	public void recargarTarjeta(int idTarjeta, double monto) throws Exception {
+		Tarjeta t = dao.traerTarjeta(idTarjeta);
+		if (t == null) {
+			throw new Exception("La tarjeta no existe en la base de datos.");
+		}
+		if(t.getSaldo() + monto < 0) {
+			throw new Exception("La carga debe saldar lo negativo");	
+		}
+		t.setSaldo(t.getSaldo() + monto);
+		modificar(t);
+	}
 }

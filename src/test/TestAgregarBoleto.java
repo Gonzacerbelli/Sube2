@@ -36,7 +36,7 @@ public class TestAgregarBoleto {
 			Transporte transporte = f.getTransporteABM().traerTransporte(idTransporte);
 			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(numTarjeta);
 			GregorianCalendar fechaHora = (GregorianCalendar) Calendar.getInstance();
-			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta, fechaHora);
+			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta, transporte, fechaHora);
 			Linea linea = f.getLineaABM().traerLinea(idLinea);
 			Tarifa tarifa = f.getTarifaABM().traerTarifa(idTarifa);
 			
@@ -52,19 +52,13 @@ public class TestAgregarBoleto {
 			
 			bABM.cobrarBoleto(b, tarjeta);
 			
-			if(viaje.equals(tarjeta.getUltimoViaje())) {
-				viaje = f.getViajeABM().traerViaje(viaje.getIdViaje());
-				viaje.getLstBoleto().add(b);
-			}
-			else {
-				viaje.agregarBoleto(b);
-				tarjeta.getLstViaje().add(viaje);
-			}
+			viaje.getLstBoleto().add(b);
+			
+			f.getViajeABM().modificar(viaje);
 			
 			System.out.println("Cobrar Boleto -->" + b + " " + tarjeta);
-			
-			f.getTarjetaABM().modificar(tarjeta);
 
+			f.getTarjetaABM().modificar(tarjeta);
 			tarjeta = f.getTarjetaABM().traerTarjetaPorNum(numTarjeta);
 			System.out.println("Modificar Tarjeta -->" + tarjeta);
 		} 

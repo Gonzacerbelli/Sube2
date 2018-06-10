@@ -4,6 +4,10 @@ public class Terminal {
 	private int idTerminal;
 	private String ubicacion;
 	
+	public Terminal(String ubicacion) {
+		super();
+		this.ubicacion = ubicacion;
+	}
 	public int getIdTerminal() {
 		return idTerminal;
 	}

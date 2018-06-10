@@ -63,4 +63,13 @@ public class Viaje {
 		this.getLstBoleto().add(boleto);
 	}
 	
+	public Boleto getUltimoBoleto() {
+		Boleto boleto = null;
+		Iterator<Boleto> it = lstBoleto.iterator();
+		while(it.hasNext()) {
+			boleto = it.next();
+		}
+		return boleto;
+	}
+	
 }
