@@ -36,9 +36,6 @@ public class ControladorLogin extends HttpServlet {
 	}
 	
 	private void loguear(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
 		try {
 			int dni = Integer.parseInt(request.getParameter("dni"));		
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
@@ -49,29 +46,12 @@ public class ControladorLogin extends HttpServlet {
 	            response.getWriter().write("True");
 			}else {
 				response.setContentType("text/html;charset=UTF-8");
-	            response.getWriter().write("Contraseï¿½a incorrecta.");
+	            response.getWriter().write("Contraseña incorrecta.");
 			}
-			
 			
 		} catch (Exception e) {
 			response.setContentType("text/html;charset=UTF-8");
             response.getWriter().write("Usuario incorrecto.");
 		}
-		
-		if(usuario.getPass().equals(pass))
-		{
-			HttpSession session = request.getSession();
-			session.setAttribute("dni", usuario.getDni());
-			session.setAttribute("nombre", usuario.getNombre());
-			session.setAttribute("apellido", usuario.getApellido());
-		}
-		else
-		{
-			msjError = "Contraseï¿½a incorrecta";
-			response.sendError(2, msjError);
-		}
-		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
-	
 	}
 }
