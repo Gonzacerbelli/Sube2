@@ -20,7 +20,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ControladorLogin</servlet-name>
-		<url-pattern>/Loguearse</url-pattern>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
 
 </web-app>

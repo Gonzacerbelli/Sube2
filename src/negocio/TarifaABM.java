@@ -46,5 +46,12 @@ public class TarifaABM {
 		return b;
 	}
 	
+	public List<Tarifa> traerTarifas(int idTransporte) throws Exception {
+		List<Tarifa> b = dao.traerTarifas(idTransporte);
+		if (b == null) {
+			throw new Exception("No existen tarifas para el transporte.");
+		}
+		return b;
+	}
 	
 }

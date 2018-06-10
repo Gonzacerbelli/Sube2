@@ -30,9 +30,7 @@ public class ControladorLogin extends HttpServlet {
 	private void procesarPeticion(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException 
 	{
-		if(request.getParameter("action").equals("loguear")) {
 			loguear(request, response);
-		}
 	}
 	
 	private void loguear(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,7 +66,7 @@ public class ControladorLogin extends HttpServlet {
 			response.sendError(2, msjError);
 		}
 		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
-	
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+		
 	}
 }

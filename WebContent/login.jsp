@@ -15,13 +15,12 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
-		
+			
 		$(document).on('click','#btnIngresa', function(){
 			
 			$.ajax({
 				method:"POST",
-				url: "Loguearse",
+				url: "Login",
 				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
 				async: false
 			}).done(function(data){
@@ -29,8 +28,7 @@
 				console.log(data);
 			});
 			
-		}):
-		
+		});
 		
 	});//fin ready
 
@@ -39,14 +37,14 @@
 </head>
 <body>
 	<div class="container">
-	<form class="form-signin" action="">
+	<form class="form-signin" action="/Sube/Login" method="GET">
       <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
       <label class="sr-only">DNI</label>
       <input type="number" id="inputDni" class="form-control" placeholder="DNI" required autofocus>
       <label id="inputPass" class="sr-only">Contraseña</label>
       <input type="password" id="inputContrasena" class="form-control" placeholder="Contraseña" required>
-      <button class="btn btn-lg btn-primary btn-block" id="btnIngresa" type="button">Ingresá</button>
+      <button class="btn btn-lg btn-primary btn-block" id="btnIngresa" type="submit">Ingresá</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
     </form>
     </div>

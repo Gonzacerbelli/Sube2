@@ -65,6 +65,14 @@ public class EstacionABM {
 		return list;
 	}
 	
+	public List<Estacion> traerEstacionesLinea(int idLinea) throws Exception {
+		List<Estacion> list = dao.traerEstacionesLinea(idLinea);
+		if (list == null) {
+			throw new Exception("La linea no tiene Estacioneses.");
+		}
+		return list;
+	}
+	
 //	public List<Estacion> traerEstacion() throws Exception {
 //		List<Estacion> list = dao.traerEstacion();
 //		if (list == null) {
