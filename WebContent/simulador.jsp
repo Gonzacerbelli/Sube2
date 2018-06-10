@@ -9,6 +9,54 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="css/sube.css">
+
+<script src="js/jquery-3.3.1.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$(document).on('change','#selectTransporte',function(){
+			var transporte = $(this).val();
+			switch (transporte) {
+			case 'Colectivo':
+				$('#selectTarifa, #selectLinea').removeAttr("disabled");
+				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
+				$('#selectRamal, #selectEstacion').find('option').remove();
+				break;
+				
+			case 'Subte':
+				$('#selectTarifa, #selectLinea, #selectEstacion').removeAttr("disabled");
+				$('#selectRamal').prop('disabled','disabled');
+				$('#selectRamal').find('option').remove();
+				break;
+				
+			case 'Tren':
+				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
+				break;
+
+			default:
+				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
+			$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
+				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
+				break;
+			}
+		});
+		
+		$(document).on('change','#selectTarifa',function(){
+			if($(this).val() == ""){
+				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
+			}else{
+				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
+			}
+		});
+		
+		
+		
+	});//fin ready
+
+</script>
+
 </head>
 <body>
 
@@ -29,39 +77,31 @@
 	            <table class="tablaTarjeta">
 		            <tr style="font-size:14pt;">
 		            	<td>
+		            		<span>Fecha y hora</span>
+		            	</td>
+		            	<td>
 		            		<span>Transporte</span>
 		            	</td>
 		            	<td>
-		            		<span>Línea</span>
-		            	</td>
-		            	<td>
-		            		<span>Ramal</span>
+		            		
+		            		<span>Tarifa</span>
 		            	</td>
 		            </tr>
 		            <tr>
 		            	<td style="padding-right:30px;">
+		            		<input id="inputFechaHora" name="inputFechaHora" type="datetime-local" class="form-control" style="width:100%;">
+		            		
+		            	</td>
+		            	<td style="padding-right:30px;">
 		            		<select class="form-control" id="selectTransporte">
+		            		  <option></option>
 						      <option>Colectivo</option>
 						      <option>Subte</option>
 						      <option>Tren</option>
 						    </select>
 		            	</td>
 		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectLinea">
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
-						    </select>
-		            	</td>
-		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectRamal">
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
+						    <select class="form-control" id="selectTarifa" disabled>
 						    </select>
 		            	</td>
 		            </tr>
@@ -76,36 +116,27 @@
 	            <table class="tablaTarjeta">
 		            <tr style="font-size:14pt;">
 		            	<td>
-		            		<span>Estación</span>
+		            		<span id="camposLinea">Línea</span>
 		            	</td>
 		            	<td>
-		            		<span>Tarifa</span>
+		            		<span id="camposRamal">Ramal</span>
 		            	</td>
 		            	<td>
-		            		<span>Fecha y hora</span>
+		            		<span id="camposEstacion">Estación</span>
 		            	</td>
 		            </tr>
 		            <tr>
 		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectEstacion">
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
-						    </select>
+		            		<select class="form-control" id="selectLinea" disabled>
+		            		</select>
 		            	</td>
 		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectTarifa">
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
-						    </select>
+		            		<select class="form-control" id="selectRamal" disabled>
+		            		</select>
 		            	</td>
 		            	<td style="padding-right:30px;">
-		            		<input id="inputFechaHora" name="inputFechaHora" type="date" class="form-control" style="width:100%;">
+		            		<select class="form-control" id="selectEstacion" disabled>
+		            		</select>
 		            	</td>
 		            </tr>
 	            </table>
@@ -115,7 +146,7 @@
 		  
 		  </div>
 		  
-		  <div class="row">
+		  <div class="row" style="margin-bottom:20px;">
 		  	<div class="col-6">
 		  		<a href="home.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
 		  	</div>
@@ -123,6 +154,14 @@
 		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Viajar</button>
 		  	</div>
 		  </div>
+		  
+		  
+		  <div class="row">
+		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
+		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
+		  	</div>
+		  </div>
+		  
 	  </div>
 	</form>
 	

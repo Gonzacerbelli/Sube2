@@ -87,10 +87,10 @@
 	            </tr>
 	            <tr class="border-top">
 	            	<td style="width:20%;padding-right:30px;">
-	            		<input type="calendar" class="form-control">
+	            		<input type="date" class="form-control">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<input type="calendar" class="form-control">
+	            		<input type="date" class="form-control">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
 	            		<select class="form-control">
