@@ -111,44 +111,48 @@
 					async: true,
 					success: function (data) {
 		            	console.log(data);
+		            	
+		            	//cargo lista de lineas
+						$.ajax({
+							method:"POST",
+							url: "/Sube/Simulador",
+							data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+							async: true,
+							success: function (data) {
+				            	console.log(data);
+				            	
+				            	//cargo lista de ramales
+								$.ajax({
+									method:"POST",
+									url: "/Sube/Simulador",
+									data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
+									async: true,
+									success: function (data) {
+						            	console.log(data);
+						            	
+						            	//cargo lista de estaciones
+										$.ajax({
+											method:"POST",
+											url: "/Sube/Simulador",
+											data: {"accion" : "traerEstaciones", "idRamal" : $('#selectRamal :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
+											async: true,
+											success: function (data) {
+								            	console.log(data);
+											}
+										});//fin ajax
+										
+										break;
+						            	
+									}
+								});//fin ajax
+				            	
+							}
+						});//fin ajax
+		            	
 					}
 				});//fin ajax
 				
-				//cargo lista de lineas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-		            	console.log(data);
-					}
-				});//fin ajax
 				
-				//cargo lista de ramales
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-		            	console.log(data);
-					}
-				});//fin ajax
-				
-				//cargo lista de estaciones
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerEstaciones", "idRamal" : $('#selectRamal :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-		            	console.log(data);
-					}
-				});//fin ajax
-				
-				break;
-
 			default:
 				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
 				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
