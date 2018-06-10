@@ -4,23 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="css/sube.css">
-
-<title>SUBE - Sistema Único de Boleto Electrónico</title>
 
 <script src="js/jquery-3.3.1.js"></script>
 
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
-		
-		
-		
 		
 	});//fin ready
 
@@ -41,13 +35,13 @@
             <table class="tablaTarjeta">
 	            <tr style="font-size:14pt;">
 	            	<td>
-	            		<span class="textoMovimientos">Tarjeta</span>
+	            		<span>Tarjeta</span>
 	            	</td>
 	            	<td style="text-align:center;">
-	            		<span class="textoMovimientos">Saldo</span>
+	            		<span>Saldo</span>
 	            	</td>
 	            	<td>
-	            		<span class="textoMovimientos">Dar de baja por:</span>
+	            		<span>Dar de baja por:</span>
 	            	</td>
 	            </tr>
 	            <tr class="border-top">
@@ -75,16 +69,16 @@
             <table class="tablaMovimientos">
 	            <tr style="font-size:14pt;">
 	            	<td style="width:20%;">
-	            		<span class="textoMovimientos">Fecha desde</span>
+	            		<span>Fecha desde</span>
 	            	</td>
 	            	<td style="width:20%;">
-	            		<span class="textoMovimientos">Fecha hasta</span>
+	            		<span>Fecha hasta</span>
 	            	</td>
 	            	<td style="width:20%;">
-	            		<span class="textoMovimientos">Tipo de Movimiento</span>
+	            		<span>Tipo de Movimiento</span>
 	            	</td>
 	            	<td style="width:20%;">
-	            		<span class="textoMovimientos">Medio</span>
+	            		<span>Medio</span>
 	            	</td>
 	            	<td style="width:10%;">
 	            	</td>
@@ -116,7 +110,7 @@
 	            		<input type="button" class="btn btn-primary" value="&nbsp;Buscar&nbsp;">
 	            	</td>
 	            	<td style="width:10%;text-align:right;">
-	            		<input type="button" class="btn btn-primary" value="Reporte">
+	            		<input type="button" class="btn btn-primary" id="btnReporte" value="Reporte">
 	            	</td>
 	            </tr>
             </table>
