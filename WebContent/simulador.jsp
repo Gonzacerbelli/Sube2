@@ -23,7 +23,11 @@
 			data: {"accion" : "traerTransportes"},
 			async: true,
 			success: function (data) {
-            	console.log(data);
+				var obj = JSON.parse(data);
+				$('#selectTransporte').append('<option></option>');
+				for (var i = 0; i < obj["transportes"].length; i++) {
+					$('#selectTransporte').append('<option>'+obj["transportes"][i].nombre+'</option>');
+				}
 			}
 		});//fin ajax
 		
@@ -43,7 +47,12 @@
 					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
 					async: true,
 					success: function (data) {
-		            	console.log(data);
+						console.log(data);
+						var obj = JSON.parse(data);
+						$('#selectTarifas').append('<option></option>');
+						for (var i = 0; i < obj["tarifas"].length; i++) {
+							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
+						}
 					}
 				});//fin ajax
 				
@@ -54,7 +63,11 @@
 					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
 					async: true,
 					success: function (data) {
-		            	console.log(data);
+						var obj = JSON.parse(data);
+						$('#selectLineas').append('<option></option>');
+						for (var i = 0; i < obj["lineas"].length; i++) {
+							$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
+						}
 					}
 				});//fin ajax
 				
@@ -72,7 +85,11 @@
 					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
 					async: true,
 					success: function (data) {
-		            	console.log(data);
+						var obj = JSON.parse(data);
+						$('#selectTarifas').append('<option></option>');
+						for (var i = 0; i < obj["tarifas"].length; i++) {
+							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
+						}
 					}
 				});//fin ajax
 				
@@ -92,7 +109,11 @@
 							data: {"accion" : "traerEstaciones", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
 							async: true,
 							success: function (data) {
-				            	console.log(data);
+								var obj = JSON.parse(data);
+								$('#selectLineas').append('<option></option>');
+								for (var i = 0; i < obj["lineas"].length; i++) {
+									$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
+								}
 							}
 						});//fin ajax
 		            	
@@ -111,7 +132,11 @@
 					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
 					async: true,
 					success: function (data) {
-		            	console.log(data);
+						var obj = JSON.parse(data);
+						$('#selectTarifas').append('<option></option>');
+						for (var i = 0; i < obj["tarifas"].length; i++) {
+							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
+						}
 					}
 				});//fin ajax
 				
@@ -122,7 +147,11 @@
 					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
 					async: true,
 					success: function (data) {
-		            	console.log(data);
+						var obj = JSON.parse(data);
+						$('#selectLineas').append('<option></option>');
+						for (var i = 0; i < obj["lineas"].length; i++) {
+							$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
+						}
 		            	
 		            	//cargo lista de ramales
 						$.ajax({
@@ -131,7 +160,11 @@
 							data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
 							async: true,
 							success: function (data) {
-				            	console.log(data);
+								var obj = JSON.parse(data);
+								$('#selectRamales').append('<option></option>');
+								for (var i = 0; i < obj["ramales"].length; i++) {
+									$('#selectRamales').append('<option>'+obj["ramales"][i].nombre+'</option>');
+								}
 				            	
 				            	//cargo lista de estaciones
 								$.ajax({
@@ -140,7 +173,11 @@
 									data: {"accion" : "traerEstaciones", "idRamal" : $('#selectRamal :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
 									async: true,
 									success: function (data) {
-						            	console.log(data);
+										var obj = JSON.parse(data);
+										$('#selectLineas').append('<option></option>');
+										for (var i = 0; i < obj["lineas"].length; i++) {
+											$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
+										}
 									}
 								});//fin ajax
 				            	
@@ -211,10 +248,6 @@
 		            	</td>
 		            	<td style="padding-right:30px;">
 		            		<select class="form-control" id="selectTransporte">
-		            		  <option></option>
-						      <option>Colectivo</option>
-						      <option>Subte</option>
-						      <option>Tren</option>
 						    </select>
 		            	</td>
 		            	<td style="padding-right:30px;">

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema ï¿½nico de Boleto Electrónico</title>
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -21,9 +21,10 @@
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Login",
-				data: {"dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
+				data: {"action" : "loguear", "dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
 				async: true,
 				success: function (data) {
+					console.log(data);
 	            	if(data=='True'){
 						window.location = "home.jsp";
 					}else{

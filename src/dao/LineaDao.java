@@ -106,18 +106,7 @@ public class LineaDao {
 			iniciaOperacion();
 			String hql = "from Linea";
 			list = (List<Linea>) session.createQuery(hql).list();
-			if(list != null)
-			{
-				for(Linea trans : list) {
-					Hibernate.initialize(trans.getEstaciones());
-					Hibernate.initialize(trans.getRamales());
-				}
-//				Iterator it =  (Iterator) list.iterator();
-//				while(it.hasNext())
-//				{
-//					Hibernate.initialize(list.get(it.next()).getLineas());
-//				}
-			}
+			
 			tx.commit();
 		} finally {
 			session.close();
@@ -131,18 +120,6 @@ public class LineaDao {
 			iniciaOperacion();
 			String hql = "from Linea l where l.idTransporte = " + idTransporte;
 			list = (List<Linea>) session.createQuery(hql).list();
-			if(list != null)
-			{
-				for(Linea trans : list) {
-					Hibernate.initialize(trans.getEstaciones());
-					Hibernate.initialize(trans.getRamales());
-				}
-//				Iterator it =  (Iterator) list.iterator();
-//				while(it.hasNext())
-//				{
-//					Hibernate.initialize(list.get(it.next()).getLineas());
-//				}
-			}
 			tx.commit();
 		} finally {
 			session.close();

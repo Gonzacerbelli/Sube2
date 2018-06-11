@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
@@ -37,7 +40,7 @@ public class ControladorSimulador extends HttpServlet {
 	private void procesarPeticion(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException 
 	{
-		switch((String)request.getAttribute("accion")) 
+		switch((String)request.getParameter("accion")) 
 		{
 			case "viajar":
 				viajar(request,response);
@@ -98,7 +101,10 @@ public class ControladorSimulador extends HttpServlet {
 	private void traerTransportes(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<Transporte> transportes = f.getTransporteABM().traerTransporte();
-			request.setAttribute("transportes", transportes);
+			JSONObject array = new JSONObject();
+			array.put("transportes", transportes);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +115,10 @@ public class ControladorSimulador extends HttpServlet {
 		try {
 			int idTransporte = (int) request.getAttribute("idTransporte");
 			List<Linea> lineas = f.getLineaABM().traerLineas(idTransporte);
-			request.setAttribute("lineas", lineas);
+			JSONObject array = new JSONObject();
+			array.put("lineas", lineas);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +129,10 @@ public class ControladorSimulador extends HttpServlet {
 		try {
 			int idLinea = (int) request.getAttribute("idLinea");
 			List<Ramal> ramales = f.getRamalABM().traerRamales(idLinea);
-			request.setAttribute("ramales", ramales);
+			JSONObject array = new JSONObject();
+			array.put("ramales", ramales);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +143,10 @@ public class ControladorSimulador extends HttpServlet {
 		try {
 			int idLinea = (int) request.getAttribute("idLinea");
 			List<Estacion> estaciones = f.getEstacionABM().traerEstacionesLinea(idLinea);
-			request.setAttribute("estaciones", estaciones);
+			JSONObject array = new JSONObject();
+			array.put("estaciones", estaciones);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,7 +157,10 @@ public class ControladorSimulador extends HttpServlet {
 		try {
 			int idRamal = (int) request.getAttribute("idRamal");
 			List<Estacion> estaciones = f.getEstacionABM().traerEstacionesRamal(idRamal);
-			request.setAttribute("estaciones", estaciones);
+			JSONObject array = new JSONObject();
+			array.put("estaciones", estaciones);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,7 +171,10 @@ public class ControladorSimulador extends HttpServlet {
 		try {
 			int idTransporte = (int) request.getAttribute("idTransporte");
 			List<Tarifa> tarifas = f.getTarifaABM().traerTarifas(idTransporte);
-			request.setAttribute("tarifas", tarifas);
+			JSONObject array = new JSONObject();
+			array.put("tarifas", tarifas);
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
