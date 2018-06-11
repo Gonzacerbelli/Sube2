@@ -57,6 +57,24 @@ public class Funciones {
 		int anio = Integer.parseInt(parte3);
 		return traerFecha(anio, mes, dia);
 	}
+	
+	public static GregorianCalendar traerFechaHMyS(String fecha) {
+		String[] partes1 = fecha.split("/");
+		String diaStr = partes1[0];
+		String mesStr = partes1[1];
+		String anioStr = partes1[2];
+		int dia = Integer.parseInt(diaStr);
+		int mes = Integer.parseInt(mesStr);
+		int anio = Integer.parseInt(anioStr);
+		String[] partes2 = partes1[4].split(":");
+		String horaStr = partes2[0];
+		String minutoStr = partes2[1];
+		String segundoStr = partes2[2];
+		int hora = Integer.parseInt(horaStr);
+		int minuto = Integer.parseInt(minutoStr);
+		int segundo = Integer.parseInt(segundoStr);
+		return new GregorianCalendar(anio, mes, dia, hora, minuto, segundo);
+	}
 
 	public static String traerFechaCorta(GregorianCalendar fecha) {
 		String dia = String.valueOf(traerDia(fecha));

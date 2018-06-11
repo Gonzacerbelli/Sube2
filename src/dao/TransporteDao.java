@@ -104,17 +104,6 @@ public class TransporteDao {
 			iniciaOperacion();
 			String hql = "from Transporte";
 			list = (List<Transporte>) session.createQuery(hql).list();
-			if(list != null)
-			{
-				for(Transporte trans : list) {
-					Hibernate.initialize(trans.getLineas());
-				}
-//				Iterator it =  (Iterator) list.iterator();
-//				while(it.hasNext())
-//				{
-//					Hibernate.initialize(list.get(it.next()).getLineas());
-//				}
-			}
 			tx.commit();
 		} finally {
 			session.close();
