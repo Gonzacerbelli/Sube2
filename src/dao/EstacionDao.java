@@ -108,8 +108,8 @@ public class EstacionDao {
 	public List<Estacion> traerEstacionesRamal(int idRamal) throws HibernateException {
 		List<Estacion> list = null;
 		try {
-			iniciaOperacion();
-			String hql = "from Estacion e inner join fetch e.ramal_tiene_estacion r_e inner join fetch r_e.ramal r where r.idRamal = " + idRamal;
+			iniciaOperacion(); 
+			String hql = "from ramal_tiene_estacion r_e inner join fetch Estacion e on e.idEstacion = r_e.idEstacion where r_e.idRamal = " + idRamal;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
