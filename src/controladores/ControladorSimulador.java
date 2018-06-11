@@ -44,18 +44,25 @@ public class ControladorSimulador extends HttpServlet {
 		{
 			case "viajar":
 				viajar(request,response);
+			break;
 			case "traerTransportes":
 				traerTransportes(request, response);
+			break;
 			case "traerLineas":
 				traerLineas(request, response);
+			break;
 			case "traerRamales":
 				traerRamales(request, response);
+			break;
 			case "traerEstacionesRamal":
 				traerEstacionesRamal(request, response);
+			break;
 			case "traerEstacionesLinea":
 				traerEstacionesLinea(request, response);
+			break;
 			case "traerTarifas":
 				traerTarifas(request, response);
+			break;
 
 		}
 	}
@@ -113,7 +120,7 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void traerLineas(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			int idTransporte = (int) request.getAttribute("idTransporte");
+			int idTransporte = Integer.parseInt(request.getParameter("idTransporte"));
 			List<Linea> lineas = f.getLineaABM().traerLineas(idTransporte);
 			JSONObject array = new JSONObject();
 			array.put("lineas", lineas);
@@ -127,7 +134,7 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void traerRamales(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			int idLinea = (int) request.getAttribute("idLinea");
+			int idLinea = Integer.parseInt(request.getParameter("idLinea"));
 			List<Ramal> ramales = f.getRamalABM().traerRamales(idLinea);
 			JSONObject array = new JSONObject();
 			array.put("ramales", ramales);
@@ -141,7 +148,7 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void traerEstacionesLinea(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			int idLinea = (int) request.getAttribute("idLinea");
+			int idLinea = Integer.parseInt(request.getParameter("idLinea"));
 			List<Estacion> estaciones = f.getEstacionABM().traerEstacionesLinea(idLinea);
 			JSONObject array = new JSONObject();
 			array.put("estaciones", estaciones);
@@ -155,7 +162,7 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void traerEstacionesRamal(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			int idRamal = (int) request.getAttribute("idRamal");
+			int idRamal = Integer.parseInt(request.getParameter("idRamal"));
 			List<Estacion> estaciones = f.getEstacionABM().traerEstacionesRamal(idRamal);
 			JSONObject array = new JSONObject();
 			array.put("estaciones", estaciones);
@@ -169,7 +176,7 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void traerTarifas(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			int idTransporte = (int) request.getAttribute("idTransporte");
+			int idTransporte = Integer.parseInt(request.getParameter("idTransporte"));
 			List<Tarifa> tarifas = f.getTarifaABM().traerTarifas(idTransporte);
 			JSONObject array = new JSONObject();
 			array.put("tarifas", tarifas);

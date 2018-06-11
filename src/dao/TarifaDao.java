@@ -82,7 +82,7 @@ public class TarifaDao {
 		List<Tarifa> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Tarifa c where c.idTransporte = " + idTransporte ;
+			String hql = "from Tarifa t inner join fetch t.transporte tr where tr.idTransporte = " + idTransporte ;
 			list = (List<Tarifa>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

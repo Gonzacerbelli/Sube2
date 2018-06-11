@@ -95,7 +95,7 @@ public class EstacionDao {
 		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Estacion c where c.idLinea = " + idLinea;
+			String hql = "from Estacion e inner join fetch e.linea l where l.idLinea = " + idLinea;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
@@ -109,7 +109,7 @@ public class EstacionDao {
 		List<Estacion> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Estacion c select * inner join ramal_tiene_estacion as r_e on r_e.idRamal = " + idRamal;
+			String hql = "from Estacion e inner join fetch e.ramal_tiene_estacion r_e inner join fetch r_e.ramal r where r.idRamal = " + idRamal;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

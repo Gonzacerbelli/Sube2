@@ -70,10 +70,6 @@ public class RamalDao {
 		try {
 			iniciaOperacion();
 			objeto = (Ramal) session.get(Ramal.class, idRamal);
-			if(objeto!=null)
-			{
-				Hibernate.initialize(objeto.getRamalEstaciones());
-			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -87,10 +83,6 @@ public class RamalDao {
 			iniciaOperacion();
 			String hql = "from Ramal c where c.nombre = '" + nombre + "'";
 			objeto = (Ramal) session.createQuery(hql).uniqueResult();
-			if(objeto != null)
-			{
-				Hibernate.initialize(objeto.getRamalEstaciones());
-			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -104,7 +96,7 @@ public class RamalDao {
 		List<Ramal> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Ramal c where c.idLinea = " + idLinea;
+			String hql = "from Ramal r inner join fetch r.linea l where l.idLinea = " + idLinea;
 			list = (List<Ramal>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

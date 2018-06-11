@@ -17,7 +17,6 @@
 	$(document).ready(function(){
 			
 		$(document).on('click','#btnIngresa', function(){
-						
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Login",

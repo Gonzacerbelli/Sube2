@@ -16,21 +16,8 @@
 
 	$(document).ready(function(){
 		
-		//cargar lista de transportes
-		$.ajax({
-			method:"POST",
-			url: "/Sube/Simulador",
-			data: {"accion" : "traerTransportes"},
-			async: true,
-			success: function (data) {
-				var obj = JSON.parse(data);
-				$('#selectTransporte').append('<option></option>');
-				for (var i = 0; i < obj["transportes"].length; i++) {
-					$('#selectTransporte').append('<option>'+obj["transportes"][i].nombre+'</option>');
-				}
-			}
-		});//fin ajax
 		
+		cargarTransportes();
 		
 		$(document).on('change','#selectTransporte',function(){
 			var transporte = $(this).val();
@@ -39,37 +26,10 @@
 				$('#selectTarifa, #selectLinea').removeAttr("disabled");
 				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
 				$('#selectRamal, #selectEstacion').find('option').remove();
+								
+				cargarTarifas();
 				
-				//cargo lista de tarifas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-						console.log(data);
-						var obj = JSON.parse(data);
-						$('#selectTarifas').append('<option></option>');
-						for (var i = 0; i < obj["tarifas"].length; i++) {
-							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
-						}
-					}
-				});//fin ajax
-				
-				//cargo lista de lineas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-						var obj = JSON.parse(data);
-						$('#selectLineas').append('<option></option>');
-						for (var i = 0; i < obj["lineas"].length; i++) {
-							$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
-						}
-					}
-				});//fin ajax
+				cargarLineas();
 				
 				break;
 				
@@ -78,114 +38,31 @@
 				$('#selectRamal').prop('disabled','disabled');
 				$('#selectRamal').find('option').remove();
 				
-				//cargo lista de tarifas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-						var obj = JSON.parse(data);
-						$('#selectTarifas').append('<option></option>');
-						for (var i = 0; i < obj["tarifas"].length; i++) {
-							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
-						}
-					}
-				});//fin ajax
+				cargarTarifas();
 				
-				//cargo lista de lineas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-		            	console.log(data);
-		            	
-		            	//cargo lista de estaciones
-						$.ajax({
-							method:"POST",
-							url: "/Sube/Simulador",
-							data: {"accion" : "traerEstaciones", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
-							async: true,
-							success: function (data) {
-								var obj = JSON.parse(data);
-								$('#selectLineas').append('<option></option>');
-								for (var i = 0; i < obj["lineas"].length; i++) {
-									$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
-								}
-							}
-						});//fin ajax
-		            	
-					}
-				});//fin ajax
+				cargarLineas();
+				
+				$(document).on('change','#selectLinea',function(){
+					cargarEstacionesLinea();
+				});
+				
 				
 				break;
 				
 			case 'Tren':
 				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
 				
-				//cargo lista de tarifas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-						var obj = JSON.parse(data);
-						$('#selectTarifas').append('<option></option>');
-						for (var i = 0; i < obj["tarifas"].length; i++) {
-							$('#selectTarifas').append('<option>'+obj["tarifas"][i].nombre+'</option>');
-						}
-					}
-				});//fin ajax
+				cargarTarifas();
 				
-				//cargo lista de lineas
-				$.ajax({
-					method:"POST",
-					url: "/Sube/Simulador",
-					data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
-					async: true,
-					success: function (data) {
-						var obj = JSON.parse(data);
-						$('#selectLineas').append('<option></option>');
-						for (var i = 0; i < obj["lineas"].length; i++) {
-							$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
-						}
-		            	
-		            	//cargo lista de ramales
-						$.ajax({
-							method:"POST",
-							url: "/Sube/Simulador",
-							data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
-							async: true,
-							success: function (data) {
-								var obj = JSON.parse(data);
-								$('#selectRamales').append('<option></option>');
-								for (var i = 0; i < obj["ramales"].length; i++) {
-									$('#selectRamales').append('<option>'+obj["ramales"][i].nombre+'</option>');
-								}
-				            	
-				            	//cargo lista de estaciones
-								$.ajax({
-									method:"POST",
-									url: "/Sube/Simulador",
-									data: {"accion" : "traerEstaciones", "idRamal" : $('#selectRamal :selected').attr('id'), "idTransporte" : $('#selectTransporte :selected').attr('id')},
-									async: true,
-									success: function (data) {
-										var obj = JSON.parse(data);
-										$('#selectLineas').append('<option></option>');
-										for (var i = 0; i < obj["lineas"].length; i++) {
-											$('#selectLineas').append('<option>'+obj["lineas"][i].nombre+'</option>');
-										}
-									}
-								});//fin ajax
-				            	
-							}
-						});//fin ajax
-		            	
-					}
-				});//fin ajax
+				cargarLineas();
+				
+				$(document).on('change','#selectLinea',function(){
+					cargarRamales();
+				});
+				
+				$(document).on('change','#selectRamal',function(){
+					cargarEstacionesRamal();
+				});
 				
 				break;
 
@@ -204,6 +81,116 @@
 				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
 			}
 		});
+		
+		
+		
+		
+		/*FUNIONES*/
+		
+		function cargarTransportes(){
+			//cargar lista de transportes
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerTransportes"},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#selectTransporte').append('<option></option>');
+					for (var i = 0; i < obj["transportes"].length; i++) {
+						$('#selectTransporte').append('<option id="'+ obj["transportes"][i].idTransporte +'">'+obj["transportes"][i].nombre+'</option>');
+					}
+				}
+			});//fin ajax
+		}
+		
+		function cargarTarifas(){
+			//cargo lista de tarifas
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerTarifas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#selectTarifa').append('<option></option>');
+					for (var i = 0; i < obj.tarifas.length; i++) {
+						$('#selectTarifa').append('<option id="'+ obj.tarifas[i].idTarifa +'">'+obj.tarifas[i].monto+'</option>');
+					}
+				}
+			});//fin ajax
+		}//fin cargarTarifas
+		
+		function cargarLineas(){
+			//cargo lista de lineas
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerLineas", "idTransporte" : $('#selectTransporte :selected').attr('id')},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#selectLinea').append('<option></option>');
+					for (var i = 0; i < obj.lineas.length; i++) {
+						$('#selectLinea').append('<option id="'+ obj.lineas[i].idLinea +'">'+obj.lineas[i].nombre+'</option>');
+					}
+				}
+			});//fin ajax
+		}//fin cargarLineas
+		
+		function cargarRamales(){
+			//cargo lista de ramales
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerRamales", "idLinea" : $('#selectLinea :selected').attr('id')},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#selectRamal').append('<option></option>');
+					for (var i = 0; i < obj.ramales.length; i++) {
+						$('#selectRamal').append('<option id="'+ obj.ramales[i].idRamal +'">'+obj.ramales[i].nombre+'</option>');
+					}
+				}
+			});//fin ajax
+		}//fin cargarRamales
+		
+		function cargarEstacionesLinea(){
+			//cargo lista de estaciones
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerEstacionesLinea", "idLinea" : $('#selectLinea :selected').attr('id')},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					$('#selectEstacion').append('<option></option>');
+					for (var i = 0; i < obj.estaciones.length; i++) {
+						$('#selectEstacion').append('<option id="'+ obj.estaciones[i].idEstacion +'">'+obj.estaciones[i].nombre+'</option>');
+					}
+				}
+			});//fin ajax
+		}//fin cargarEstacionesLinea
+		
+		
+		function cargarEstacionesRamal(){
+			console.log($('#selectRamal :selected').attr('id'));
+			//cargo lista de estaciones
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "traerEstacionesRamal", "idRamal" : $('#selectRamal :selected').attr('id')},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectEstacion').append('<option></option>');
+					for (var i = 0; i < obj.estaciones.length; i++) {
+						$('#selectEstacion').append('<option id="'+ obj.estaciones[i].idEstacion +'">'+obj.estaciones[i].nombre+'</option>');
+					}
+				}
+			});//fin ajax
+		}//fin cargarEstacionesRamal
 		
 		
 		

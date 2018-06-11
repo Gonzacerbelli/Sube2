@@ -70,10 +70,6 @@ public class LineaDao {
 		try {
 			iniciaOperacion();
 			objeto = (Linea) session.get(Linea.class, idLinea);
-			if(objeto != null) {
-				Hibernate.initialize(objeto.getRamales());
-				Hibernate.initialize(objeto.getEstaciones());
-			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -87,11 +83,6 @@ public class LineaDao {
 			iniciaOperacion();
 			String hql = "from Linea c where c.nombre = '" + nombre + "'";
 			objeto = (Linea) session.createQuery(hql).uniqueResult();
-			if(objeto != null)
-			{
-				Hibernate.initialize(objeto.getEstaciones());
-				Hibernate.initialize(objeto.getRamales());
-			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -106,7 +97,6 @@ public class LineaDao {
 			iniciaOperacion();
 			String hql = "from Linea";
 			list = (List<Linea>) session.createQuery(hql).list();
-			
 			tx.commit();
 		} finally {
 			session.close();
@@ -118,7 +108,7 @@ public class LineaDao {
 		List<Linea> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Linea l where l.idTransporte = " + idTransporte;
+			String hql = "from Linea l inner join fetch l.transporte tr where tr.idTransporte = " + idTransporte;
 			list = (List<Linea>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

@@ -69,10 +69,6 @@ public class TransporteDao {
 		try {
 			iniciaOperacion();
 			objeto = (Transporte) session.get(Transporte.class, idTransporte);
-			if(objeto != null)
-			{
-				Hibernate.initialize(objeto.getLineas());
-			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -86,10 +82,6 @@ public class TransporteDao {
 			iniciaOperacion();
 			String hql = "from Transporte c where c.nombre = '" + nombre + "'";
 			objeto = (Transporte) session.createQuery(hql).uniqueResult();
-			if(objeto != null)
-			{
-				Hibernate.initialize(objeto.getLineas());
-			}
 			tx.commit();
 		} finally {
 			session.close();

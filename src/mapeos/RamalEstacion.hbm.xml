@@ -8,10 +8,10 @@
 		</id> 
 		<property column="nroEstacion" name="nroEstacion" type="int" />
 		<many-to-one name="estacion" class="datos.Estacion" fetch="select">
-            <column name="IDESTACION" />
+            <column name="idEstacion" />
         </many-to-one>
         <many-to-one name="ramal" class="datos.Ramal" fetch="select">
-            <column name="IDRAMAL" />
+            <column name="idRamal" />
         </many-to-one>
 	</class>
 </hibernate-mapping>
