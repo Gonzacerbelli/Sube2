@@ -143,6 +143,7 @@
 					var obj = JSON.parse(data);
 					$('#selectTarifa').append('<option></option>');
 					for (var i = 0; i < obj.tarifas.length; i++) {
+
 						$('#selectTarifa').append('<option id="'+ obj.tarifas[i].idTarifa +'">'+obj.tarifas[i].monto+'</option>');
 					}
 				}
@@ -226,13 +227,14 @@
 				method:"POST",
 				url: "/Sube/Simulador",
 				data: {"accion" : "viajar",
-					"numTarjeta" : "16", //TODO necesito un input con el num de la tarjeta
+					"numTarjeta" : $('#inputNumTarjeta').val(), //TODO necesito un input con el num de la tarjeta
 					 "idTransporte" : $('#selectTransporte :selected').attr('id'),
 					  "idLinea" : $('#selectLinea :selected').attr('id'),
 					   "idEstacion" : $('#selectEstacion :selected').attr('id'),
-					    "idRamal" : $('#selectRamal :selected').attr('id')},
+					    "idRamal" : $('#selectRamal :selected').attr('id'),
 					    "idTarifa" : $('#selectTarifa :selected').attr('id'),
-					    "fechaHora" : $('#inputFechaHora').attr('value'), //TODO agarro el value o que?
+					    "fechaHora" : $('#inputFechaHora').val()
+					    },
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
@@ -276,6 +278,10 @@
 			  
 	            <table class="tablaTarjeta">
 		            <tr style="font-size:14pt;">
+		            	<td>
+		            		<span>Numero de Tarjeta</span> <input type="number" id="inputNumTarjeta">
+		            	</td>
+		            	
 		            	<td>
 		            		<span>Fecha y hora</span>
 		            	</td>

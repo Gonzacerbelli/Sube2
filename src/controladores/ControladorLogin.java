@@ -42,6 +42,7 @@ public class ControladorLogin extends HttpServlet {
 			String pass = request.getParameter("pass");
 			
 			if(usuario.getPass().equals(pass)) {
+				request.getSession().setAttribute("dniUsuarioLogueado", usuario.getDni());
 				response.setContentType("text/html;charset=UTF-8");
 	            response.getWriter().write("True");
 			}else {
