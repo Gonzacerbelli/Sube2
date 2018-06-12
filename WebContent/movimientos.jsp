@@ -87,30 +87,27 @@
 	            </tr>
 	            <tr class="border-top">
 	            	<td style="width:20%;padding-right:30px;">
-	            		<input type="date" class="form-control">
+	            		<input id="fechaDesde" type="date" class="form-control">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<input type="date" class="form-control">
+	            		<input id="fechaHasta" type="date" class="form-control">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<select class="form-control">
+	            		<select id="tipoMovimiento" class="form-control">
 	            			<option>Uso de transporte</option>
 	            			<option>Carga</option>
 	            			<option>RED SUBE 1</option>
 	            		</select>
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<select class="form-control">
+	            		<select id="medio" class="form-control">
 	            			<option>Uso de transporte</option>
 	            			<option>Carga</option>
 	            			<option>RED SUBE 1</option>
 	            		</select>
 	            	</td>
-	            	<td style="width:10%;text-align:center;">
+	            	<td style="width:20%;text-align:right;">
 	            		<input type="button" class="btn btn-primary" value="&nbsp;Buscar&nbsp;">
-	            	</td>
-	            	<td style="width:10%;text-align:right;">
-	            		<input type="button" class="btn btn-primary" id="btnReporte" value="Reporte">
 	            	</td>
 	            </tr>
             </table>
