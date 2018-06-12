@@ -79,7 +79,7 @@ public class BeneficioABM {
 				tarjeta.setSaldo(ub.getBeneficio().aplicarBeneficio(tarjeta.getSaldo()));
 				GregorianCalendar fechaHora = (GregorianCalendar) Calendar.getInstance();
 				ub.setFechaCobro(fechaHora);
-				Movimiento movimiento = new Movimiento("Carga Beneficio", tarjeta, ub.getBeneficio().getValor(),  fechaHora, terminal.getUbicacion());
+				Movimiento movimiento = new Movimiento("Carga Beneficio", tarjeta, ub.getBeneficio().getValor(),  fechaHora, terminal.getUbicacion(), null);
 				tarjeta.agregarMovimiento(movimiento);
 			}
 		}

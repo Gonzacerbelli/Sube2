@@ -1,8 +1,13 @@
 package dao;
 
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import datos.Estacion;
 import datos.Movimiento;
 
 public class MovimientoDao {
@@ -59,4 +64,32 @@ public class MovimientoDao {
 			session.close();
 		}
 	}
+	
+
+	public Movimiento traerMovimiento(int idMovimiento) throws HibernateException {
+		Movimiento objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Movimiento) session.get(Movimiento.class, idMovimiento);
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Movimiento> traerMovimientos(int idTarjeta) throws HibernateException {
+		List<Movimiento> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Movimiento m where m.idTarjeta = " + idTarjeta;
+			list = (List<Movimiento>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
 }

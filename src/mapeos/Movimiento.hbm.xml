@@ -2,24 +2,22 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="datos.Movimiento" table="Movimiento">
+	<class name="datos.Movimiento" table="movimiento">
 		<id column="idMovimiento" name="idMovimiento">
 			<generator class="identity" />
 		</id>
 		      
   		<property column="tipo" name="tipo" type="string"/>	
 		
-  		<many-to-one name="tarjeta" class="datos.Tarjeta" fetch="join">
-            <column name="idTarjeta" />
-        </many-to-one>
+  		<many-to-one name="tarjeta" class="datos.Tarjeta" column="idTarjeta" fetch="join"/>
 		
 		<property column="fechaHora" name="fechaHora" type="calendar"/>	
 		
 		<property column="detalle" name="detalle" type="string"/>
 		
-		<property column="valor" name="valor" type="double"/>
+		<property column="medio" name="medio" type="string"/>
 		
-	
+		<property column="valor" name="valor" type="double"/>
 
 	</class>
 </hibernate-mapping>

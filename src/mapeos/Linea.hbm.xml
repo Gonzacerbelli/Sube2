@@ -7,7 +7,7 @@
 			<generator class="identity" />
 		</id>
 		<property column="nombre" name="nombre" type="string" />
-	<many-to-one name="transporte" class="datos.Transporte" column="idTransporte"/>
+	<many-to-one name="transporte" class="datos.Transporte" column="idTransporte" fetch="join"/>
 	<set name="estaciones" cascade="save-update" table="estacion" inverse="false" lazy="true" fetch="select">
 			<key column="idLinea" not-null="false"/>
 			<one-to-many class="datos.Estacion"/>

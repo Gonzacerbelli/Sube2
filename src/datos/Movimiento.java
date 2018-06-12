@@ -2,6 +2,8 @@ package datos;
 
 import java.util.GregorianCalendar;
 
+import util.Funciones;
+
 public class Movimiento {
 	private int idMovimiento;
 	private String tipo;
@@ -9,19 +11,19 @@ public class Movimiento {
 	private double valor;
 	private GregorianCalendar fechaHora;
 	private String detalle;
+	private String medio;
 	
 	public Movimiento() {}
 
-	public Movimiento(String tipo, Tarjeta tarjeta, double valor, GregorianCalendar fechaHora, String detalle) {
+	public Movimiento(String tipo, Tarjeta tarjeta, double valor, GregorianCalendar fechaHora, String detalle, String medio) {
 		super();
 		this.tipo = tipo;
 		this.tarjeta = tarjeta;
 		this.valor = valor;
 		this.fechaHora = fechaHora;
 		this.detalle = detalle;
+		this.medio = medio;
 	}
-
-
 
 	public int getIdMovimiento() {
 		return idMovimiento;
@@ -71,6 +73,19 @@ public class Movimiento {
 		this.tipo = tipo;
 	}
 
+	public String getMedio() {
+		return medio;
+	}
+
+	public void setMedio(String medio) {
+		this.medio = medio;
+	}
+
+	@Override
+	public String toString() {
+		return "Movimiento [idMovimiento=" + idMovimiento + ", tipo=" + tipo + ", tarjeta=" + tarjeta + ", valor="
+				+ valor + ", fechaHora=" + Funciones.traerFechaCortaHora(fechaHora) + ", detalle=" + detalle + ", medio=" + medio + "]";
+	}
 
 	
 	

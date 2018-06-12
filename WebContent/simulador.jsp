@@ -81,6 +81,10 @@
 				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
 			}
 		});
+
+		$(document).on('click','#btnViajar',function(){
+			viajar();
+		});
 		
 		
 		
@@ -93,12 +97,12 @@
 				method:"POST",
 				url: "/Sube/Simulador",
 				data: {"accion" : "traerTransportes"},
-				async: true,
+				async: false,
 				success: function (data) {
 					var obj = JSON.parse(data);
 					$('#selectTransporte').append('<option></option>');
-					for (var i = 0; i < obj["transportes"].length; i++) {
-						$('#selectTransporte').append('<option id="'+ obj["transportes"][i].idTransporte +'">'+obj["transportes"][i].nombre+'</option>');
+					for (var i = 0; i < obj.transportes.length; i++) {
+						$('#selectTransporte').append('<option id="'+ obj.transportes[i].idTransporte +'">'+obj.transportes[i].nombre+'</option>');
 					}
 				}
 			});//fin ajax
@@ -191,6 +195,37 @@
 				}
 			});//fin ajax
 		}//fin cargarEstacionesRamal
+
+		function viajar(){
+			//paso los datos seleccionados a la accion viajar
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Simulador",
+				data: {"accion" : "viajar",
+					"numTarjeta" : "16", //TODO necesito un input con el num de la tarjeta
+					 "idTransporte" : $('#selectTransporte :selected').attr('id'),
+					  "idLinea" : $('#selectLinea :selected').attr('id'),
+					   "idEstacion" : $('#selectEstacion :selected').attr('id'),
+					    "idRamal" : $('#selectRamal :selected').attr('id')},
+					    "idTarifa" : $('#selectTarifa :selected').attr('id'),
+					    "fechaHora" : $('#inputFechaHora').attr('value'), //TODO agarro el value o que?
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status == "error") 
+					{
+						$('#divMensaje').html('<p style="line-height:150px;height:100%;">'+ obj.mensaje+'</p>');
+					}
+					if(obj.status == "ok")
+					{
+						$('#divMensaje').html('<p style="line-height:75px;height:100%;">'+ obj.mensaje+'</p>');
+						$('#divMensaje').append('<p style="line-height:150px;height:100%;">'+ obj.valorCobrado+'</p>');
+						$('#divMensaje').append('<p style="line-height:225px;height:100%;">'+ obj.saldo+'</p>');
+					}
+				}
+			});//fin ajax
+		}//fin viajar
 		
 		
 		
@@ -288,7 +323,7 @@
 		  		<a href="home.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
 		  	</div>
 		  	<div class="col-6">
-		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Viajar</button>
+		  		<button type="button" id="btnViajar" class="btn btn-primary" style="float:right;margin-right:30px;">Viajar</button>
 		  	</div>
 		  </div>
 		  

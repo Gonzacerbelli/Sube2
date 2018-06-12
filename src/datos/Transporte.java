@@ -34,7 +34,7 @@ public class Transporte {
 	}
 	@Override
 	public String toString() {
-		return "Transporte [idTransporte=" + idTransporte + ", nombre=" + nombre + ", lineas=" + lineas + "]";
+		return "Transporte [idTransporte=" + idTransporte + ", nombre=" + nombre + "]";
 	}
 	
 }

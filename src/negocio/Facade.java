@@ -46,4 +46,8 @@ public class Facade {
 	public ViajeABM getViajeABM() {
 		return new ViajeABM();
 	}
+	
+	public MovimientoABM getMovimientoABM() {
+		return new MovimientoABM();
+	}
 }

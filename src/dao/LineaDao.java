@@ -70,6 +70,11 @@ public class LineaDao {
 		try {
 			iniciaOperacion();
 			objeto = (Linea) session.get(Linea.class, idLinea);
+			if(objeto != null) 
+			{
+				Hibernate.initialize(objeto.getEstaciones());
+				Hibernate.initialize(objeto.getRamales());
+			}
 			tx.commit();
 		} finally {
 			session.close();
@@ -83,6 +88,11 @@ public class LineaDao {
 			iniciaOperacion();
 			String hql = "from Linea c where c.nombre = '" + nombre + "'";
 			objeto = (Linea) session.createQuery(hql).uniqueResult();
+			if(objeto != null) 
+			{
+				Hibernate.initialize(objeto.getEstaciones());
+				Hibernate.initialize(objeto.getRamales());
+			}
 			tx.commit();
 		} finally {
 			session.close();

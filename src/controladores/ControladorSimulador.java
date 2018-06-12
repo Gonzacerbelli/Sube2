@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import datos.Estacion;
@@ -69,42 +70,32 @@ public class ControladorSimulador extends HttpServlet {
 	
 	private void viajar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String dni = request.getParameter("dni");
+		String idTransporte = request.getParameter("idTransporte");
+		JSONObject array = new JSONObject();
+		try {
+			Transporte transporte = f.getTransporteABM().traerTransporte(Integer.parseInt(idTransporte));
+			array.put("status", "ok");
+			array.put("saldo", 100);
+			array.put("mensaje", "Buen viaje!");
+			array.put("valorCobrado", 6.5);
+			
+			response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write(array.toString());
 		
-		String pass = request.getParameter("pass");
-		
-		Usuario usuario = null;
-		
-		String msjError = "";
-		
-		try 
-		{
-			usuario = f.getUsuarioABM().traerUsuario(Integer.parseInt(dni));	
+		} 
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			try {
+				array.put("status", "ok");
+				array.put("mensaje", e.getMessage());
+			} catch (JSONException e1) {
+			}
+			
+			e.printStackTrace();
 		}
-		catch(Exception ex)
-		{
-			msjError = "El DNI no se encuentra registrado en el sistema.";
-			response.sendError(1, msjError);
-		}
-		
-		if(usuario.getPass().equals(pass))
-		{
-			HttpSession session = request.getSession();
-			session.setAttribute("dni", usuario.getDni());
-			session.setAttribute("nombre", usuario.getNombre());
-			session.setAttribute("apellido", usuario.getApellido());
-		}
-		else
-		{
-			msjError = "Contraseña incorrecta";
-			response.sendError(2, msjError);
-		}
-		
-		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
 	
-	@SuppressWarnings("unused")
 	private void traerTransportes(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<Transporte> transportes = f.getTransporteABM().traerTransporte();

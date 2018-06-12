@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -90,17 +91,17 @@ public class ControladorMovimientos extends HttpServlet {
 			
 			if(!desdeStr.equals("")) {
 				GregorianCalendar desde = Funciones.traerFechaHMyS(desdeStr);
-				movimientos.stream().allMatch(mov -> mov.getFechaHora().after(desde));
+				movimientos = movimientos.stream().filter(mov -> mov.getFechaHora().after(desde)).collect(Collectors.toList());
 			}
 			if(!hastaStr.equals("")) {
 				GregorianCalendar hasta = Funciones.traerFechaHMyS(hastaStr);	
-				movimientos.stream().allMatch(mov -> mov.getFechaHora().before(hasta));
+				movimientos = movimientos.stream().filter(mov -> mov.getFechaHora().before(hasta)).collect(Collectors.toList());
 			}
 			if(!tipo.equals("")) {
-				movimientos.stream().allMatch(mov -> mov.getTipo().contains(tipo));
+				movimientos = movimientos.stream().filter(mov -> mov.getTipo().contains(tipo)).collect(Collectors.toList());
 			}
 			if(!medio.equals("")) {
-				movimientos.stream().allMatch(mov -> mov.getMedio().contains(medio));
+				movimientos = movimientos.stream().filter(mov -> mov.getMedio().contains(medio)).collect(Collectors.toList());
 			}
 			
 			obj.put("movimientos", movimientos);

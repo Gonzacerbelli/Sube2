@@ -70,6 +70,9 @@ public class RamalDao {
 		try {
 			iniciaOperacion();
 			objeto = (Ramal) session.get(Ramal.class, idRamal);
+			if(objeto!=null) {
+				Hibernate.initialize(objeto.getRamalEstaciones());
+			}
 			tx.commit();
 		} finally {
 			session.close();

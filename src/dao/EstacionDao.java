@@ -70,6 +70,9 @@ public class EstacionDao {
 		try {
 			iniciaOperacion();
 			objeto = (Estacion) session.get(Estacion.class, idEstacion);
+			if(objeto != null) {
+				Hibernate.initialize(objeto.getEstacionRamales());
+			}
 			tx.commit();
 		} finally {
 			session.close();

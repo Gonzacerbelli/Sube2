@@ -24,18 +24,11 @@ public class TestTraerEstacion {
 		try 
 		{
 			LineaABM tABM = new LineaABM();
-			Linea linea = tABM.traerLinea("Roca");
+			Linea linea = tABM.traerLinea(1);
 			System.out.println(linea.toString());
-			System.out.println(linea.getEstaciones());
-			System.out.println(linea.getTransporte());
-			Iterator it = linea.getEstaciones().iterator();
-			Estacion e = (Estacion) it.next();
-			EstacionABM eABM = new EstacionABM();
-			e = eABM.traerEstacion(e.getIdEstacion());
-			System.out.println("Estacion " + e.toString());
-			System.out.println("Esta en ramales " + e.getEstacionRamales());
-//			List<Linea> list = tABM.traerLinea();
-//			System.out.println(list);
+			System.out.println(linea.getEstaciones().toString());
+			List<Linea> list = tABM.traerLinea();
+			System.out.println(list);
 		} 
 		catch (Exception e) 
 		{

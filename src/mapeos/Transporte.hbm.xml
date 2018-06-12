@@ -7,7 +7,7 @@
 			<generator class="identity" />
 		</id>		
 		<property column="nombre" name="nombre" type="string" />
-		<set name="lineas" cascade="all" table="linea" inverse="true" order-by="nombre asc" lazy="true" fetch="select">
+		<set name="lineas" cascade="save-update" table="linea" order-by="nombre asc" lazy="true" fetch="join">
 			<key column="idTransporte"/>
 			<one-to-many class="datos.Linea"/>
 		</set>
