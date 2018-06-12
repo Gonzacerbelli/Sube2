@@ -30,7 +30,7 @@
 
 		  <div class="row" style="margin-top:35px;font-size:14pt;">
 		  
-			  <div class="container" style="height:100px;margin-bottom:50px;">
+			  <div class="container" style="height:100px;margin-bottom:100px;">
 			  
 			  	<h1 class="h2">Recarga</h1>
 			  
@@ -40,89 +40,42 @@
 		            		<span>Tarjeta</span>
 		            	</td>
 		            	<td>
-		            		<span>Transporte</span>
-		            	</td>
-		            	<td>
-		            		
-		            		<span>Tarifa</span>
+		            		<span>Monto a cargar</span>
 		            	</td>
 		            </tr>
 		            <tr>
 		            	<td style="padding-right:30px;">
 		            		<input id="inputTarjeta" name="inputTarjeta" type="number" class="form-control" style="width:100%;">
-		            		
 		            	</td>
 		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectTransporte">
-		            		  <option></option>
-						      <option>Colectivo</option>
-						      <option>Subte</option>
-						      <option>Tren</option>
-						    </select>
-		            	</td>
-		            	<td style="padding-right:30px;">
-						    <select class="form-control" id="selectTarifa" disabled>
-						    </select>
+		            		<input id="inputMonto" name="monto" type="number" class="form-control" style="width:100%;">
 		            	</td>
 		            </tr>
 	            </table>
 	          </div>
-		  
-		  </div>
-		  <div class="row">
-		  
-		 	 <div class="container" style="height:100px;margin-bottom:20px;">
-			  
-	            <table class="tablaTarjeta">
-		            <tr style="font-size:14pt;">
-		            	<td>
-		            		<span id="camposLinea">Línea</span>
-		            	</td>
-		            	<td>
-		            		<span id="camposRamal">Ramal</span>
-		            	</td>
-		            	<td>
-		            		<span id="camposEstacion">Estación</span>
-		            	</td>
-		            </tr>
-		            <tr>
-		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectLinea" disabled>
-		            		</select>
-		            	</td>
-		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectRamal" disabled>
-		            		</select>
-		            	</td>
-		            	<td style="padding-right:30px;">
-		            		<select class="form-control" id="selectEstacion" disabled>
-		            		</select>
-		            	</td>
-		            </tr>
-	            </table>
-	          </div>
-		  
-		  	
-		  
 		  </div>
 		  
-		  <div class="row" style="margin-bottom:20px;">
+		  <div class="row" style="margin-bottom:50px;">
+		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
+		  		<p style="line-height:150px;height:100%;"></p>
+		  	</div>
+		  </div>
+		  
+		  <div class="row" style="margin-bottom:100px;">
 		  	<div class="col-6">
 		  		<a href="home.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
 		  	</div>
 		  	<div class="col-6">
-		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Viajar</button>
-		  	</div>
-		  </div>
-		  
-		  
-		  <div class="row">
-		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
-		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
+		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Cargar</button>
 		  	</div>
 		  </div>
 		  
 	  </div>
+	  
+	  <footer class="container border-top">
+	      <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
+	      <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+	  </footer>
 
 </body>
 </html>

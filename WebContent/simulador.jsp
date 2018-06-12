@@ -25,44 +25,68 @@
 			case 'Colectivo':
 				$('#selectTarifa, #selectLinea').removeAttr("disabled");
 				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
-				$('#selectRamal, #selectEstacion').find('option').remove();
-								
-				cargarTarifas();
+				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
 				
+				cargarTarifas();
 				cargarLineas();
 				
 				break;
 				
 			case 'Subte':
-				$('#selectTarifa, #selectLinea, #selectEstacion').removeAttr("disabled");
+				$('#selectTarifa, #selectLinea').removeAttr("disabled");
 				$('#selectRamal').prop('disabled','disabled');
-				$('#selectRamal').find('option').remove();
+				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
 				
 				cargarTarifas();
 				
 				cargarLineas();
 				
 				$(document).on('change','#selectLinea',function(){
-					cargarEstacionesLinea();
-				});
+					if($('#selectLinea').val() == ""){
+						$('#selectEstacion').prop('disabled','disabled');
+						$('#selectEstacion').find('option').remove();
+					}else{
+						$('#selectEstacion').removeAttr("disabled");
+						$('#selectEstacion').find('option').remove();
+						cargarEstacionesLinea();
+					}
+				});//fin change
 				
 				
 				break;
 				
 			case 'Tren':
-				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').removeAttr("disabled");
+				$('#selectTarifa, #selectLinea').removeAttr("disabled");
+				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
 				
 				cargarTarifas();
 				
 				cargarLineas();
 				
 				$(document).on('change','#selectLinea',function(){
-					cargarRamales();
-				});
+					
+					if($('#selectLinea').val() == ""){
+						$('#selectRamal, #selectEstacion').prop('disabled','disabled');
+						$('#selectRamal, #selectEstacion').find('option').remove();
+					}else{
+						$('#selectRamal').removeAttr("disabled");
+						$('#selectEstacion').prop('disabled','disabled');
+						$('#selectRamal, #selectEstacion').find('option').remove();
+						cargarRamales();
+					}
+					
+				});//fin change
 				
 				$(document).on('change','#selectRamal',function(){
-					cargarEstacionesRamal();
-				});
+					if($('#selectRamal').val() == ""){
+						$('#selectEstacion').prop('disabled','disabled');
+						$('#selectEstacion').find('option').remove();
+					}else{
+						$('#selectEstacion').removeAttr("disabled");
+						$('#selectEstacion').find('option').remove();
+						cargarEstacionesRamal();
+					}
+				});//fin change
 				
 				break;
 
@@ -328,7 +352,7 @@
 		  </div>
 		  
 		  
-		  <div class="row" style="margin-bottom:30px;">
+		  <div class="row" style="margin-bottom:100px;">
 		  	<div class="col-8 container border" id="divMensaje" style="height:150px;text-align:center;font-size:18pt;">
 		  		<p style="line-height:150px;height:100%;">Indique su destino.</p>
 		  	</div>

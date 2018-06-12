@@ -117,7 +117,7 @@
           </div>
           
 		
-          <div class="table-responsive container" style="overflow:auto;height:500px;margin-bottom:60px;">
+          <div class="table-responsive container" style="overflow:auto;height:500px;margin-bottom:100px;">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
