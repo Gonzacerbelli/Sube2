@@ -213,8 +213,8 @@
 					var obj = JSON.parse(data);
 					console.log(obj);
 					$('#selectEstacion').append('<option></option>');
-					for (var i = 0; i < obj.estaciones.length; i++) {
-						$('#selectEstacion').append('<option id="'+ obj.estaciones[i].idEstacion +'">'+obj.estaciones[i].nombre+'</option>');
+					for (var i = 0; i < obj.estacionesRamal.length; i++) {
+						$('#selectEstacion').append('<option id="'+ obj.estacionesRamal[i].estacion.idEstacion +'">'+obj.estacionesRamal[i].estacion.nombre+'</option>');
 					}
 				}
 			});//fin ajax
