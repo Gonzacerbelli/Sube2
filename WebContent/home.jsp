@@ -47,10 +47,10 @@
             <h2>Movimientos</h2>
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <a href="recargar.jsp" style="text-decoration:none;">
-            	<img class="rounded-circle" src="images/recarga.png" alt="Generic placeholder image" width="140" height="140">
+            <a href="reporte.jsp" style="text-decoration:none;">
+          	  <img class="rounded-circle" src="images/reportes.png" alt="Generic placeholder image" width="140" height="140">
             </a>
-            <h2>Recarga</h2>
+            <h2>Reportes</h2>
           </div><!-- /.col-lg-4 -->
 		  <div class="col-lg-4">
             <a href="simulador.jsp" style="text-decoration:none;">
@@ -67,7 +67,13 @@
             </a>
             <h2>Terminal de<br>consultas</h2>
           </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+            <div class="col-lg-4">
+            <a href="recargar.jsp" style="text-decoration:none;">
+            	<img class="rounded-circle" src="images/recarga.png" alt="Generic placeholder image" width="140" height="140">
+            </a>
+            <h2>Recarga</h2>
+          </div><!-- /.col-lg-4 -->
+          </div><!-- /.row -->
 
 		<hr class="featurette-divider">
 
