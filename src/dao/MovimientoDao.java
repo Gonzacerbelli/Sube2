@@ -83,7 +83,7 @@ public class MovimientoDao {
 		List<Movimiento> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Movimiento m where m.idTarjeta = " + idTarjeta;
+			String hql = "from Movimiento m where m.tarjeta.idTarjeta = " + idTarjeta;
 			list = (List<Movimiento>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

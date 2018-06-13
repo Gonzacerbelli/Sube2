@@ -4,7 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import dao.MovimientoDao;
+import datos.Boleto;
 import datos.Movimiento;
+import datos.RedSube;
 import datos.Tarjeta;
 
 public class MovimientoABM {
@@ -14,6 +16,20 @@ public class MovimientoABM {
 	
 	public int agregar(String tipo, Tarjeta tarjeta, double valor, GregorianCalendar fechaHora, String detalle, String medio) throws Exception {
 		Movimiento t = new Movimiento(tipo, tarjeta, valor, fechaHora, detalle, medio);
+		return dao.agregar(t);
+	}
+	public int agregar(Boleto boleto, Tarjeta tarjeta, RedSube redSube) throws Exception {
+		String tipo = "Uso Transporte";
+		String medio = "";
+		String detalle = "";
+		if(redSube != null) {
+			tipo += " con " + redSube.getDescripcion();
+		}
+		if(boleto.getEstacion() != null)
+		{
+			medio = boleto.getEstacion().getNombre();
+		}
+		Movimiento t = new Movimiento(tipo, tarjeta, boleto.getPrecioFinal(), boleto.getFechaHora(), detalle, medio);
 		return dao.agregar(t);
 	}
 	

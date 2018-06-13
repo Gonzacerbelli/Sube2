@@ -77,11 +77,15 @@ public class TarjetaDao {
 		return objeto;
 	}
 	
-	public Tarjeta traerTarjeta(Usuario usuario) throws HibernateException {
+	public Tarjeta traerTarjetaActiva(Usuario usuario) throws HibernateException {
 		Tarjeta objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Tarjeta) session.createQuery("from Tarjeta t where t.activa = '1' and t.id=" + usuario.getIdUsuario()).uniqueResult();
+			objeto = (Tarjeta) session.createQuery("from Tarjeta t where t.activa = 1 and t.usuario.idUsuario=" + usuario.getIdUsuario()).uniqueResult();
+			if(objeto!=null) {
+				Hibernate.initialize(objeto.getLstMovimiento());
+				Hibernate.initialize(objeto.getLstViaje());
+			}
 		} finally {
 			session.close();
 		}

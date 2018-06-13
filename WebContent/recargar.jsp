@@ -16,6 +16,43 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+
+		$(document).on('click','#btnCargar',function(){
+			recargarTarjeta();
+		});//fin change
+
+		function recargarTarjeta(){
+			//paso los datos seleccionados a la accion viajar
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Recarga",
+				data: {
+					"accion" : "recargarTarjeta",
+					"numTarjeta" : $('#inputTarjeta').val(),
+					"monto" : $('#inputMonto').val(),
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+							$('#divMensaje').html('<p> Saldo anterior: ' + obj.saldoAnterior + '</p>');
+						
+							$('#divMensaje').append('<p> Monto cargado: ' + obj.montoRecargado + '</p>');
+
+							$('#divMensaje').append('<p> Saldo actual: ' + obj.saldoActual + '</p>');
+					}
+					if(obj.status=="error")
+					{
+
+						$('#divMensaje').html('<p>' + obj.error + '</p>');
+					}
+					
+				}
+			});//fin ajax
+		}//fin recargarTarjeta
+		
 		
 	});//fin ready
 
@@ -66,7 +103,7 @@
 		  		<a href="home.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
 		  	</div>
 		  	<div class="col-6">
-		  		<button type="button" class="btn btn-primary" style="float:right;margin-right:30px;">Cargar</button>
+		  		<button type="button" id="btnCargar" class="btn btn-primary" style="float:right;margin-right:30px;">Cargar</button>
 		  	</div>
 		  </div>
 		  

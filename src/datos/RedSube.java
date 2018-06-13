@@ -6,6 +6,8 @@ public class RedSube {
 	private int cantidadBoletos;
 	private String descripcion;
 	
+	public RedSube() { }
+	
 	public RedSube(double porcentaje, int cantidadBoletos, String descripcion) {
 		super();
 		this.porcentaje = porcentaje;
@@ -46,7 +48,7 @@ public class RedSube {
 	}
 	
 	public double aplicarDescuento(double monto) {
-		return (monto*100)/porcentaje;
+		return monto * ((100.0 - porcentaje) / 100);
 	}
 	
 }

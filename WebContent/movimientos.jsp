@@ -15,6 +15,124 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+
+		cargarTarjetas();
+		cargarSaldoFecha();
+		cargarMovimientos();
+
+		$(document).on('change','#selectTarjetas',function(){
+			if($('#selectTarjeta').val() != ""){
+				$('#btnBuscar').removeAttr("disabled");
+				cargarSaldoFecha();
+			}
+			else{
+				$('#btnBuscar').prop("disabled","disabled");
+			}
+		});//fin change
+
+		$(document).on('click','#btnBuscar',function(){
+			if($('#selectTarjeta').val() != ""){
+				cargarMovimientos();
+			}
+			
+		});//fin change
+
+
+		function cargarTarjetas(){
+			//paso los datos seleccionados a la accion viajar
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerTarjetas"
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						for (var i = 0; i < obj.tarjetas.length; i++) {
+							$('#selectTarjetas').append('<option id="' + obj.tarjetas[i] + '">' + obj.tarjetas[i] + '</option>');
+						}
+					}
+					if(obj.status=="error")
+					{
+
+					}
+					
+				}
+			});//fin ajax
+		}//fin cargarTarjetas
+
+		
+		function cargarMovimientos(){
+			//paso los datos seleccionados a la accion viajar
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerMovimientos",
+					"numTarjeta" : $('#selectTarjetas :selected').attr('id'), 
+					"fechaDesde" : $('#inputFechaDesde').val(),
+					"fechaHasta" : $('#inputFechaHasta').val(),
+					"tipo" : $('#inputTipo').val(),
+					"medio" : $('#inputMedio').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						$('#bodyTableMovimientos').html(' ');
+						for (var i = 0; i < obj.fechaHoras.length; i++) {
+							$('#bodyTableMovimientos').append('<tr id="registro'+i+'"></tr>');	
+							$('#registro' + i).append('<td>'+ obj.fechaHoras[i] + '</td>');
+							$('#registro' + i).append('<td>'+ obj.tipos[i] + '</td>');
+							$('#registro' + i).append('<td>'+ obj.medios[i] + '</td>');
+							$('#registro' + i).append('<td>'+ obj.detalles[i] + '</td>');
+							$('#registro' + i).append('<td>'+ obj.valores[i] + '</td>');
+						}
+					}
+					if(obj.status=="error")
+					{
+						$('#bodyTableMovimientos').html('<p>'+ obj.error + '</p>');
+					}
+					
+					
+				}
+			});//fin ajax
+		}//fin cargarMovimientos
+
+		function cargarSaldoFecha(){
+			//paso los datos seleccionados a la accion viajar
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerSaldoFecha",
+					"numTarjeta" : $('#selectTarjetas :selected').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						$('#spanSaldoFecha').html('<td> $ ' + obj.saldo + '<br> al ' + obj.fechaHora + '</td>');
+					}
+					if(obj.status=="error")
+					{
+						$('#spanSaldoFecha').html('<td>' + ' ? ' + '</td>'); //TODO que hacer si no se encuentra el saldo
+					}
+					
+					
+				}
+			});//fin ajax
+		}//fin cargarSaldoFecha
+		
+		
 		
 	});//fin ready
 
@@ -46,10 +164,10 @@
 	            </tr>
 	            <tr class="border-top">
 	            	<td>
-	            		<select class="form-control"><option>12345678901234</option></select>
+	            		<select id="selectTarjetas" class="form-control"><option></option></select>
 	            	</td>
 	            	<td style="text-align:center;">
-	            		<span>$ -11,65<br>al 29/03/2018 21:29</span>
+	            		<span id="spanSaldoFecha"></span>
 	            	</td>
 	            	<td>
 	            		<select class="form-control">
@@ -94,20 +212,15 @@
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
 	            		<select class="form-control">
-	            			<option>Uso de transporte</option>
-	            			<option>Carga</option>
-	            			<option>RED SUBE 1</option>
+	            		
 	            		</select>
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
 	            		<select class="form-control">
-	            			<option>Uso de transporte</option>
-	            			<option>Carga</option>
-	            			<option>RED SUBE 1</option>
 	            		</select>
 	            	</td>
 	            	<td style="width:10%;text-align:center;">
-	            		<input type="button" class="btn btn-primary" value="&nbsp;Buscar&nbsp;">
+	            		<input type="button" class="btn btn-primary" id="btnBuscar" value="&nbsp;Buscar&nbsp;">
 	            	</td>
 	            	<td style="width:10%;text-align:right;">
 	            		<input type="button" class="btn btn-primary" id="btnReporte" value="Reporte">
@@ -121,238 +234,15 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>Fecha y Hora</th>
+                  <th>Tipo</th>
+                  <th>Medio</th>
+                  <th>Detalle</th>
+                  <th>Valor</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr><tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
+              <tbody id="bodyTableMovimientos">
+			  </tbody>
             </table>
           </div>
       </div>

@@ -63,8 +63,8 @@ public class TarjetaABM {
 	}
 	
 	
-	public Tarjeta traerTarjeta(Usuario usuario) throws Exception {
-		Tarjeta t = dao.traerTarjeta(usuario);
+	public Tarjeta traerTarjetaActiva(Usuario usuario) throws Exception {
+		Tarjeta t = dao.traerTarjetaActiva(usuario);
 		if (t == null) {
 			throw new Exception("La tarjeta no existe en la base de datos.");
 		}

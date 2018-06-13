@@ -2,6 +2,8 @@ package datos;
 
 import java.util.*;
 
+import util.Funciones;
+
 public class Viaje {
 	private int idViaje;
 	private GregorianCalendar fechaHora;
@@ -60,6 +62,7 @@ public class Viaje {
 	}
 
 	public void agregarBoleto(Boleto boleto) {
+		cantBoletos++;
 		this.getLstBoleto().add(boleto);
 	}
 	
@@ -71,5 +74,11 @@ public class Viaje {
 		}
 		return boleto;
 	}
+
+	@Override
+	public String toString() {
+		return "Viaje [idViaje=" + idViaje + ", fechaHora=" + Funciones.traerFechaCortaHora(fechaHora) + ", cantBoletos=" + cantBoletos + "]";
+	}
+	
 	
 }

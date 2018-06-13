@@ -30,7 +30,7 @@ import datos.Viaje;
 import negocio.Facade;
 import util.Funciones;
 
-public class ControladorSimulador extends HttpServlet {
+public class ControladorReportes extends HttpServlet {
 	
 	private Facade f = new Facade();
 	
@@ -79,6 +79,7 @@ public class ControladorSimulador extends HttpServlet {
 	private void viajar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String idTransporte = request.getParameter("idTransporte");
+		String numTarjeta = request.getParameter("numTarjeta");
 		String idLinea = request.getParameter("idLinea");
 		String idRamal = request.getParameter("idRamal");
 		String idEstacion = request.getParameter("idEstacion");
@@ -88,6 +89,7 @@ public class ControladorSimulador extends HttpServlet {
 		JSONObject array = new JSONObject();
 		try {
 			Transporte transporte = f.getTransporteABM().traerTransporte(Integer.parseInt(idTransporte));
+			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
 			Linea linea = f.getLineaABM().traerLinea(Integer.parseInt(idLinea));
 			Ramal ramal = null;
 			if(idRamal != null)
@@ -98,24 +100,15 @@ public class ControladorSimulador extends HttpServlet {
 			Tarifa tarifa = null;
 			if(idTarifa != null)//no debe llegar null
 				tarifa = f.getTarifaABM().traerTarifa(Integer.parseInt(idTarifa));
-			GregorianCalendar fechaHora = Funciones.parse("yyyy-MM-dd'T'hh:mm", fechaHoraStr); //Funciones.traerFechaHMyS(fechaHoraStr);
+			GregorianCalendar fechaHora = (GregorianCalendar) Calendar.getInstance(); //Funciones.traerFechaHMyS(fechaHoraStr);
 			int dni = (int) request.getSession().getAttribute("dniUsuarioLogueado");
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
-			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaActiva(usuario);
+//			tarjeta = usuario.getTarjetas().iterator().next();
 			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta, transporte, fechaHora);
 			RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
 			Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
 			f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
-			f.getMovimientoABM().agregar(boleto, tarjeta, redSube);
 			f.getTarjetaABM().modificar(tarjeta);
-			viaje.agregarBoleto(boleto);
-			try {
-				Viaje aux = f.getViajeABM().traerViaje(viaje.getIdViaje());	
-				f.getViajeABM().modificar(viaje);
-			}
-			catch (Exception ex){
-				f.getViajeABM().agregar(viaje);
-			}
 			array.put("saldo", tarjeta.getSaldo());
 			array.put("mensaje", "BUEN VIAJE");
 			array.put("valorCobrado", boleto.getPrecioFinal());
@@ -131,9 +124,8 @@ public class ControladorSimulador extends HttpServlet {
 			} catch (JSONException e1) {
 			
 			}
-			response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write(array.toString());
 			
+			e.printStackTrace();
 		}
 		
 	}

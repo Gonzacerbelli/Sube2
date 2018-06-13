@@ -35,6 +35,8 @@ public class TestTraerMovimientos {
 			GregorianCalendar desde = new GregorianCalendar(2005,05,10);
 			List<Movimiento> movs = t.getLstMovimiento().stream().filter(mov -> mov.getFechaHora().after(desde)).collect(Collectors.toList());
 			System.out.println(movs.toString());
+			Set<Viaje> viajes = t.getLstViaje();
+			System.out.println(viajes.toString());
 			
 		} 
 		catch (Exception e) 

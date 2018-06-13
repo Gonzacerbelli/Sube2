@@ -9,7 +9,7 @@
 		      
   		<property column="tipo" name="tipo" type="string"/>	
 		
-  		<many-to-one name="tarjeta" class="datos.Tarjeta" column="idTarjeta" fetch="join"/>
+  		<many-to-one name="tarjeta" class="datos.Tarjeta" column="idTarjeta" fetch="select"/>
 		
 		<property column="fechaHora" name="fechaHora" type="calendar"/>	
 		

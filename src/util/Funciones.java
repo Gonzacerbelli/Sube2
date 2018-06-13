@@ -1,6 +1,6 @@
 package util;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -209,6 +209,19 @@ public class Funciones {
 		long difMs = a.getTimeInMillis() - b.getTimeInMillis();
 		long horas = difMs/60000;
 		return horas;
+	}
+	
+	public static GregorianCalendar parse(String formato, String fecha) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat(formato);
+		Date date = null;
+		try {
+			date = df.parse(fecha);
+		} catch (ParseException e) {
+			throw new Exception("La fecha no es correcta.");
+		}
+		GregorianCalendar resultado = (GregorianCalendar) GregorianCalendar.getInstance();
+		resultado.setTime(date);
+		return resultado;
 	}
 
 }

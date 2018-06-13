@@ -70,11 +70,17 @@ public class ControladorRecarga extends HttpServlet {
 			
 			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
 			
+			jsonResponse.put("saldoAnterior", tarjeta.getSaldo());
+			
 			f.getTarjetaABM().recargarTarjeta(tarjeta.getIdTarjeta(), monto);
 			
 			tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
 			
-			jsonResponse.put("tarjeta", tarjeta);
+			jsonResponse.put("saldoActual", tarjeta.getSaldo());
+			
+			jsonResponse.put("montoRecargado", monto);
+			
+			jsonResponse.put("status", "ok");
 		}
 		
 		catch(Exception ex) 
@@ -83,6 +89,7 @@ public class ControladorRecarga extends HttpServlet {
 			
 			try 
 			{
+				jsonResponse.put("status", "error");
 				jsonResponse.put("error", error);
 			} 
 			catch (JSONException e) {

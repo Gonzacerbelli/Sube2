@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
-	<display-name>ClientePrestamo</display-name>
+	<display-name>SUBE</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -31,5 +31,33 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 		<servlet-name>ControladorSimulador</servlet-name>
 		<url-pattern>/Simulador</url-pattern>
 	</servlet-mapping>
+	<!-- CONTROLADOR MOVIMIENTOS-->
+	<servlet>
+		<servlet-name>ControladorMovimientos</servlet-name>
+		<servlet-class>controladores.ControladorMovimientos</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControladorMovimientos</servlet-name>
+		<url-pattern>/Movimientos</url-pattern>
+	</servlet-mapping>
+	<!-- CONTROLADOR RECARGA-->
+	<servlet>
+		<servlet-name>ControladorRecarga</servlet-name>
+		<servlet-class>controladores.ControladorRecarga</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControladorRecarga</servlet-name>
+		<url-pattern>/Recarga</url-pattern>
+	</servlet-mapping>
+	<!-- CONTROLADOR REPORTES-->
+	<servlet>
+		<servlet-name>ControladorReportes</servlet-name>
+		<servlet-class>controladores.ControladorReportes</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControladorReportes</servlet-name>
+		<url-pattern>/Reportes</url-pattern>
+	</servlet-mapping>
+	
 
 </web-app>

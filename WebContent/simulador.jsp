@@ -227,13 +227,12 @@
 				method:"POST",
 				url: "/Sube/Simulador",
 				data: {"accion" : "viajar",
-					"numTarjeta" : $('#inputNumTarjeta').val(), //TODO necesito un input con el num de la tarjeta
-					 "idTransporte" : $('#selectTransporte :selected').attr('id'),
-					  "idLinea" : $('#selectLinea :selected').attr('id'),
-					   "idEstacion" : $('#selectEstacion :selected').attr('id'),
+						"idTransporte" : $('#selectTransporte :selected').attr('id'),
+					 	"idLinea" : $('#selectLinea :selected').attr('id'),
+					   	"idEstacion" : $('#selectEstacion :selected').attr('id'),
 					    "idRamal" : $('#selectRamal :selected').attr('id'),
 					    "idTarifa" : $('#selectTarifa :selected').attr('id'),
-					    "fechaHora" : $('#inputFechaHora').val()
+					    "fechaHora" : $('#inputFechaHora').val(),
 					    },
 				async: true,
 				success: function (data) {
@@ -241,13 +240,13 @@
 					console.log(obj);
 					if(obj.status == "error") 
 					{
-						$('#divMensaje').html('<p style="line-height:150px;height:100%;">'+ obj.mensaje+'</p>');
+						$('#divMensaje').html('<p>'+ obj.mensaje +'</p>');
 					}
 					if(obj.status == "ok")
 					{
-						$('#divMensaje').html('<p style="line-height:75px;height:100%;">'+ obj.mensaje+'</p>');
-						$('#divMensaje').append('<p style="line-height:150px;height:100%;">'+ obj.valorCobrado+'</p>');
-						$('#divMensaje').append('<p style="line-height:225px;height:100%;">'+ obj.saldo+'</p>');
+						$('#divMensaje').html('<p>'+ obj.mensaje+'</p>');
+						$('#divMensaje').append('<p> Cobrado: '+ obj.valorCobrado+'</p>');
+						$('#divMensaje').append('<p> Saldo: '+ obj.saldo+'</p>');
 					}
 				}
 			});//fin ajax
@@ -278,10 +277,6 @@
 			  
 	            <table class="tablaTarjeta">
 		            <tr style="font-size:14pt;">
-		            	<td>
-		            		<span>Numero de Tarjeta</span> <input type="number" id="inputNumTarjeta">
-		            	</td>
-		            	
 		            	<td>
 		            		<span>Fecha y hora</span>
 		            	</td>

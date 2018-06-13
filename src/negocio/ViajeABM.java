@@ -15,6 +15,11 @@ public class ViajeABM {
 	
 	public int agregar(GregorianCalendar fechaHora, Tarjeta tarjeta) {
 		Viaje viaje = new Viaje(fechaHora, tarjeta);
+		viaje.setCantBoletos(1);
+		return dao.agregar(viaje);
+	}
+	
+	public int agregar(Viaje viaje) {
 		return dao.agregar(viaje);
 	}
 	
@@ -47,12 +52,13 @@ public class ViajeABM {
 		Viaje ultimoViaje = tarjeta.getUltimoViaje();
 		if(ultimoViaje != null) {
 			ultimoViaje = traerViaje(ultimoViaje.getIdViaje());
-			Boleto ultimoBoleto = ultimoViaje.getUltimoBoleto();
-			if(!ultimoBoleto.isCerrado() && transporte.equals(ultimoBoleto.getTransporte())) {
-				return ultimoViaje;
-			}
+			return ultimoViaje;
+//			Boleto ultimoBoleto = ultimoViaje.getUltimoBoleto();
+//			if(ultimoBoleto != null && !ultimoBoleto.isCerrado() && transporte.equals(ultimoBoleto.getTransporte())) {
+//				return ultimoViaje;
+//			}
 		}
-		if(ultimoViaje == null || ultimoViaje.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) > 2) {
+		if(ultimoViaje == null || ultimoViaje.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) > 2 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) < -2) {
 			Viaje viaje = new Viaje(fechaHora, tarjeta);
 			tarjeta.agregarViaje(viaje);
 			return viaje;
