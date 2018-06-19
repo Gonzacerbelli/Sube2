@@ -34,7 +34,6 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
-					console.log(obj);
 					if(obj.status=="ok")
 					{
 							$('#divMensaje').html('<p> Saldo anterior: ' + obj.saldoAnterior + '</p>');
@@ -45,7 +44,6 @@
 					}
 					if(obj.status=="error")
 					{
-
 						$('#divMensaje').html('<p>' + obj.error + '</p>');
 					}
 					

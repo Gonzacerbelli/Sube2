@@ -16,14 +16,21 @@
 
 	$(document).ready(function(){
 			
-		$(document).on('click','#btnIngresa', function(){
+		$(document).on('click','#btnIngresa', ingresar);//fin click btnIngresa
+		
+		$(document).keypress(function(e) {
+		    if(e.which == 13) {
+		        ingresar();
+		    }
+		});//fin enter ingresar
+		
+		function ingresar(){
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Login",
 				data: {"action" : "loguear", "dni" : $('#inputDni').val(), "pass" : $('#inputPass').val()},
 				async: true,
 				success: function (data) {
-					console.log(data);
 	            	if(data=='True'){
 						window.location = "home.jsp";
 					}else{
@@ -31,8 +38,7 @@
 					}
 				}
 			});//fin ajax
-			
-		});//fin click btnIngresa
+		}//fin function
 		
 	});//fin ready
 

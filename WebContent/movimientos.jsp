@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -171,7 +171,7 @@
 	            	</td>
 	            	<td>
 	            		<select class="form-control">
-	            			<option>Pï¿½rdida</option>
+	            			<option>Pérdida</option>
 	            			<option>Robo</option>
 	            			<option>Rotura</option>
 	            		</select>
@@ -247,7 +247,7 @@
 	
 	
 	<footer class="container border-top">
-        <p class="float-right"><a href="home.jsp">Volver atrï¿½s</a></p>
+        <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
         <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 	

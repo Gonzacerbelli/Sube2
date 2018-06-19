@@ -38,8 +38,10 @@ public class ControladorRecarga extends HttpServlet {
 		{
 			case "verificarTarjeta":
 				verificarTarjeta(request, response);
+				break;
 			case "recargarTarjeta":
 				recargarTarjeta(request, response);
+				break;
 			}
 	}
 	

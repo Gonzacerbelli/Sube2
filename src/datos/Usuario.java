@@ -9,6 +9,7 @@ public class Usuario {
 	private int dni;
 	private String pass;
 	private String email;
+	private String permiso;
 	private Set<Tarjeta> tarjetas;
 	private Set<UsuarioDescuento> usuarioDescuentos;
 	private Set<UsuarioBeneficio> usuarioBeneficios;
@@ -70,6 +71,14 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPermiso() {
+		return permiso;
+	}
+
+	public void setPermiso(String permiso) {
+		this.permiso = permiso;
 	}
 
 	public Set<UsuarioDescuento> getUsuarioDescuentos() {
