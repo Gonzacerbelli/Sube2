@@ -16,6 +16,40 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		function controlarUsuario(){
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Usuario",
+				data: {"accion" : "verificarUsuario"},
+				async: true,
+				success: function (data) {
+					if(data == '' || data == 'null'){
+						window.location = 'login.jsp';
+					}else{
+						var obj = JSON.parse(data);
+		            	if(obj.permiso == '' || obj.permiso == null){
+							window.location = 'login.jsp';
+						}else if(obj.permiso == 'Empleado'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objRecarga());
+						}else if(obj.permiso == 'Usuario'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+						}else if(obj.permiso == 'Administrador'){
+							//ocultar carga
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+							$('#row2').html(objReportes()+' '+objRecarga());
+						}
+					}
+				}
+			});//fin ajax
+		}//fin function
+		
+		controlarUsuario();
 
 		$(document).on('click','#btnCargar',function(){
 			recargarTarjeta();
@@ -34,7 +68,6 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
-					console.log(obj);
 					if(obj.status=="ok")
 					{
 							$('#divMensaje').html('<p> Saldo anterior: ' + obj.saldoAnterior + '</p>');
@@ -45,7 +78,6 @@
 					}
 					if(obj.status=="error")
 					{
-
 						$('#divMensaje').html('<p>' + obj.error + '</p>');
 					}
 					

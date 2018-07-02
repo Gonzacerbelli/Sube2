@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -15,6 +15,40 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		
+		function controlarUsuario(){
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Usuario",
+				data: {"accion" : "verificarUsuario"},
+				async: true,
+				success: function (data) {
+					if(data == '' || data == 'null'){
+						window.location = 'login.jsp';
+					}else{
+						var obj = JSON.parse(data);
+		            	if(obj.permiso == '' || obj.permiso == null){
+							window.location = 'login.jsp';
+						}else if(obj.permiso == 'Empleado'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objRecarga());
+						}else if(obj.permiso == 'Usuario'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+						}else if(obj.permiso == 'Administrador'){
+							//ocultar carga
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+							$('#row2').html(objReportes()+' '+objRecarga());
+						}
+					}
+				}
+			});//fin ajax
+		}//fin function
+		
+		controlarUsuario();
 
 		cargarTarjetas();
 		cargarSaldoFecha();
@@ -171,7 +205,7 @@
 	            	</td>
 	            	<td>
 	            		<select class="form-control">
-	            			<option>Pï¿½rdida</option>
+	            			<option>Pérdida</option>
 	            			<option>Robo</option>
 	            			<option>Rotura</option>
 	            		</select>
@@ -247,7 +281,7 @@
 	
 	
 	<footer class="container border-top">
-        <p class="float-right"><a href="home.jsp">Volver atrï¿½s</a></p>
+        <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
         <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 	
