@@ -19,9 +19,6 @@
 	$(document).ready(function(){
 		
 		function controlarUsuario(){
-			
-			
-			
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Usuario",
