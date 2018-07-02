@@ -62,7 +62,10 @@ public class Viaje {
 	}
 
 	public void agregarBoleto(Boleto boleto) {
-		cantBoletos++;
+		if(!boleto.isCerrado())
+		{
+			cantBoletos++;	
+		}
 		this.getLstBoleto().add(boleto);
 	}
 	

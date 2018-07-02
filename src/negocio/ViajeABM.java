@@ -12,6 +12,7 @@ import java.util.Set;
 public class ViajeABM {
 	
 	ViajeDao dao = new ViajeDao();
+	Facade f = new Facade();
 	
 	public int agregar(GregorianCalendar fechaHora, Tarjeta tarjeta) {
 		Viaje viaje = new Viaje(fechaHora, tarjeta);
@@ -48,22 +49,18 @@ public class ViajeABM {
 		return v;
 	}
 	
-	public Viaje viajeCorrespondiente(Tarjeta tarjeta, Transporte transporte, GregorianCalendar fechaHora) throws Exception {
-		Viaje ultimoViaje = tarjeta.getUltimoViaje();
+	public Viaje viajeCorrespondiente(Viaje ultimoViaje, Transporte transporte, GregorianCalendar fechaHora) throws Exception {
+		Viaje resultado = null;
 		if(ultimoViaje != null) {
-			ultimoViaje = traerViaje(ultimoViaje.getIdViaje());
-			return ultimoViaje;
-//			Boleto ultimoBoleto = ultimoViaje.getUltimoBoleto();
-//			if(ultimoBoleto != null && !ultimoBoleto.isCerrado() && transporte.equals(ultimoBoleto.getTransporte())) {
-//				return ultimoViaje;
-//			}
+			Boleto ultimoBoleto = f.getBoletoABM().traerBoleto(ultimoViaje.getUltimoBoleto().getIdBoleto());
+			//si el ultimo boleto no esta cerrado y el transporte actual es el mismo, entonces sigue estando en el mismo viaje
+			if (ultimoBoleto != null) {
+				if(ultimoViaje.getCantBoletos() <= 5 && Funciones.diferenciaHoras(fechaHora, ultimoBoleto.getFechaHora()) <= 2) {
+					resultado = ultimoViaje;
+				}
+			}
 		}
-		if(ultimoViaje == null || ultimoViaje.getCantBoletos() >= 6 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) > 2 || Funciones.diferenciaHoras(ultimoViaje.getFechaHora(), fechaHora) < -2) {
-			Viaje viaje = new Viaje(fechaHora, tarjeta);
-			tarjeta.agregarViaje(viaje);
-			return viaje;
-		}
-		return ultimoViaje;
+		return resultado;
 	}
 
 }

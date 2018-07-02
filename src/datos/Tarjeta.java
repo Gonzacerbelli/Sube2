@@ -1,9 +1,10 @@
 package datos;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Tarjeta {
+public class Tarjeta implements Serializable{
 	private int idTarjeta;
 	private int numTarjeta;
 	private double saldo;

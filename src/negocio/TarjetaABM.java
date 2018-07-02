@@ -1,15 +1,24 @@
 package negocio;
 
+import datos.Boleto;
+import datos.Estacion;
+import datos.Linea;
 import datos.Movimiento;
+import datos.Ramal;
+import datos.RedSube;
+import datos.Tarifa;
 import datos.Tarjeta;
+import datos.Transporte;
 import datos.Usuario;
 import datos.Viaje;
+
+import java.util.GregorianCalendar;
 import java.util.Set;
 import dao.TarjetaDao;
 
 public class TarjetaABM {
 	TarjetaDao dao = new TarjetaDao();
-	
+	Facade f = new Facade();
 	public int agregar(int numTarjeta, double saldo, Set<Viaje> lstViaje, Usuario usuario, boolean activa,
 			Set<Movimiento> lstMovimiento) throws Exception {
 		Tarjeta tarjetaAux = dao.traerTarjeta(numTarjeta);
@@ -81,5 +90,19 @@ public class TarjetaABM {
 		}
 		t.setSaldo(t.getSaldo() + monto);
 		modificar(t);
+	}
+	
+	public void viajar(Tarjeta tarjeta, Boleto boleto, RedSube redSube, Viaje viaje) throws Exception {
+		f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
+		f.getMovimientoABM().agregar(boleto, tarjeta, redSube);
+		f.getTarjetaABM().modificar(tarjeta);
+		viaje.agregarBoleto(boleto);
+		try {
+			Viaje aux = f.getViajeABM().traerViaje(viaje.getIdViaje());	
+			f.getViajeABM().modificar(viaje);
+		}
+		catch (Exception ex){
+			f.getViajeABM().agregar(viaje);
+		}
 	}
 }

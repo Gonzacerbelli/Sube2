@@ -135,23 +135,24 @@ public class ControladorMovimientos extends HttpServlet {
 			if(medio != null) {
 				movimientos = movimientos.stream().filter(mov -> mov.getMedio().contains(medio)).collect(Collectors.toList());
 			}
-			List<String> fechaHoras = new ArrayList<>();
-			List<String> tipos = new ArrayList<>();
-			List<String> detalles = new ArrayList<>();
-			List<String> medios = new ArrayList<>();
-			List<String> valores = new ArrayList<>();
-			for(Movimiento mov : movimientos) {
-				fechaHoras.add(Funciones.traerFechaCortaHora(mov.getFechaHora()));
-				tipos.add(mov.getTipo());
-				detalles.add(mov.getDetalle());
-				medios.add(mov.getMedio());
-				valores.add(mov.getValor() + "");
-			}
-			obj.put("fechaHoras", fechaHoras);
-			obj.put("tipos", tipos);
-			obj.put("detalles", detalles);
-			obj.put("medios", medios);
-			obj.put("valores", valores);
+			obj.put("movimientos", movimientos);
+//			List<String> fechaHoras = new ArrayList<>();
+//			List<String> tipos = new ArrayList<>();
+//			List<String> detalles = new ArrayList<>();
+//			List<String> medios = new ArrayList<>();
+//			List<String> valores = new ArrayList<>();
+//			for(Movimiento mov : movimientos) {
+//				fechaHoras.add(Funciones.traerFechaCortaHora(mov.getFechaHora()));
+//				tipos.add(mov.getTipo());
+//				detalles.add(mov.getDetalle());
+//				medios.add(mov.getMedio());
+//				valores.add(mov.getValor() + "");
+//			}
+//			obj.put("fechaHoras", fechaHoras);
+//			obj.put("tipos", tipos);
+//			obj.put("detalles", detalles);
+//			obj.put("medios", medios);
+//			obj.put("valores", valores);
 			obj.put("status", "ok");
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(obj.toString());		

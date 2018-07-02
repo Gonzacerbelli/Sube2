@@ -205,6 +205,7 @@ public class Funciones {
 		return (( double) n);
 		}
 	
+	//devuelve la diferencia de horas entre a y b, si a tiene mas que b es positivo, sino es negativo.
 	public static long diferenciaHoras(GregorianCalendar a, GregorianCalendar b) {
 		long difMs = a.getTimeInMillis() - b.getTimeInMillis();
 		long horas = difMs/60000;

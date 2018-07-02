@@ -14,90 +14,26 @@
 
 <script type="text/javascript">
 
+
+
+
 	$(document).ready(function(){
 		
 		
 		cargarTransportes();
-		
-		$(document).on('change','#selectTransporte',function(){
-			var transporte = $(this).val();
-			switch (transporte) {
-			case 'Colectivo':
-				$('#selectTarifa, #selectLinea').removeAttr("disabled");
-				$('#selectRamal, #selectEstacion').prop('disabled','disabled');
-				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
-				
-				cargarTarifas();
-				cargarLineas();
-				
-				break;
-				
-			case 'Subte':
-				$('#selectTarifa, #selectLinea').removeAttr("disabled");
-				$('#selectRamal').prop('disabled','disabled');
-				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
-				
-				cargarTarifas();
-				
-				cargarLineas();
-				
-				$(document).on('change','#selectLinea',function(){
-					if($('#selectLinea').val() == ""){
-						$('#selectEstacion').prop('disabled','disabled');
-						$('#selectEstacion').find('option').remove();
-					}else{
-						$('#selectEstacion').removeAttr("disabled");
-						$('#selectEstacion').find('option').remove();
-						cargarEstacionesLinea();
-					}
-				});//fin change
-				
-				
-				break;
-				
-			case 'Tren':
-				$('#selectTarifa, #selectLinea').removeAttr("disabled");
-				$('#selectTarifa, #selectLinea, #selectRamal, #selectEstacion').find('option').remove();
-				
-				cargarTarifas();
-				
-				cargarLineas();
-				
-				$(document).on('change','#selectLinea',function(){
-					
-					if($('#selectLinea').val() == ""){
-						$('#selectRamal, #selectEstacion').prop('disabled','disabled');
-						$('#selectRamal, #selectEstacion').find('option').remove();
-					}else{
-						$('#selectRamal').removeAttr("disabled");
-						$('#selectEstacion').prop('disabled','disabled');
-						$('#selectRamal, #selectEstacion').find('option').remove();
-						cargarRamales();
-					}
-					
-				});//fin change
-				
-				$(document).on('change','#selectRamal',function(){
-					if($('#selectRamal').val() == ""){
-						$('#selectEstacion').prop('disabled','disabled');
-						$('#selectEstacion').find('option').remove();
-					}else{
-						$('#selectEstacion').removeAttr("disabled");
-						$('#selectEstacion').find('option').remove();
-						cargarEstacionesRamal();
-					}
-				});//fin change
-				
-				break;
 
-			default:
-				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').prop('disabled','disabled');
-				$('#selectTarifa, #selectLinea, #selectEstacion, #selectRamal').find('option').remove();
-				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
-				break;
-			}
+		$(document).on('change','#selectTransporte',function(){
+			cargarLineas();
+			cargarTarifas();
 		});
-		
+
+		$(document).on('change','#selectLinea',function(){
+			if($('#selectLinea').val() != ""){
+				cargarRamales();
+				cargarEstacionesLinea();
+			}
+		});//fin change
+
 		$(document).on('change','#selectTarifa',function(){
 			if($(this).val() == ""){
 				$('#divMensaje').html('<p style="line-height:150px;height:100%;">Indique su destino.</p>');
@@ -105,6 +41,12 @@
 				$('#divMensaje').html('<p style="line-height:75px;height:100%;">Tarifa a cobrar: ' + $(this).val() + '.<br>Apoye su tarjeta.</p>');
 			}
 		});
+
+		$(document).on('change','#selectRamal',function(){
+			if($('#selectRamal').val() != ""){
+				cargarEstacionesRamal()
+			}
+		});//fin change
 
 		$(document).on('click','#btnViajar',function(){
 			viajar();
@@ -124,10 +66,21 @@
 				async: false,
 				success: function (data) {
 					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectTransporte').find('option').remove();
 					$('#selectTransporte').append('<option></option>');
 					for (var i = 0; i < obj.transportes.length; i++) {
 						$('#selectTransporte').append('<option id="'+ obj.transportes[i].idTransporte +'">'+obj.transportes[i].nombre+'</option>');
 					}
+					if(obj.transportes.length > 0)
+					{
+						$('#selectTransporte').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectTransporte').prop('disabled','disabled');
+					}
+					
 				}
 			});//fin ajax
 		}
@@ -141,10 +94,19 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectTarifa').find('option').remove();
 					$('#selectTarifa').append('<option></option>');
 					for (var i = 0; i < obj.tarifas.length; i++) {
-
 						$('#selectTarifa').append('<option id="'+ obj.tarifas[i].idTarifa +'">'+obj.tarifas[i].monto+'</option>');
+					}
+					if(obj.tarifas.length > 0)
+					{
+						$('#selectTarifa').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectTarifa').prop('disabled','disabled');
 					}
 				}
 			});//fin ajax
@@ -152,6 +114,8 @@
 		
 		function cargarLineas(){
 			//cargo lista de lineas
+			desactivarRamales();
+			desactivarEstaciones();
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Simulador",
@@ -159,9 +123,19 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectLinea').find('option').remove();
 					$('#selectLinea').append('<option></option>');
 					for (var i = 0; i < obj.lineas.length; i++) {
 						$('#selectLinea').append('<option id="'+ obj.lineas[i].idLinea +'">'+obj.lineas[i].nombre+'</option>');
+					}
+					if(obj.lineas.length > 0)
+					{
+						$('#selectLinea').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectLinea').prop('disabled','disabled');
 					}
 				}
 			});//fin ajax
@@ -169,6 +143,7 @@
 		
 		function cargarRamales(){
 			//cargo lista de ramales
+			desactivarEstaciones();
 			$.ajax({
 				method:"POST",
 				url: "/Sube/Simulador",
@@ -176,10 +151,21 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectRamal').find('option').remove();
 					$('#selectRamal').append('<option></option>');
 					for (var i = 0; i < obj.ramales.length; i++) {
 						$('#selectRamal').append('<option id="'+ obj.ramales[i].idRamal +'">'+obj.ramales[i].nombre+'</option>');
 					}
+					if(obj.ramales.length > 0)
+					{
+						$('#selectRamal').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectRamal').prop('disabled','disabled');
+					}
+					
 				}
 			});//fin ajax
 		}//fin cargarRamales
@@ -193,10 +179,21 @@
 				async: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
+					console.log(obj);
+					$('#selectEstacion').find('option').remove();
 					$('#selectEstacion').append('<option></option>');
 					for (var i = 0; i < obj.estaciones.length; i++) {
 						$('#selectEstacion').append('<option id="'+ obj.estaciones[i].idEstacion +'">'+obj.estaciones[i].nombre+'</option>');
 					}
+					if(obj.estaciones.length > 0)
+					{
+						$('#selectEstacion').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectEstacion').prop('disabled','disabled');
+					}
+					
 				}
 			});//fin ajax
 		}//fin cargarEstacionesLinea
@@ -213,14 +210,44 @@
 				success: function (data) {
 					var obj = JSON.parse(data);
 					console.log(obj);
+					$('#selectEstacion').find('option').remove();
 					$('#selectEstacion').append('<option></option>');
-					for (var i = 0; i < obj.estacionesRamal.length; i++) {
-						$('#selectEstacion').append('<option id="'+ obj.estacionesRamal[i].estacion.idEstacion +'">'+obj.estacionesRamal[i].estacion.nombre+'</option>');
+					for (var i = 0; i < obj.estaciones.length; i++) {
+						$('#selectEstacion').append('<option id="'+ obj.estaciones[i].idEstacion +'">'+obj.estaciones[i].nombre+'</option>');
 					}
+					if(obj.estaciones.length > 0)
+					{
+						$('#selectEstacion').removeAttr("disabled");
+					}
+					else
+					{
+						$('#selectEstacion').prop('disabled','disabled');
+					}
+					
 				}
 			});//fin ajax
 		}//fin cargarEstacionesRamal
 
+		function desactivarTarifas()
+		{
+			$('#selectTarifa').prop('disabled','disabled');
+		}
+
+		function desactivarLineas()
+		{
+			$('#selectLinea').prop('disabled','disabled');
+		}
+
+		function desactivarRamales()
+		{
+			$('#selectRamal').prop('disabled','disabled');
+		}
+
+		function desactivarEstaciones()
+		{
+			$('#selectEstacion').prop('disabled','disabled');
+		}
+		
 		function viajar(){
 			//paso los datos seleccionados a la accion viajar
 			$.ajax({
@@ -240,13 +267,13 @@
 					console.log(obj);
 					if(obj.status == "error") 
 					{
-						$('#divMensaje').html('<p>'+ obj.mensaje +'</p>');
+						$('#divMensaje').html('<p style="color:red">'+ obj.mensaje +'</p>');
 					}
 					if(obj.status == "ok")
 					{
-						$('#divMensaje').html('<p>'+ obj.mensaje+'</p>');
-						$('#divMensaje').append('<p> Cobrado: '+ obj.valorCobrado+'</p>');
-						$('#divMensaje').append('<p> Saldo: '+ obj.saldo+'</p>');
+						$('#divMensaje').html('<p style="color:green">'+ obj.mensaje+'</p>');
+						$('#divMensaje').append('<p style="color:green"> Cobrado: '+ obj.valorCobrado+'</p>');
+						$('#divMensaje').append('<p style="color:green"> Saldo: '+ obj.saldo+'</p>');
 					}
 				}
 			});//fin ajax

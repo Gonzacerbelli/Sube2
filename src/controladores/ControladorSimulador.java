@@ -1,6 +1,7 @@
 package controladores;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -102,20 +103,10 @@ public class ControladorSimulador extends HttpServlet {
 			int dni = (int) request.getSession().getAttribute("dniUsuarioLogueado");
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
 			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaActiva(usuario);
-			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta, transporte, fechaHora);
+			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta.getUltimoViaje(), transporte, fechaHora);
 			RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
 			Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
-			f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
-			f.getMovimientoABM().agregar(boleto, tarjeta, redSube);
-			f.getTarjetaABM().modificar(tarjeta);
-			viaje.agregarBoleto(boleto);
-			try {
-				Viaje aux = f.getViajeABM().traerViaje(viaje.getIdViaje());	
-				f.getViajeABM().modificar(viaje);
-			}
-			catch (Exception ex){
-				f.getViajeABM().agregar(viaje);
-			}
+			f.getTarjetaABM().viajar(tarjeta, boleto, redSube, viaje);
 			array.put("saldo", tarjeta.getSaldo());
 			array.put("mensaje", "BUEN VIAJE");
 			array.put("valorCobrado", boleto.getPrecioFinal());
@@ -196,9 +187,11 @@ public class ControladorSimulador extends HttpServlet {
 	private void traerEstacionesRamal(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			int idRamal = Integer.parseInt(request.getParameter("idRamal"));
-			List<Estacion> estaciones = f.getEstacionABM().traerEstacionesRamal(idRamal);
+			Ramal ramal = f.getRamalABM().traerRamal(idRamal);
+			List<Estacion> estacionesRamal = new ArrayList<Estacion>();
+			ramal.getRamalEstaciones().forEach(r_e -> estacionesRamal.add(r_e.getEstacion()));
 			JSONObject array = new JSONObject();
-			array.put("estaciones", estaciones);
+			array.put("estaciones", estacionesRamal);
 			response.setContentType("text/html;charset=UTF-8");
             response.getWriter().write(array.toString());
 		} catch (Exception e) {

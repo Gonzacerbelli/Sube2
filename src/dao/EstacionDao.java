@@ -112,7 +112,7 @@ public class EstacionDao {
 		List<Estacion> list = null;
 		try {
 			iniciaOperacion(); 
-			String hql = "from ramal_tiene_estacion r_e inner join fetch Estacion e on e.idEstacion = r_e.idEstacion where r_e.idRamal = " + idRamal;
+			String hql = "from RamalEstacion r_e inner join fetch Estacion e on e.idEstacion = r_e.estacion.idEstacion where r_e.ramal.idRamal = " + idRamal;
 			list = (List<Estacion>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

@@ -42,9 +42,9 @@ public class BoletoABM {
 	
 	public Boleto traerBoleto(int idBoleto) throws Exception {
 		Boleto b = dao.traerBoleto(idBoleto);
-		if (b == null) {
-			throw new Exception("El boleto no existe.");
-		}
+//		if (b == null) {
+//			throw new Exception("El boleto no existe.");
+//		}
 		return b;
 	}
 	
@@ -73,6 +73,5 @@ public class BoletoABM {
 		}
 		tarjeta.setSaldo(tarjeta.getSaldo() - boleto.getPrecioFinal());
 	}
-	
 	
 }
