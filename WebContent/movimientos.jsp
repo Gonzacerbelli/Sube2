@@ -27,24 +27,11 @@
 						window.location = 'login.jsp';
 					}else{
 						var obj = JSON.parse(data);
-						/*
 		            	if(obj.permiso == '' || obj.permiso == null){
 							window.location = 'login.jsp';
 						}else if(obj.permiso == 'Empleado'){
-							//ocultar elementos home
-							$('#carga').hide();
-							$('#row1').html(objRecarga());
-						}else if(obj.permiso == 'Usuario'){
-							//ocultar elementos home
-							$('#carga').hide();
-							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-						}else if(obj.permiso == 'Administrador'){
-							//ocultar carga
-							$('#carga').hide();
-							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-							$('#row2').html(objReportes()+' '+objRecarga());
+							window.location = 'home.jsp';
 						}
-						*/
 					}
 				}
 			});//fin ajax
