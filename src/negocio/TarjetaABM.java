@@ -92,7 +92,20 @@ public class TarjetaABM {
 		modificar(t);
 	}
 	
-	public void viajar(Tarjeta tarjeta, Boleto boleto, RedSube redSube, Viaje viaje) throws Exception {
+	public Boleto viajar(Tarjeta tarjeta, Usuario usuario, GregorianCalendar fechaHora, Tarifa tarifa, Estacion estacion, Ramal ramal, Linea linea, Transporte transporte) throws Exception {
+		Viaje viaje = f.getViajeABM().traerUltimoViaje(tarjeta);
+		if(viaje == null || !f.getViajeABM().sigueEnViaje(viaje, fechaHora, transporte))
+		{
+			viaje = new Viaje(fechaHora, tarjeta);
+			tarjeta.agregarViaje(viaje);
+		}
+//		Usuario usuario = null;
+//		if(tarjeta.getUsuario() != null)
+//		{
+//			usuario = f.getUsuarioABM().traerUsuario(tarjeta.getUsuario().getDni());
+//		}
+		RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
+		Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
 		f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
 		f.getMovimientoABM().agregar(boleto, tarjeta, redSube);
 		f.getTarjetaABM().modificar(tarjeta);
@@ -104,5 +117,6 @@ public class TarjetaABM {
 		catch (Exception ex){
 			f.getViajeABM().agregar(viaje);
 		}
+		return boleto;
 	}
 }

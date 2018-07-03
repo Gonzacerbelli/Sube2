@@ -79,7 +79,6 @@ public class ControladorReportes extends HttpServlet {
 	private void viajar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String idTransporte = request.getParameter("idTransporte");
-		String numTarjeta = request.getParameter("numTarjeta");
 		String idLinea = request.getParameter("idLinea");
 		String idRamal = request.getParameter("idRamal");
 		String idEstacion = request.getParameter("idEstacion");
@@ -89,7 +88,6 @@ public class ControladorReportes extends HttpServlet {
 		JSONObject array = new JSONObject();
 		try {
 			Transporte transporte = f.getTransporteABM().traerTransporte(Integer.parseInt(idTransporte));
-			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
 			Linea linea = f.getLineaABM().traerLinea(Integer.parseInt(idLinea));
 			Ramal ramal = null;
 			if(idRamal != null)
@@ -103,10 +101,8 @@ public class ControladorReportes extends HttpServlet {
 			GregorianCalendar fechaHora = (GregorianCalendar) Calendar.getInstance(); //Funciones.traerFechaHMyS(fechaHoraStr);
 			int dni = (int) request.getSession().getAttribute("dniUsuarioLogueado");
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
-//			tarjeta = usuario.getTarjetas().iterator().next();
-			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta, transporte, fechaHora);
-			RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
-			Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
+			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaActiva(usuario);
+			Boleto boleto = f.getTarjetaABM().viajar(tarjeta, usuario, fechaHora, tarifa, estacion, ramal, linea, transporte);
 			f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
 			f.getTarjetaABM().modificar(tarjeta);
 			array.put("saldo", tarjeta.getSaldo());

@@ -27,6 +27,7 @@
 						window.location = 'login.jsp';
 					}else{
 						var obj = JSON.parse(data);
+						/*
 		            	if(obj.permiso == '' || obj.permiso == null){
 							window.location = 'login.jsp';
 						}else if(obj.permiso == 'Empleado'){
@@ -43,6 +44,7 @@
 							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
 							$('#row2').html(objReportes()+' '+objRecarga());
 						}
+						*/
 					}
 				}
 			});//fin ajax
@@ -81,6 +83,7 @@
 					"accion" : "traerTarjetas"
 					},
 				async: true,
+				processData: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
 					console.log(obj);
@@ -120,13 +123,14 @@
 					if(obj.status=="ok")
 					{
 						$('#bodyTableMovimientos').html(' ');
-						for (var i = 0; i < obj.fechaHoras.length; i++) {
-							$('#bodyTableMovimientos').append('<tr id="registro'+i+'"></tr>');	
-							$('#registro' + i).append('<td>'+ obj.fechaHoras[i] + '</td>');
-							$('#registro' + i).append('<td>'+ obj.tipos[i] + '</td>');
-							$('#registro' + i).append('<td>'+ obj.medios[i] + '</td>');
-							$('#registro' + i).append('<td>'+ obj.detalles[i] + '</td>');
-							$('#registro' + i).append('<td>'+ obj.valores[i] + '</td>');
+						for (var i = 0; i < obj.movimientos.length; i++) {
+							$('#bodyTableMovimientos').append('<tr id="registro'+i+'"></tr>');
+							
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].fechaHora + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].tipo + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].medio + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].detalle + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].valor + '</td>');
 						}
 					}
 					if(obj.status=="error")
@@ -165,6 +169,7 @@
 				}
 			});//fin ajax
 		}//fin cargarSaldoFecha
+
 		
 		
 		
@@ -245,13 +250,10 @@
 	            		<input id="fechaHasta" type="date" class="form-control">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<select class="form-control">
-	            		
-	            		</select>
+	            		<input class="form-control" id="inputTipo">
 	            	</td>
 	            	<td style="width:20%;padding-right:30px;">
-	            		<select class="form-control">
-	            		</select>
+	            		<input class="form-control" id="inputMedio">
 	            	</td>
 	            	<td style="width:10%;text-align:center;">
 	            		<input type="button" class="btn btn-primary" id="btnBuscar" value="&nbsp;Buscar&nbsp;">

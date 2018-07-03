@@ -84,6 +84,7 @@ public class ControladorMovimientos extends HttpServlet {
 	private void traerTarjetas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		JSONObject obj = new JSONObject();
 		try {
+			System.out.println(request.getSession().getAttribute("dniUsuarioLogueado"));
 			int dni = (int)request.getSession().getAttribute("dniUsuarioLogueado");
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
 			Set<Tarjeta> tarjetas = usuario.getTarjetas();

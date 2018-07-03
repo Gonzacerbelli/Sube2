@@ -41,11 +41,11 @@ public class ViajeABM {
 		dao.eliminar(v);
 	}
 	
-	public Viaje traerViaje(int idViaje) throws Exception {
+	public Viaje traerViaje(int idViaje) {
 		Viaje v = dao.traerViaje(idViaje);
-		if (v == null) {
-			throw new Exception("El Viaje no existe.");
-		}
+//		if (v == null) {
+//			throw new Exception("El Viaje no existe.");
+//		}
 		return v;
 	}
 	
@@ -62,5 +62,32 @@ public class ViajeABM {
 		}
 		return resultado;
 	}
-
+	
+	public Viaje traerUltimoViaje(Tarjeta tarjeta) {
+		Viaje resultado = null;
+		resultado = tarjeta.getUltimoViaje();
+		if(resultado != null)
+		{
+			resultado = traerViaje(resultado.getIdViaje());
+		}
+		return resultado;
+	}
+	
+	public boolean sigueEnViaje(Viaje viaje, GregorianCalendar fechaHora, Transporte transporte) {
+		boolean sigueEnViaje = false;
+		if(viaje != null)
+		{
+			if(viaje.getUltimoBoleto() != null)
+			{
+				Boleto ultimoBoleto = f.getBoletoABM().traerBoleto(viaje.getUltimoBoleto().getIdBoleto());	
+				//si el ultimo boleto no esta cerrado y el transporte actual es el mismo, entonces sigue estando en el mismo viaje
+				if(viaje.getCantBoletos() <= 5 && Funciones.diferenciaHoras(fechaHora, ultimoBoleto.getFechaHora()) <= 2) 
+				{
+					sigueEnViaje = true;
+				}
+			}
+			
+		}
+		return sigueEnViaje;
+	}
 }

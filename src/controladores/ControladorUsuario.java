@@ -54,7 +54,7 @@ private Facade f = new Facade();
 			response.setContentType("text/html;charset=UTF-8");
             response.getWriter().write(array.toString());
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 
 	}

@@ -56,7 +56,7 @@ public class Movimiento {
 	public void setFechaHora(GregorianCalendar fechaHora) {
 		this.fechaHora = fechaHora;
 	}
-
+	
 	public String getDetalle() {
 		return detalle;
 	}

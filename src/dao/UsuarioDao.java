@@ -76,6 +76,7 @@ public class UsuarioDao {
 				Hibernate.initialize(objeto.getUsuarioDescuentos());
 			}
 		} finally {
+			if(!session.isOpen())
 			session.close();
 		}
 		return objeto;

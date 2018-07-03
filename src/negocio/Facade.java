@@ -42,6 +42,10 @@ public class Facade {
 	public UsuarioBeneficioABM getUsuarioBeneficioABM() {
 		return new UsuarioBeneficioABM();
 	}
+	
+	public UsuarioDescuentoABM getUsuarioDescuentoABM() {
+		return new UsuarioDescuentoABM();
+	}
 
 	public ViajeABM getViajeABM() {
 		return new ViajeABM();

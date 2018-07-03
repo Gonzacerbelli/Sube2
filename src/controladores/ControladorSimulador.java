@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,12 +102,10 @@ public class ControladorSimulador extends HttpServlet {
 				tarifa = f.getTarifaABM().traerTarifa(Integer.parseInt(idTarifa));
 			GregorianCalendar fechaHora = Funciones.parse("yyyy-MM-dd'T'hh:mm", fechaHoraStr); //Funciones.traerFechaHMyS(fechaHoraStr);
 			int dni = (int) request.getSession().getAttribute("dniUsuarioLogueado");
+			
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
 			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaActiva(usuario);
-			Viaje viaje = f.getViajeABM().viajeCorrespondiente(tarjeta.getUltimoViaje(), transporte, fechaHora);
-			RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
-			Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
-			f.getTarjetaABM().viajar(tarjeta, boleto, redSube, viaje);
+			Boleto boleto = f.getTarjetaABM().viajar(tarjeta, usuario, fechaHora, tarifa, estacion, ramal, linea, transporte);
 			array.put("saldo", tarjeta.getSaldo());
 			array.put("mensaje", "BUEN VIAJE");
 			array.put("valorCobrado", boleto.getPrecioFinal());

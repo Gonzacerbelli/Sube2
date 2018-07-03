@@ -2,6 +2,7 @@ package negocio;
 
 import dao.BoletoDao;
 import datos.Boleto;
+import datos.Descuento;
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
@@ -11,11 +12,15 @@ import datos.Tarjeta;
 import datos.Viaje;
 import datos.Transporte;
 import datos.Usuario;
+import datos.UsuarioDescuento;
 
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Set;
 
 public class BoletoABM {
 	BoletoDao dao = new BoletoDao();
+	Facade f = new Facade();
 	
 	public int agregar(Transporte transporte, GregorianCalendar fechaHora, Tarifa tarifa, double precioFinal, Viaje viaje,
 			Linea linea, Ramal ramal, Estacion estacion) {
@@ -40,7 +45,7 @@ public class BoletoABM {
 		dao.eliminar(b);
 	}
 	
-	public Boleto traerBoleto(int idBoleto) throws Exception {
+	public Boleto traerBoleto(int idBoleto) {
 		Boleto b = dao.traerBoleto(idBoleto);
 //		if (b == null) {
 //			throw new Exception("El boleto no existe.");
@@ -53,7 +58,11 @@ public class BoletoABM {
 		double precioFinal = tarifa.getMonto();
 		
 		if(usuario != null) {
-			precioFinal = usuario.aplicarDescuentos(precioFinal);
+			List<UsuarioDescuento> uDescuentos = f.getUsuarioDescuentoABM().traerUsuarioDescuentos(usuario.getIdUsuario());
+			for(UsuarioDescuento ud: uDescuentos)
+			{
+				precioFinal = ud.getDescuento().aplicarDescuento(precioFinal);		
+			}
 		}
 		
 		if(redSube != null) {

@@ -12,6 +12,14 @@ public class UsuarioDescuento {
 	
 	public UsuarioDescuento() { }
 
+	public UsuarioDescuento(Usuario usuario, Descuento descuento, GregorianCalendar fechaAsignado, boolean activo) {
+		super();
+		this.usuario = usuario;
+		this.descuento = descuento;
+		this.fechaAsignado = fechaAsignado;
+		this.activo = activo;
+	}
+
 	public int getIdRelacion() {
 		return idRelacion;
 	}
