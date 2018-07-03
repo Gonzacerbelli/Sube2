@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema Único de Boleto Electrónico</title>
+<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -54,11 +54,11 @@
 		
 		 var data = google.visualization.arrayToDataTable([
 		    ['', 'Cantidad'],
-		    ['Línea 51', 15],
+		    ['Lï¿½nea 51', 15],
 		    ['Roca', 5],
-		    ['Línea A', 1],
-		    ['Línea 160', 12],
-			['Línea 79', 8]
+		    ['Lï¿½nea A', 1],
+		    ['Lï¿½nea 160', 12],
+			['Lï¿½nea 79', 8]
 		]);
 		
 		var materialOptions = {
@@ -121,6 +121,29 @@
 				}
 			});//fin ajax
 		}//fin function
+		$('#btnReporte').click(function(){
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Reportes",
+				data: {
+					"accion" : "traerTransportes"
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						
+					}
+					if(obj.status=="error")
+					{
+
+					}
+					
+				}
+			});//fin ajax
+		});
 		
 		controlarUsuario();
 		
@@ -211,7 +234,7 @@
 	
 	
 	<footer class="container border-top" style="margin-top:100px;">
-        <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
+        <p class="float-right"><a href="home.jsp">Volver atrï¿½s</a></p>
         <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
     </footer>
 	
