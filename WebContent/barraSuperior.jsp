@@ -7,7 +7,6 @@
       	<div class="container" style="display:block;">
       		<img class="logoSube" src="images/logo_sube.png">
       	
-          
         	<a class="btn btn-primary ingresaBarraSuperior" href="login.jsp" role="button">Ingresá</a></p>
          
          </div>

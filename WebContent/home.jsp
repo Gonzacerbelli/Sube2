@@ -18,40 +18,43 @@
 
 	$(document).ready(function(){
 		
+
+		/*
 		function controlarUsuario(){
-			$.ajax({
-				method:"POST",
-				url: "/Sube/Usuario",
-				data: {"accion" : "verificarUsuario"},
-				async: true,
-				success: function (data) {
-					if(data == '' || data == 'null'){
+		$.ajax({
+			method:"POST",
+			url: "/Sube/Usuario",
+			data: {"accion" : "verificarUsuario"},
+			async: true,
+			success: function (data) {
+				if(data == '' || data == 'null'){
+					window.location = 'login.jsp';
+				}else{
+					var obj = JSON.parse(data);
+	            	if(obj.permiso == '' || obj.permiso == null){
 						window.location = 'login.jsp';
-					}else{
-						var obj = JSON.parse(data);
-		            	if(obj.permiso == '' || obj.permiso == null){
-							window.location = 'login.jsp';
-						}else if(obj.permiso == 'Empleado'){
-							//ocultar elementos home
-							$('#carga').hide();
-							$('#row1').html(objRecarga());
-						}else if(obj.permiso == 'Usuario'){
-							//ocultar elementos home
-							$('#carga').hide();
-							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-						}else if(obj.permiso == 'Administrador'){
-							//ocultar carga
-							$('#carga').hide();
-							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-							$('#row2').html(objReportes()+' '+objRecarga());
-						}
+					}else if(obj.permiso == 'Empleado'){
+						//ocultar elementos home
+						$('#carga').hide();
+						$('#row1').html(objRecarga());
+					}else if(obj.permiso == 'Usuario'){
+						//ocultar elementos home
+						$('#carga').hide();
+						$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+					}else if(obj.permiso == 'Administrador'){
+						//ocultar carga
+						$('#carga').hide();
+						$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+						$('#row2').html(objReportes()+' '+objRecarga());
 					}
 				}
-			});//fin ajax
-		}//fin function
+			}
+		});//fin ajax
+	}//fin function
+	
+	controlarUsuario();
 		
-		controlarUsuario();
-		
+		*/
 		function objMovimientos(){
 			return '<div class="col-lg-4"><a href="movimientos.jsp" style="text-decoration:none;"><img class="rounded-circle" src="images/movimientos.png" alt="Generic placeholder image" width="140" height="140"></a><h2>Movimientos</h2></div>';
 		}
