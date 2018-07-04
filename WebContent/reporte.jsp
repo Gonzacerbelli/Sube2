@@ -19,112 +19,68 @@
 	google.charts.load("current", {packages: ['corechart', 'bar']});
 	google.charts.setOnLoadCallback(graficoTorta);
 	google.charts.setOnLoadCallback(graficoBarras);
-	google.charts.setOnLoadCallback(graficoLinea);
+	
+	var materialBarras,barrasOptions,dataBarras;
+	var dataTorta,optionsTorta,chartTorta;
 	
 	function graficoTorta() {
-	  var data = google.visualization.arrayToDataTable([
-	    ['Task', 'Hours per Day'],
-	    ['Work',     11],
-	    ['Eat',      2],
-	    ['Commute',  2],
-	    ['Watch TV', 2],
-	    ['Sleep',    7]
-	  ]);
+		dataTorta = new google.visualization.DataTable();
+		dataTorta.addColumn('string', 'Transporte');
+		dataTorta.addColumn('number', 'Cantidad');
 	
-	  var options = {
+	  optionsTorta = {
 	    pieHole: 0.4,
 	    chartArea: {left:0,top:10,width:'100%',height:'90%'},
 	    legend: 'labeled'
 	  };
 	
-	  var chart = new google.visualization.PieChart(document.getElementById('grafico1'));
-	  chart.draw(data, options);
+	  chartTorta = new google.visualization.PieChart(document.getElementById('grafico1'));
+	  chartTorta.draw(dataTorta, optionsTorta);
 	}
 	
 	function graficoBarras() {
-		/*
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Transporte');
-		data.addColumn('number', 'Cantidad');
 		
-		for (var i = 0; i < obj.length; i++) {
-			data.addRow( [Object.keys(obj[i]).toString()], Number( r[i] [Objects.keys(r[i]).toString()] ) );
-		}
-		*/
+		dataBarras = new google.visualization.DataTable();
+		dataBarras.addColumn('string', '');
+		dataBarras.addColumn('number', 'Cantidad');
 		
-		 var data = google.visualization.arrayToDataTable([
-		    ['', 'Cantidad'],
-		    ['L�nea 51', 15],
-		    ['Roca', 5],
-		    ['L�nea A', 1],
-		    ['L�nea 160', 12],
-			['L�nea 79', 8]
-		]);
-		
-		var materialOptions = {
+		barrasOptions = {
 			legend: {position: 'none'},
 		    bars: 'horizontal'
 		};
-		var materialChart = new google.charts.Bar(document.getElementById('grafico2'));
-		materialChart.draw(data, materialOptions);
-	}
-	
-	function graficoLinea() {
-		var data = google.visualization.arrayToDataTable([
-	      ['Year', 'Sales', 'Expenses'],
-	      ['2004',  1000,      400],
-	      ['2005',  1170,      460],
-	      ['2006',  660,       1120],
-	      ['2007',  1030,      540]
-	    ]);
-
-	    var options = {
-	      legend: {position: 'none'},
-	      chartArea: {left:45,top:30,width:'100%',height:'60%'},
-	    };
-
-	    var chart = new google.visualization.LineChart(document.getElementById('grafico3'));
-
-	    chart.draw(data, options);
+		materialBarras = new google.charts.Bar(document.getElementById('grafico2'));
+		materialBarras.draw(dataBarras, barrasOptions);
 	}
 
 	$(document).ready(function(){
 		
-		function controlarUsuario(){
+		cargarTarjetas();
+		setTimeout(function(){cargarInputs();$('#btnReporte').trigger('click');},1000);
+
+
+		$(document).on('click','#btnReporte',function(){
+			if($('#selectTarjeta').val() != ""){
+				cargarMovimientos();
+			}			
+		});//fin change
+
+
+		function cargarTarjetas(){
+			//paso los datos seleccionados a la accion viajar
 			$.ajax({
 				method:"POST",
-				url: "/Sube/Usuario",
-				data: {"accion" : "verificarUsuario"},
-				async: true,
-				success: function (data) {
-					if(data == '' || data == 'null'){
-						window.location = 'login.jsp';
-					}else{
-						var obj = JSON.parse(data);
-		            	if(obj.permiso == '' || obj.permiso == null){
-							window.location = 'login.jsp';
-						}else if(obj.permiso == 'Empleado'){
-							window.location = 'home.jsp';
-						}
-					}
-				}
-			});//fin ajax
-		}//fin function
-		
-		$('#btnReporte').click(function(){
-			$.ajax({
-				method:"POST",
-				url: "/Sube/Reportes",
+				url: "/Sube/Movimientos",
 				data: {
-					"accion" : "traerTransportes"
+					"accion" : "traerTarjetaActiva"
 					},
 				async: true,
+				processData: true,
 				success: function (data) {
 					var obj = JSON.parse(data);
 					console.log(obj);
 					if(obj.status=="ok")
 					{
-						
+						$('#numTarjeta').val(obj.tarjetas);
 					}
 					if(obj.status=="error")
 					{
@@ -133,9 +89,114 @@
 					
 				}
 			});//fin ajax
-		});
+		}//fin cargarTarjetas
+
 		
-		controlarUsuario();
+		function cargarMovimientos(){
+			//traigo transportes grafico torta
+			var promise = $.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerCantidadTransporte",
+					"numTarjeta" : $('#numTarjeta').val(), 
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val(),
+					"tipo" : $('#inputTipo').val(),
+					"medio" : $('#inputMedio').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						dataTorta = new google.visualization.DataTable();
+						dataTorta.addColumn('string', 'Transporte');
+						dataTorta.addColumn('number', 'Cantidad');
+						
+						dataTorta.addRow(["Colectivo",Number(obj.colectivo)]);
+						dataTorta.addRow(["Subte",Number(obj.subte)]);
+						dataTorta.addRow(["Tren",Number(obj.tren)]);
+						chartTorta.draw(dataTorta, optionsTorta);
+					}
+					if(obj.status=="error")
+					{
+						$('#bodyTableMovimientos').html('<p>'+ obj.error + '</p>');
+					}
+				}
+			});//fin transportes grafico torta
+			
+			
+			//traigo lineas grafico barra
+			promise.then(function(){
+				$.ajax({
+					method:"POST",
+					url: "/Sube/Movimientos",
+					data: {
+						"accion" : "traerCantidadMedios",
+						"numTarjeta" : $('#numTarjeta').val(), 
+						"fechaDesde" : $('#fechaDesde').val(),
+						"fechaHasta" : $('#fechaHasta').val(),
+						"tipo" : $('#inputTipo').val(),
+						"medio" : $('#inputMedio').val()
+						},
+					async: true,
+					success: function (data) {
+						var obj = JSON.parse(data);
+						console.log(obj);
+						if(obj.status=="ok")
+						{
+							dataBarras = new google.visualization.DataTable();
+							dataBarras.addColumn('string', '');
+							dataBarras.addColumn('number', 'Cantidad');
+							
+							for (var j = 0; j < Object.keys(obj).length; j++) {
+								if(Object.keys(obj)[j].toString() != "status"){
+									dataBarras.addRow( [Object.keys(obj)[j].toString(), Number( obj[Object.keys(obj)[j].toString()] )] );
+								}
+							}
+							materialBarras.draw(dataBarras, barrasOptions);
+						}
+						if(obj.status=="error")
+						{
+							$('#bodyTableMovimientos').html('<p>'+ obj.error + '</p>');
+						}
+					}
+				});//fin transportes grafico torta
+			});
+		}//fin cargarMovimientos
+		
+		function cargarInputs(){
+			//cargo opciones de selects
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerSelects",
+					"numTarjeta" : $('#numTarjeta').val(), 
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						$('#tipoMovimiento > option').remove();
+						for (var i = 0; i < obj.tipoMovimientos.length; i++) {
+							$('#tipoMovimiento').append('<option>'+obj.tipoMovimientos[i]+'</option>');
+						}
+					}
+					if(obj.status=="error")
+					{
+						
+					}
+					
+				}
+			});//fin ajax
+		}//fin cargar inputs
 		
 		
 	});//fin ready
@@ -152,47 +213,35 @@
 		
           <div class="container" style="height:100px;margin-bottom:100px;">
           	<h1 class="h2">Reportes</h1>
+          	<input type="hidden" id="numTarjeta">
             <table class="tablaMovimientos">
 	            <tr style="font-size:14pt;">
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha desde</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha hasta</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Tipo de Movimiento</span>
 	            	</td>
-	            	<td style="width:20%;">
-	            		<span>Medio</span>
+	            	<td style="width:12.5%;">
 	            	</td>
-	            	<td style="width:10%;">
-	            	</td>
-	            	<td style="width:10%;">
+	            	<td style="width:12.5%;">
 	            	</td>
 	            </tr>
 	            <tr class="border-top">
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaDesde" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaHasta" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<select id="tipoMovimiento" class="form-control">
-	            			<option>Uso de transporte</option>
-	            			<option>Carga</option>
-	            			<option>RED SUBE 1</option>
 	            		</select>
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
-	            		<select id="medio" class="form-control">
-	            			<option>Uso de transporte</option>
-	            			<option>Carga</option>
-	            			<option>RED SUBE 1</option>
-	            		</select>
-	            	</td>
-	            	<td style="width:20%;text-align:right;">
+	            	<td style="width:25%;text-align:right;">
 	            		<input type="button" class="btn btn-primary" id="btnReporte" value="Reporte">
 	            	</td>
 	            </tr>
@@ -210,14 +259,6 @@
       <div class="row" style="margin-bottom:100px;">
       	<div class="col-6 grafico" id="grafico1" style="height:350px;padding-right:50px;"></div>
         <div class="col-6 grafico" id="grafico2" style="height:350px;padding-left:50px;"></div>
-      </div>
-      
-      <div class="row border-bottom" style="margin-bottom:20px;">
-        <div class="col-12" id="tituloGrafico1" style="font-size:14pt;">Gasto</div>
-      </div>
-      
-      <div class="row">
-      	<div class="col-12 grafico" id="grafico3" style="height:350px;"></div>
       </div>
       
     </div>

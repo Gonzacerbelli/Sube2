@@ -21,40 +21,40 @@
 
 		/*
 		function controlarUsuario(){
-		$.ajax({
-			method:"POST",
-			url: "/Sube/Usuario",
-			data: {"accion" : "verificarUsuario"},
-			async: true,
-			success: function (data) {
-				if(data == '' || data == 'null'){
-					window.location = 'login.jsp';
-				}else{
-					var obj = JSON.parse(data);
-	            	if(obj.permiso == '' || obj.permiso == null){
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Usuario",
+				data: {"accion" : "verificarUsuario"},
+				async: true,
+				success: function (data) {
+					if(data == '' || data == 'null'){
 						window.location = 'login.jsp';
-					}else if(obj.permiso == 'Empleado'){
-						//ocultar elementos home
-						$('#carga').hide();
-						$('#row1').html(objRecarga());
-					}else if(obj.permiso == 'Usuario'){
-						//ocultar elementos home
-						$('#carga').hide();
-						$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-					}else if(obj.permiso == 'Administrador'){
-						//ocultar carga
-						$('#carga').hide();
-						$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
-						$('#row2').html(objReportes()+' '+objRecarga());
+					}else{
+						var obj = JSON.parse(data);
+		            	if(obj.permiso == '' || obj.permiso == null){
+							window.location = 'login.jsp';
+						}else if(obj.permiso == 'Empleado'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objRecarga());
+						}else if(obj.permiso == 'Usuario'){
+							//ocultar elementos home
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+						}else if(obj.permiso == 'Administrador'){
+							//ocultar carga
+							$('#carga').hide();
+							$('#row1').html(objMovimientos()+' '+objSimulador()+' '+objTerminal());
+							$('#row2').html(objReportes()+' '+objRecarga());
+						}
 					}
 				}
-			}
-		});//fin ajax
-	}//fin function
-	
-	controlarUsuario();
+			});//fin ajax
+		}//fin function
 		
+		controlarUsuario();
 		*/
+		
 		function objMovimientos(){
 			return '<div class="col-lg-4"><a href="movimientos.jsp" style="text-decoration:none;"><img class="rounded-circle" src="images/movimientos.png" alt="Generic placeholder image" width="140" height="140"></a><h2>Movimientos</h2></div>';
 		}
@@ -84,11 +84,11 @@
 <body>
 
 	<%@ include file="/barraSuperior.jsp"%>
-	
+	<!-- 
 	<div id="carga" style="position:absolute;background-color:#000;opacity:1;top:0;left:0;right:0;bottom:0;z-index:9999;">
 		<div style="width:150px;height:150px;position:relative;left:50%;top:50%;margin:-50px 0 0 -50px;background: url(images/carga.gif) no-repeat center 0;"></div>
 	</div>
-
+	 -->
     <main role="main">
 
       <div class="container marketing" style="text-align:center;">

@@ -29,7 +29,7 @@ public class TestTraerMovimientos {
 		try 
 		{
 			Facade f = new Facade();
-			Movimiento m = f.getMovimientoABM().traerMovimiento(1);
+			/*Movimiento m = f.getMovimientoABM().traerMovimiento(1);
 			Tarjeta t = f.getTarjetaABM().traerTarjeta(16);
 			System.out.println(t.getLstMovimiento());
 			GregorianCalendar desde = new GregorianCalendar(2005,05,10);
@@ -37,6 +37,9 @@ public class TestTraerMovimientos {
 			System.out.println(movs.toString());
 			Set<Viaje> viajes = t.getLstViaje();
 			System.out.println(viajes.toString());
+			*/
+			
+			System.out.println(f.getMovimientoABM().traerCantidadMedio());
 			
 		} 
 		catch (Exception e) 

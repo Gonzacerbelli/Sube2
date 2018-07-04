@@ -77,6 +77,26 @@ public class ControladorMovimientos extends HttpServlet {
 				traerSaldoFecha(request, response);
 				break;
 			}
+			case "traerTarjetaActiva":
+			{
+				traerTarjetaActiva(request, response);
+				break;
+			}
+			case "traerCantidadTransporte":
+			{
+				traerCantidadTransporte(request, response);
+				break;
+			}
+			case "traerCantidadMedios":
+			{
+				traerCantidadMedios(request, response);
+				break;
+			}
+			case "traerSelects":
+			{
+				traerSelects(request, response);
+				break;
+			}
 		}
 	
 	}
@@ -105,6 +125,28 @@ public class ControladorMovimientos extends HttpServlet {
 		}
 	}
 	
+	private void traerTarjetaActiva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		JSONObject obj = new JSONObject();
+		try {
+			System.out.println(request.getSession().getAttribute("dniUsuarioLogueado"));
+			int dni = (int)request.getSession().getAttribute("dniUsuarioLogueado");
+			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
+			Tarjeta tarjetaActiva = f.getTarjetaABM().traerTarjetaActiva(usuario);
+			obj.put("tarjetas", tarjetaActiva.getNumTarjeta());
+			obj.put("status", "ok");
+			response.getWriter().write(obj.toString());		
+		}
+		catch(Exception ex) {
+			try {
+				obj.put("status", "error");
+				obj.put("mensaje", ex.getMessage());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			response.getWriter().write(obj.toString());
+		}
+	}
+	
 	private void traerMovimientos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
 		JSONObject obj = new JSONObject();
@@ -114,46 +156,13 @@ public class ControladorMovimientos extends HttpServlet {
 			String desdeStr = request.getParameter("fechaDesde");
 			String hastaStr = request.getParameter("fechaHasta");
 			String tipo = request.getParameter("tipo");
-			String medio = request.getParameter("medio");
 			String numTarjeta = request.getParameter("numTarjeta");
 			
 			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
 			
-			List<Movimiento> movimientos = f.getMovimientoABM().traerMovimientos(tarjeta.getIdTarjeta());
+			List<Movimiento> movimientos = f.getMovimientoABM().traerMovimientos(tarjeta.getIdTarjeta(), desdeStr, hastaStr, tipo);
 			
-			
-			if(desdeStr != null) {
-				GregorianCalendar desde = Funciones.parse("dd-MM-aaaa", desdeStr);
-				movimientos = movimientos.stream().filter(mov -> mov.getFechaHora().after(desde)).collect(Collectors.toList());
-			}
-			if(hastaStr!= null) {
-				GregorianCalendar hasta = Funciones.parse("dd-MM-aaaa", hastaStr);
-				movimientos = movimientos.stream().filter(mov -> mov.getFechaHora().before(hasta)).collect(Collectors.toList());
-			}
-			if(tipo != null) {
-				movimientos = movimientos.stream().filter(mov -> mov.getTipo().contains(tipo)).collect(Collectors.toList());
-			}
-			if(medio != null) {
-				movimientos = movimientos.stream().filter(mov -> mov.getMedio().contains(medio)).collect(Collectors.toList());
-			}
 			obj.put("movimientos", movimientos);
-//			List<String> fechaHoras = new ArrayList<>();
-//			List<String> tipos = new ArrayList<>();
-//			List<String> detalles = new ArrayList<>();
-//			List<String> medios = new ArrayList<>();
-//			List<String> valores = new ArrayList<>();
-//			for(Movimiento mov : movimientos) {
-//				fechaHoras.add(Funciones.traerFechaCortaHora(mov.getFechaHora()));
-//				tipos.add(mov.getTipo());
-//				detalles.add(mov.getDetalle());
-//				medios.add(mov.getMedio());
-//				valores.add(mov.getValor() + "");
-//			}
-//			obj.put("fechaHoras", fechaHoras);
-//			obj.put("tipos", tipos);
-//			obj.put("detalles", detalles);
-//			obj.put("medios", medios);
-//			obj.put("valores", valores);
 			obj.put("status", "ok");
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(obj.toString());		
@@ -170,8 +179,70 @@ public class ControladorMovimientos extends HttpServlet {
 		}
 	}
 	
+	private void traerCantidadTransporte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		JSONObject obj = new JSONObject();
+		try {
+			
+			String desdeStr = request.getParameter("fechaDesde");
+			String hastaStr = request.getParameter("fechaHasta");
+			String tipo = request.getParameter("tipo");
+			String medio = request.getParameter("medio");
+			String numTarjeta = request.getParameter("numTarjeta");
+			
+			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
+			
+			int cTren = f.getMovimientoABM().traerCantidad("Tren",tarjeta.getIdTarjeta(),desdeStr,hastaStr,tipo);
+			int cColectivo = f.getMovimientoABM().traerCantidad("Colectivo",tarjeta.getIdTarjeta(),desdeStr,hastaStr,tipo);
+			int cSubte = f.getMovimientoABM().traerCantidad("Subte",tarjeta.getIdTarjeta(),desdeStr,hastaStr,tipo);
+
+			obj.put("tren", cTren);
+			obj.put("subte", cSubte);
+			obj.put("colectivo", cColectivo);
+			obj.put("status", "ok");
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write(obj.toString());		
+		}
+		catch(Exception ex) {
+			
+			try {
+				obj.put("status", "error");
+				obj.put("error", "No hay movimientos");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+			}
+			response.getWriter().write(obj.toString());
+		}
+	}
 	
-	private void traerSaldoFecha(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	private void traerCantidadMedios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		JSONObject obj = new JSONObject();
+		try {
+
+			String desdeStr = request.getParameter("fechaDesde");
+			String hastaStr = request.getParameter("fechaHasta");
+			String numTarjeta = request.getParameter("numTarjeta");
+			
+			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
+			
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write(f.getMovimientoABM().traerCantidadMedio(tarjeta.getIdTarjeta(),desdeStr,hastaStr).toString());
+		}
+		catch(Exception ex) {
+			
+			try {
+				obj.put("status", "error");
+				obj.put("error", "No hay movimientos");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+			}
+			response.getWriter().write(obj.toString());
+		}
+	}
+	
+	
+private void traerSaldoFecha(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
 		JSONObject obj = new JSONObject();
 		
@@ -189,6 +260,38 @@ public class ControladorMovimientos extends HttpServlet {
 			obj.put("fechaHora", fechaHoraStr);
 			obj.put("status", "ok");
 			response.getWriter().write(obj.toString());		
+		}
+		catch(Exception ex) {
+			
+			try {
+				obj.put("status", "error");
+				obj.put("error", "No se encontro la tarjeta.");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+			}
+			response.getWriter().write(obj.toString());
+		}
+	}
+
+	private void traerSelects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		
+		JSONObject obj = new JSONObject();
+		
+		try {
+			
+			String desdeStr = request.getParameter("fechaDesde");
+			String hastaStr = request.getParameter("fechaHasta");
+			String numTarjeta = request.getParameter("numTarjeta");
+			
+			Tarjeta tarjeta = f.getTarjetaABM().traerTarjetaPorNum(Integer.parseInt(numTarjeta));
+			
+			List<String> lista = f.getMovimientoABM().traerTipoMovimiento(tarjeta.getIdTarjeta(), desdeStr, hastaStr);
+			JSONObject array = new JSONObject();
+			
+			array.put("tipoMovimientos", lista);
+			array.put("status", "ok");
+			response.getWriter().write(array.toString());	
+			
 		}
 		catch(Exception ex) {
 			

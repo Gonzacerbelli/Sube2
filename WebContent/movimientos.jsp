@@ -15,41 +15,14 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-
-		/*
-		function controlarUsuario(){
-		$.ajax({
-			method:"POST",
-			url: "/Sube/Usuario",
-			data: {"accion" : "verificarUsuario"},
-			async: true,
-			success: function (data) {
-				if(data == '' || data == 'null'){
-					window.location = 'login.jsp';
-				}else{
-					var obj = JSON.parse(data);
-	            	if(obj.permiso == '' || obj.permiso == null){n
-						window.location = 'login.jsp';
-					}else if(obj.permiso == 'Empleado'){
-						window.location = 'home.jsp';
-					}
-				}
-			}
-		});//fin ajax
-	}//fin function
-	
-	controlarUsuario();
-	
-		*/
 		
 		cargarTarjetas();
-		cargarSaldoFecha();
-		cargarMovimientos();
 
 		$(document).on('change','#selectTarjetas',function(){
 			if($('#selectTarjeta').val() != ""){
 				$('#btnBuscar').removeAttr("disabled");
 				cargarSaldoFecha();
+				cargarInputs();
 			}
 			else{
 				$('#btnBuscar').prop("disabled","disabled");
@@ -91,6 +64,38 @@
 				}
 			});//fin ajax
 		}//fin cargarTarjetas
+		
+		function cargarInputs(){
+			//cargo opciones de selects
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerSelects",
+					"numTarjeta" : $('#numTarjeta').val(), 
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						console.log("hoa");
+						$('#tipoMovimiento > option').remove();
+						for (var i = 0; i < obj.tipoMovimientos.length; i++) {
+							$('#tipoMovimiento').append('<option>'+obj.tipoMovimientos[i]+'</option>');
+						}
+					}
+					if(obj.status=="error")
+					{
+						
+					}
+					
+				}
+			});//fin ajax
+		}//fin cargar inputs
 
 		
 		function cargarMovimientos(){
@@ -101,10 +106,9 @@
 				data: {
 					"accion" : "traerMovimientos",
 					"numTarjeta" : $('#selectTarjetas :selected').attr('id'), 
-					"fechaDesde" : $('#inputFechaDesde').val(),
-					"fechaHasta" : $('#inputFechaHasta').val(),
-					"tipo" : $('#inputTipo').val(),
-					"medio" : $('#inputMedio').val()
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val(),
+					"tipo" : $('#inputTipo').val()
 					},
 				async: true,
 				success: function (data) {
@@ -116,7 +120,7 @@
 						for (var i = 0; i < obj.movimientos.length; i++) {
 							$('#bodyTableMovimientos').append('<tr id="registro'+i+'"></tr>');
 							
-							$('#registro' + i).append('<td>'+ obj.movimientos[i].fechaHora + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].fechaHoraString + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].tipo + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].medio + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].detalle + '</td>');
@@ -215,37 +219,33 @@
             
             <table class="tablaMovimientos">
 	            <tr style="font-size:14pt;">
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha desde</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha hasta</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Tipo de Movimiento</span>
 	            	</td>
-	            	<td style="width:20%;">
-	            		<span>Medio</span>
+	            	<td style="width:12.5%;">
 	            	</td>
-	            	<td style="width:10%;">
-	            	</td>
-	            	<td style="width:10%;">
+	            	<td style="width:12.5%;">
 	            	</td>
 	            </tr>
 	            <tr class="border-top">
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaDesde" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaHasta" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
-	            		<input class="form-control" id="inputTipo">
+	            	<td style="width:25%;padding-right:30px;">
+	            		<select id="tipoMovimiento" class="form-control">
+	            			<option>Uso Transporte</option>
+	            		</select>
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
-	            		<input class="form-control" id="inputMedio">
-	            	</td>
-	            	<td style="width:10%;text-align:center;">
+	            	<td style="width:25%;text-align:right;">
 	            		<input type="button" class="btn btn-primary" id="btnBuscar" value="&nbsp;Buscar&nbsp;">
 	            	</td>
 	            </tr>
