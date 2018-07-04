@@ -1,0 +1,23 @@
+Carpeta lib:
+
+antlr-2.7.7
+dom4j-1.6.1
+gson-2.2.2
+hibernate-commons-annotations-4.0.1.Final
+hibernate-core-4.1.9.Final
+hibernate-jpa-2.0-api-1.0.1.Final
+java-json
+javassist-3.17.1-GA
+jboss-logging-3.1.0.GA
+jboss-transaction-api_1.1_spec-1.0.0.Final
+jstl-1.2
+lambdaj-2.4-with-dependencies
+mysql-connector-java-5.1.18-bin
+
+Carpeta css:
+bootstrap.css
+bootstrap.min.css
+bootstrap-grid.css
+bootstrap-grid.min.css
+bootstrap-reboot.css
+bootstrap-reboot.min.css

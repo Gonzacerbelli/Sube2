@@ -25,7 +25,7 @@ public class RedSubeABM {
 	}
 	
 	public RedSube traerRedSubeCorrespondiente(int cantidadBoletos) throws Exception {
-		RedSube b = dao.traerRedSubeCorrespondiente(cantidadBoletos);
+		RedSube b = dao.traerRedSubeCorrespondiente(cantidadBoletos-1);
 
 		return b;
 	}

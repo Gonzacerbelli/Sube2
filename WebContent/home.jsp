@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
 <link rel="stylesheet" href="css/sube.css">
 
-<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
+<title>SUBE - Sistema Único de Boleto Electrónico</title>
 
 <script src="js/jquery-3.3.1.js"></script>
 
@@ -25,12 +25,10 @@
 				data: {"accion" : "verificarUsuario"},
 				async: true,
 				success: function (data) {
-					console.log("a");
 					if(data == '' || data == 'null'){
 						window.location = 'login.jsp';
 					}else{
 						var obj = JSON.parse(data);
-						console.log(obj);
 		            	if(obj.permiso == '' || obj.permiso == null){
 							window.location = 'login.jsp';
 						}else if(obj.permiso == 'Empleado'){
@@ -83,11 +81,11 @@
 <body>
 
 	<%@ include file="/barraSuperior.jsp"%>
-	<!-- 
+	
 	<div id="carga" style="position:absolute;background-color:#000;opacity:1;top:0;left:0;right:0;bottom:0;z-index:9999;">
 		<div style="width:150px;height:150px;position:relative;left:50%;top:50%;margin:-50px 0 0 -50px;background: url(images/carga.gif) no-repeat center 0;"></div>
 	</div>
-	 -->
+	 
     <main role="main">
 
       <div class="container marketing" style="text-align:center;">

@@ -55,7 +55,7 @@
 	$(document).ready(function(){
 		
 		cargarTarjetas();
-		setTimeout(function(){cargarInputs();$('#btnReporte').trigger('click');},1000);
+		setTimeout(function(){$('#btnReporte').trigger('click');},1500);
 
 
 		$(document).on('click','#btnReporte',function(){
@@ -166,7 +166,7 @@
 				});//fin transportes grafico torta
 			});
 		}//fin cargarMovimientos
-		
+		/*
 		function cargarInputs(){
 			//cargo opciones de selects
 			$.ajax({
@@ -197,7 +197,7 @@
 				}
 			});//fin ajax
 		}//fin cargar inputs
-		
+		*/
 		
 	});//fin ready
 
@@ -239,6 +239,7 @@
 	            	</td>
 	            	<td style="width:25%;padding-right:30px;">
 	            		<select id="tipoMovimiento" class="form-control">
+	            			<option>Uso de Transporte</option>
 	            		</select>
 	            	</td>
 	            	<td style="width:25%;text-align:right;">

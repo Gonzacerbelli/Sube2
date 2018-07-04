@@ -105,6 +105,7 @@ public class TarjetaABM {
 //			usuario = f.getUsuarioABM().traerUsuario(tarjeta.getUsuario().getDni());
 //		}
 		RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
+		
 //		Boleto ultimoBoleto = viaje.getUltimoBoleto();
 ////		if(ultimoBoleto != null && f.getBoletoABM().estaCerrandoViajeEnTren(ultimoBoleto, transporte)) 
 ////		{

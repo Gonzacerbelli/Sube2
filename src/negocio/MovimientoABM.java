@@ -23,15 +23,17 @@ public class MovimientoABM {
 	}
 	public int agregar(Boleto boleto, Tarjeta tarjeta, RedSube redSube) throws Exception {
 		String tipo = "Uso Transporte";
-		String medio = boleto.getTransporte().getNombre() + "," + boleto.getLinea().getNombre();
+		String medio = "";
+		if(boleto.getTransporte().getNombre() == "Tren") {
+			medio = boleto.getTransporte().getNombre() + "," + boleto.getLinea().getNombre();
+		}else {
+			medio = boleto.getTransporte().getNombre() + ",Línea " + boleto.getLinea().getNombre();
+		}
 		String detalle = "";
 		if(redSube != null) {
 			tipo += " con " + redSube.getDescripcion();
 		}
-		if(boleto.getEstacion() != null)
-		{
-			medio = boleto.getEstacion().getNombre();
-		}
+		
 		if(boleto.getPrecioFinal() < 0) {
 			tipo += " devolucion"; 
 		}

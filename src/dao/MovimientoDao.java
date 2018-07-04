@@ -161,11 +161,11 @@ public class MovimientoDao {
 			
 			String hql = "select distinct(medio) from Movimiento m where m.tarjeta.idTarjeta = " + idTarjeta + " and  m.fechaHora >= '" + fechaDesde + "' and m.fechaHora <= '" + fechaHasta + "'";
 			list = (List<String>) session.createQuery(hql).list();
+			
 			for (int i = 0; i < list.size(); i++) {
 				if(list.get(i) != "" || list.get(i) != null) {
-					int count = ((Long)session.createQuery("select count(*) from Movimiento m where m.medio LIKE '%"+list.get(i)+"%' and m.tarjeta.idTarjeta = " + idTarjeta + " and  m.fechaHora >= '" + fechaDesde + "' and m.fechaHora <= '" + fechaHasta + "'").uniqueResult()).intValue();
-					String[] claves = list.get(i).split(",");
-					obj.put(claves[i], count);
+					int count = ((Long)session.createQuery("select count(medio) from Movimiento m where m.medio = '"+list.get(i)+"' and m.tarjeta.idTarjeta = " + idTarjeta + " and  m.fechaHora >= '" + fechaDesde + "' and m.fechaHora <= '" + fechaHasta + "'").uniqueResult()).intValue();
+					obj.put(list.get(i).toString().split(",")[1], count);
 				}
 			}
 			obj.put("status", "ok");
