@@ -11,6 +11,7 @@
 		<property column="dni" name="dni" type="int" />
 		<property column="pass" name="pass" type="string" />
 		<property column="email" name="email" type="string" />
+		<property column="permiso" name="permiso" type="string" />
 		
 		<set name="tarjetas" cascade="save-update" table="tarjeta" order-by="idTarjeta asc" lazy="true" fetch="join">
 			<key column="idUsuario"/>

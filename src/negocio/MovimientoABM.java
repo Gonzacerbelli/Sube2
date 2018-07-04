@@ -23,7 +23,7 @@ public class MovimientoABM {
 	}
 	public int agregar(Boleto boleto, Tarjeta tarjeta, RedSube redSube) throws Exception {
 		String tipo = "Uso Transporte";
-		String medio = "";
+		String medio = boleto.getTransporte().getNombre() + "," + boleto.getLinea().getNombre();
 		String detalle = "";
 		if(redSube != null) {
 			tipo += " con " + redSube.getDescripcion();

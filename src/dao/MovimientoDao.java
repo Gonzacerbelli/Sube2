@@ -165,7 +165,7 @@ public class MovimientoDao {
 				if(list.get(i) != "" || list.get(i) != null) {
 					int count = ((Long)session.createQuery("select count(*) from Movimiento m where m.medio LIKE '%"+list.get(i)+"%' and m.tarjeta.idTarjeta = " + idTarjeta + " and  m.fechaHora >= '" + fechaDesde + "' and m.fechaHora <= '" + fechaHasta + "'").uniqueResult()).intValue();
 					String[] claves = list.get(i).split(",");
-					obj.put(claves[1], count);
+					obj.put(claves[i], count);
 				}
 			}
 			obj.put("status", "ok");
