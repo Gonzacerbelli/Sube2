@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SUBE - Sistema Único de Boleto Electrónico</title>
+<title>SUBE - Sistema ï¿½nico de Boleto Electrï¿½nico</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-grid.min.css">
@@ -40,13 +40,12 @@
 		controlarUsuario();
 
 		cargarTarjetas();
-		cargarSaldoFecha();
-		cargarMovimientos();
 
 		$(document).on('change','#selectTarjetas',function(){
 			if($('#selectTarjeta').val() != ""){
 				$('#btnBuscar').removeAttr("disabled");
 				cargarSaldoFecha();
+				cargarInputs();
 			}
 			else{
 				$('#btnBuscar').prop("disabled","disabled");
@@ -88,6 +87,38 @@
 				}
 			});//fin ajax
 		}//fin cargarTarjetas
+		
+		function cargarInputs(){
+			//cargo opciones de selects
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Movimientos",
+				data: {
+					"accion" : "traerSelects",
+					"numTarjeta" : $('#numTarjeta').val(), 
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val()
+					},
+				async: true,
+				success: function (data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					if(obj.status=="ok")
+					{
+						console.log("hoa");
+						$('#tipoMovimiento > option').remove();
+						for (var i = 0; i < obj.tipoMovimientos.length; i++) {
+							$('#tipoMovimiento').append('<option>'+obj.tipoMovimientos[i]+'</option>');
+						}
+					}
+					if(obj.status=="error")
+					{
+						
+					}
+					
+				}
+			});//fin ajax
+		}//fin cargar inputs
 
 		
 		function cargarMovimientos(){
@@ -98,10 +129,9 @@
 				data: {
 					"accion" : "traerMovimientos",
 					"numTarjeta" : $('#selectTarjetas :selected').attr('id'), 
-					"fechaDesde" : $('#inputFechaDesde').val(),
-					"fechaHasta" : $('#inputFechaHasta').val(),
-					"tipo" : $('#inputTipo').val(),
-					"medio" : $('#inputMedio').val()
+					"fechaDesde" : $('#fechaDesde').val(),
+					"fechaHasta" : $('#fechaHasta').val(),
+					"tipo" : $('#inputTipo').val()
 					},
 				async: true,
 				success: function (data) {
@@ -113,7 +143,7 @@
 						for (var i = 0; i < obj.movimientos.length; i++) {
 							$('#bodyTableMovimientos').append('<tr id="registro'+i+'"></tr>');
 							
-							$('#registro' + i).append('<td>'+ obj.movimientos[i].fechaHora + '</td>');
+							$('#registro' + i).append('<td>'+ obj.movimientos[i].fechaHoraString + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].tipo + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].medio + '</td>');
 							$('#registro' + i).append('<td>'+ obj.movimientos[i].detalle + '</td>');
@@ -197,7 +227,7 @@
 	            	</td>
 	            	<td>
 	            		<select class="form-control">
-	            			<option>Pérdida</option>
+	            			<option>Pï¿½rdida</option>
 	            			<option>Robo</option>
 	            			<option>Rotura</option>
 	            		</select>
@@ -212,37 +242,33 @@
             
             <table class="tablaMovimientos">
 	            <tr style="font-size:14pt;">
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha desde</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Fecha hasta</span>
 	            	</td>
-	            	<td style="width:20%;">
+	            	<td style="width:25%;">
 	            		<span>Tipo de Movimiento</span>
 	            	</td>
-	            	<td style="width:20%;">
-	            		<span>Medio</span>
+	            	<td style="width:12.5%;">
 	            	</td>
-	            	<td style="width:10%;">
-	            	</td>
-	            	<td style="width:10%;">
+	            	<td style="width:12.5%;">
 	            	</td>
 	            </tr>
 	            <tr class="border-top">
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaDesde" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
+	            	<td style="width:25%;padding-right:30px;">
 	            		<input id="fechaHasta" type="date" class="form-control">
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
-	            		<input class="form-control" id="inputTipo">
+	            	<td style="width:25%;padding-right:30px;">
+	            		<select id="tipoMovimiento" class="form-control">
+	            			<option>Uso Transporte</option>
+	            		</select>
 	            	</td>
-	            	<td style="width:20%;padding-right:30px;">
-	            		<input class="form-control" id="inputMedio">
-	            	</td>
-	            	<td style="width:10%;text-align:center;">
+	            	<td style="width:25%;text-align:right;">
 	            		<input type="button" class="btn btn-primary" id="btnBuscar" value="&nbsp;Buscar&nbsp;">
 	            	</td>
 	            </tr>
@@ -270,7 +296,7 @@
 	
 	
 	<footer class="container border-top">
-        <p class="float-right"><a href="home.jsp">Volver atrás</a></p>
+        <p class="float-right"><a href="home.jsp">Volver atrï¿½s</a></p>
         <p>&copy; 2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 	

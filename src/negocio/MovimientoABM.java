@@ -3,6 +3,9 @@ package negocio;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import dao.MovimientoDao;
 import datos.Boleto;
 import datos.Movimiento;
@@ -61,11 +64,26 @@ public class MovimientoABM {
 		return t;
 	}
 	
-	public List<Movimiento> traerMovimientos(int idTarjeta) throws Exception {
-		List<Movimiento> list = dao.traerMovimientos(idTarjeta);
+	public List<Movimiento> traerMovimientos(int idTarjeta, String desdeStr, String hastaStr, String tipo) throws Exception {
+		List<Movimiento> list = dao.traerMovimientos(idTarjeta, desdeStr, hastaStr, tipo);
 		if (list == null) {
 			throw new Exception("La tarjeta no tiene Movimientos.");
 		}
+		return list;
+	}
+	
+	public int traerCantidad(String medio, int idTarjeta, String desdeStr, String hastaStr, String tipo) throws Exception {
+		int cantidad = dao.traerCantidad(medio, idTarjeta,desdeStr,hastaStr,tipo);
+		return cantidad;
+	}
+	
+	public JSONObject traerCantidadMedio(int idTarjeta, String desdeStr, String hastaStr) throws Exception, JSONException {
+		JSONObject obj = dao.traerCantidadMedio(idTarjeta,desdeStr,hastaStr);
+		return obj;
+	}
+	
+	public List<String> traerTipoMovimiento(int idTarjeta, String desdeStr, String hastaStr) throws Exception {
+		List<String> list = dao.traerTipoMovimiento(idTarjeta,desdeStr,hastaStr);
 		return list;
 	}
 	

@@ -1,7 +1,6 @@
 package datos;
 
 import java.util.GregorianCalendar;
-
 import util.Funciones;
 
 public class Movimiento {
@@ -12,6 +11,7 @@ public class Movimiento {
 	private GregorianCalendar fechaHora;
 	private String detalle;
 	private String medio;
+	private String fechaHoraString;
 	
 	public Movimiento() {}
 
@@ -55,6 +55,7 @@ public class Movimiento {
 
 	public void setFechaHora(GregorianCalendar fechaHora) {
 		this.fechaHora = fechaHora;
+		this.fechaHoraString = Funciones.traerFechaCortaHora(fechaHora);
 	}
 	
 	public String getDetalle() {
@@ -79,6 +80,14 @@ public class Movimiento {
 
 	public void setMedio(String medio) {
 		this.medio = medio;
+	}
+	
+	public String getFechaHoraString() {
+		return fechaHoraString;
+	}
+	
+	public void setFechaHoraString(String fechaHoraString) {
+		this.fechaHoraString = fechaHoraString;
 	}
 
 	@Override
