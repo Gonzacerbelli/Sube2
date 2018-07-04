@@ -38,6 +38,23 @@ public class TarifaABM {
 		return b;
 	}
 	
+	public Tarifa traerTarifaPorCantEst(int cantEstaciones, int idTransporte) throws Exception {
+		double montoMax = 0;
+		List<Tarifa> b = dao.traerTarifaPorCantEst(cantEstaciones, idTransporte);
+		if (b == null) {
+			throw new Exception("La Tarifa no existe.");
+		}
+		Tarifa t = null;
+		for(Tarifa ta : b)
+		{
+			if(ta.getTransporte().getIdTransporte() == 3 && ta.getMonto() > montoMax)
+			{
+				montoMax = ta.getMonto();
+			}
+		}
+		return t;
+	}
+	
 	public List<Tarifa> traerTarifa(Transporte transporte) throws Exception {
 		List<Tarifa> b = dao.traerTarifas(transporte.getIdTransporte());
 		if (b == null) {

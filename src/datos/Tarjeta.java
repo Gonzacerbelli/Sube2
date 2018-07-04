@@ -84,9 +84,14 @@ public class Tarjeta implements Serializable{
 	public Viaje getUltimoViaje()
 	{
 		Viaje viaje = null;
-		Iterator<Viaje> it = lstViaje.iterator();
-		while(it.hasNext()) {
-			viaje = it.next();
+		GregorianCalendar fechaMax = new GregorianCalendar(1990,01,01);
+		for(Viaje v : lstViaje)
+		{
+			if(v.getFechaHora().after(fechaMax))
+			{
+				viaje = v;
+				fechaMax = viaje.getFechaHora();
+			}
 		}
 		return viaje;
 	}

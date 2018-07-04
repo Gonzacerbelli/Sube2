@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.jws.WebMethod;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +61,7 @@ public class ControladorMovimientos extends HttpServlet {
 	
 	private void procesarPeticion(HttpServletRequest request, HttpServletResponse response) 
 	throws ServletException, IOException 
-	{
+	{	
 		switch((String)request.getParameter("accion")) 
 		{
 			case "traerTarjetas":

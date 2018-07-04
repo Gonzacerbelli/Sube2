@@ -7,6 +7,7 @@ import datos.Boleto;
 import datos.Transporte;
 import datos.Tarjeta;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
 public class ViajeABM {
@@ -55,7 +56,7 @@ public class ViajeABM {
 			Boleto ultimoBoleto = f.getBoletoABM().traerBoleto(ultimoViaje.getUltimoBoleto().getIdBoleto());
 			//si el ultimo boleto no esta cerrado y el transporte actual es el mismo, entonces sigue estando en el mismo viaje
 			if (ultimoBoleto != null) {
-				if(ultimoViaje.getCantBoletos() <= 5 && Funciones.diferenciaHoras(fechaHora, ultimoBoleto.getFechaHora()) <= 2) {
+				if(ultimoViaje.getCantBoletos() <= 5 && Funciones.diferenciaMinutos(fechaHora, ultimoBoleto.getFechaHora()) <= 120) {
 					resultado = ultimoViaje;
 				}
 			}
@@ -81,7 +82,7 @@ public class ViajeABM {
 			{
 				Boleto ultimoBoleto = f.getBoletoABM().traerBoleto(viaje.getUltimoBoleto().getIdBoleto());	
 				//si el ultimo boleto no esta cerrado y el transporte actual es el mismo, entonces sigue estando en el mismo viaje
-				if(viaje.getCantBoletos() <= 5 && Funciones.diferenciaHoras(fechaHora, ultimoBoleto.getFechaHora()) <= 2) 
+				if(viaje.getCantBoletos() <= 5 && Funciones.diferenciaMinutos(fechaHora, ultimoBoleto.getFechaHora()) <= 120) 
 				{
 					sigueEnViaje = true;
 				}

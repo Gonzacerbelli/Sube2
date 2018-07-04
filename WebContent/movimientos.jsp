@@ -15,33 +15,30 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-
-		/*
+		
 		function controlarUsuario(){
-		$.ajax({
-			method:"POST",
-			url: "/Sube/Usuario",
-			data: {"accion" : "verificarUsuario"},
-			async: true,
-			success: function (data) {
-				if(data == '' || data == 'null'){
-					window.location = 'login.jsp';
-				}else{
-					var obj = JSON.parse(data);
-	            	if(obj.permiso == '' || obj.permiso == null){n
+			$.ajax({
+				method:"POST",
+				url: "/Sube/Usuario",
+				data: {"accion" : "verificarUsuario"},
+				async: true,
+				success: function (data) {
+					if(data == '' || data == 'null'){
 						window.location = 'login.jsp';
-					}else if(obj.permiso == 'Empleado'){
-						window.location = 'home.jsp';
+					}else{
+						var obj = JSON.parse(data);
+						
+		            	if(obj.permiso == '' || obj.permiso == null){
+							window.location = 'login.jsp';
+						}
+	
 					}
 				}
-			}
-		});//fin ajax
-	}//fin function
-	
-	controlarUsuario();
-	
-		*/
+			});//fin ajax
+		}//fin function
 		
+		controlarUsuario();
+
 		cargarTarjetas();
 		cargarSaldoFecha();
 		cargarMovimientos();

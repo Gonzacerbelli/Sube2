@@ -48,9 +48,7 @@ private Facade f = new Facade();
 			
 			int dni = (int) request.getSession().getAttribute("dniUsuarioLogueado");
 			Usuario usuario = f.getUsuarioABM().traerUsuario(dni);
-			
 			array.put("permiso", usuario.getPermiso());
-			
 			response.setContentType("text/html;charset=UTF-8");
             response.getWriter().write(array.toString());
 		} catch (Exception e) {

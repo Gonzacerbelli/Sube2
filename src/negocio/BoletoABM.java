@@ -6,6 +6,7 @@ import datos.Descuento;
 import datos.Estacion;
 import datos.Linea;
 import datos.Ramal;
+import datos.RamalEstacion;
 import datos.RedSube;
 import datos.Tarifa;
 import datos.Tarjeta;
@@ -53,9 +54,11 @@ public class BoletoABM {
 		return b;
 	}
 	
-	public Boleto generarBoleto(GregorianCalendar fechaHora, Tarifa tarifa, Estacion estacion, Ramal ramal, Linea linea, Transporte transporte, Viaje viaje, Usuario usuario, RedSube redSube) {
+	public Boleto generarBoleto(GregorianCalendar fechaHora, Tarifa tarifa, Estacion estacion, Ramal ramal, Linea linea, Transporte transporte, Viaje viaje, Usuario usuario, RedSube redSube) throws Exception {
 		
 		double precioFinal = tarifa.getMonto();
+		
+		Boleto ultimoBoleto = viaje.getUltimoBoleto();
 		
 		if(usuario != null) {
 			List<UsuarioDescuento> uDescuentos = f.getUsuarioDescuentoABM().traerUsuarioDescuentos(usuario.getIdUsuario());
@@ -69,11 +72,44 @@ public class BoletoABM {
 			precioFinal = redSube.aplicarDescuento(precioFinal);
 		}
 		
+		
 		Boleto b = new Boleto(fechaHora, precioFinal, tarifa, estacion, ramal, linea, transporte, viaje);
 		
 		return b;
 	}
 	
+	double montoCorrespondienteADevolver(Boleto ultimoBoleto, Estacion estacionVuelta, Ramal ramalVuelta) throws Exception {
+		double aDevolver = 0;
+		Tarifa tarifaCobrada = f.getTarifaABM().traerTarifa(ultimoBoleto.getTarifa().getIdTarifa());
+		double cobrado = tarifaCobrada.getMonto();
+		Ramal ramalIda = ultimoBoleto.getRamal();
+		Estacion estacionIda = ultimoBoleto.getEstacion();
+		RamalEstacion ramalEstacionIda = f.getRamalEstacionABM().traerRamalEstacion(ramalIda.getIdRamal(), estacionIda.getIdEstacion());
+		RamalEstacion ramalEstacionVuelta = f.getRamalEstacionABM().traerRamalEstacion(ramalVuelta.getIdRamal(), estacionVuelta.getIdEstacion());
+		int cantEstaciones = calcularCantEstaciones(ramalEstacionIda, ramalEstacionVuelta);
+		Tarifa tarifaDefinitiva = f.getTarifaABM().traerTarifaPorCantEst(cantEstaciones, ultimoBoleto.getTransporte().getIdTransporte());
+		aDevolver = tarifaDefinitiva.getMonto() - cobrado;
+		return aDevolver;
+	}
+
+	private int calcularCantEstaciones(RamalEstacion ida, RamalEstacion vuelta) {
+		int cantEstaciones = 0;
+		if (ida.getRamal().getIdRamal() == vuelta.getRamal().getIdRamal())
+		{
+			cantEstaciones = ida.getNroEstacion() - vuelta.getNroEstacion();
+		}
+		if (cantEstaciones < 0) 
+			cantEstaciones *= -1;
+		return cantEstaciones;
+	}
+
+	boolean estaCerrandoViajeEnTren(Boleto ultimoBoleto, Transporte transporte) throws Exception {
+		transporte = f.getTransporteABM().traerTransporte(transporte.getIdTransporte());
+		Transporte transporteUB = f.getTransporteABM().traerTransporte(ultimoBoleto.getTransporte().getIdTransporte());
+		return transporteUB.getNombre().equals("Tren") && ultimoBoleto.getPrecioFinal() >= 0 && transporte.getNombre().equals(transporteUB.getNombre());
+		
+	}
+
 	public void cobrarBoleto(Boleto boleto, Tarjeta tarjeta) throws Exception {
 		double saldo = tarjeta.getSaldo();
 		if(saldo - boleto.getPrecioFinal() < -20) {

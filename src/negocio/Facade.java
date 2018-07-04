@@ -1,5 +1,7 @@
 package negocio;
 
+import datos.RamalEstacion;
+
 public class Facade {
 	
 	public BeneficioABM getBeneficioABM() {
@@ -43,6 +45,10 @@ public class Facade {
 		return new UsuarioBeneficioABM();
 	}
 	
+	public UsuarioRolABM getUsuarioRolABM() {
+		return new UsuarioRolABM();
+	}
+	
 	public UsuarioDescuentoABM getUsuarioDescuentoABM() {
 		return new UsuarioDescuentoABM();
 	}
@@ -53,5 +59,9 @@ public class Facade {
 	
 	public MovimientoABM getMovimientoABM() {
 		return new MovimientoABM();
+	}
+
+	public RamalEstacionABM getRamalEstacionABM() {
+		return new RamalEstacionABM();
 	}
 }

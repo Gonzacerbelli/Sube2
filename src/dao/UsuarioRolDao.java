@@ -1,16 +1,16 @@
 package dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import dao.HibernateUtil;
-import datos.Rol;
+import datos.UsuarioRol;
 
-public class RolDao {
+public class UsuarioRolDao {
 	private static Session session;
 	private Transaction tx;
 	
@@ -24,7 +24,7 @@ public class RolDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 	
-	public int agregar(Rol objeto) {
+	public int agregar(UsuarioRol objeto) {
 		int id = 0;
 		try {
 			iniciaOperacion();
@@ -39,7 +39,7 @@ public class RolDao {
 		return id;
 	}
 
-	public void actualizar(Rol objeto) throws HibernateException {
+	public void actualizar(UsuarioRol objeto) throws HibernateException {
 		try {
 			iniciaOperacion();
 			session.update(objeto);
@@ -52,7 +52,7 @@ public class RolDao {
 		}
 	}
 
-	public void eliminar(Rol objeto) throws HibernateException {
+	public void eliminar(UsuarioRol objeto) throws HibernateException {
 		try {
 			iniciaOperacion();
 			session.delete(objeto);
@@ -65,11 +65,11 @@ public class RolDao {
 		}
 	}
 	
-	public Rol traerRol(int idRol) throws HibernateException {
-		Rol objeto = null;
+	public UsuarioRol traerUsuarioRol(int idUsuarioRol) throws HibernateException {
+		UsuarioRol objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Rol) session.get(Rol.class, idRol);
+			objeto = (UsuarioRol) session.get(UsuarioRol.class, idUsuarioRol);
 			tx.commit();
 		} finally {
 			session.close();
@@ -77,12 +77,12 @@ public class RolDao {
 		return objeto;
 	}
 	
-	public Rol traerRol(String descripcion) throws HibernateException {
-		Rol objeto = null;
+	public UsuarioRol traerUsuarioRol(int idUsuario, int idRol) throws HibernateException {
+		UsuarioRol objeto = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Rol r where r.descripcion = " + descripcion;
-			objeto = (Rol) session.createQuery(hql).uniqueResult();
+			String hql = "from usuario_tiene_rol c where c.usuario.idUsuario = " + idUsuario + " and  c.rol.idRol = " + idRol;
+			objeto = (UsuarioRol) session.createQuery(hql).uniqueResult();
 			tx.commit();
 		} finally {
 			session.close();
@@ -91,12 +91,26 @@ public class RolDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Rol> traerRoles(){
-		List<Rol> list = null;
+	public List<UsuarioRol> traerUsuarioRol() throws HibernateException {
+		List<UsuarioRol> list = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Rol";
-			list = (List<Rol>) session.createQuery(hql).list();
+			String hql = "from usuario_tiene_rol";
+			list = (List<UsuarioRol>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<UsuarioRol> traerUsuarioRoles(int idUsuario) throws HibernateException {
+		List<UsuarioRol> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from UsuarioRol ub where ub.usuario.idUsuario = " + idUsuario;
+			list = (List<UsuarioRol>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {
 			session.close();

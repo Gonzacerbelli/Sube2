@@ -13,6 +13,7 @@ public class Usuario {
 	private Set<Tarjeta> tarjetas;
 	private Set<UsuarioDescuento> usuarioDescuentos;
 	private Set<UsuarioBeneficio> usuarioBeneficios;
+	private Set<UsuarioRol> usuarioRoles;
 	
 	public Usuario() {}
 	
@@ -24,6 +25,8 @@ public class Usuario {
 		this.pass = pass;
 		this.email = email;
 	}
+
+
 
 	public int getIdUsuario() {
 		return idUsuario;
@@ -104,6 +107,20 @@ public class Usuario {
 	public void setTarjetas(Set<Tarjeta> tarjetas) {
 		this.tarjetas = tarjetas;
 	}
+
+	
+	
+	public Set<UsuarioRol> getUsuarioRoles() {
+		return usuarioRoles;
+	}
+
+
+
+	public void setUsuarioRoles(Set<UsuarioRol> usuarioRoles) {
+		this.usuarioRoles = usuarioRoles;
+	}
+
+
 
 	public double aplicarDescuentos(double monto ) {
 		for(UsuarioDescuento usuarioDescuento: usuarioDescuentos)

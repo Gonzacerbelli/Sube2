@@ -105,6 +105,13 @@ public class TarjetaABM {
 //			usuario = f.getUsuarioABM().traerUsuario(tarjeta.getUsuario().getDni());
 //		}
 		RedSube redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos());
+//		Boleto ultimoBoleto = viaje.getUltimoBoleto();
+////		if(ultimoBoleto != null && f.getBoletoABM().estaCerrandoViajeEnTren(ultimoBoleto, transporte)) 
+////		{
+////			double aDevolver = f.getBoletoABM().montoCorrespondienteADevolver(ultimoBoleto, estacion, ramal);
+////			tarifa.setMonto(aDevolver);
+////			redSube = f.getRedSubeABM().traerRedSubeCorrespondiente(viaje.getCantBoletos()-1);
+////		}
 		Boleto boleto = f.getBoletoABM().generarBoleto(fechaHora, tarifa, estacion, ramal, linea, transporte, viaje, usuario, redSube);
 		f.getBoletoABM().cobrarBoleto(boleto, tarjeta);
 		f.getMovimientoABM().agregar(boleto, tarjeta, redSube);

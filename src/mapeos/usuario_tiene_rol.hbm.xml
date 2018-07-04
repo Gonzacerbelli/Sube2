@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="datos.UsuarioRol" table="usuario_tiene_rol">
+		<id column="idUsuarioRol" name="idUsuarioRol">
+			<generator class="identity" />
+		</id> 
+		<many-to-one name="usuario" class="datos.Usuario" fetch="join">
+            <column name="IDUSUARIO" />
+        </many-to-one>
+        <many-to-one name="rol" class="datos.Rol" fetch="join">
+            <column name="IDROL" />
+        </many-to-one>
+   	</class>
+</hibernate-mapping>

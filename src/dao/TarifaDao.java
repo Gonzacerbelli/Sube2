@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import dao.HibernateUtil;
+import datos.RamalEstacion;
 import datos.Tarifa;
 
 public class TarifaDao {
@@ -83,6 +84,20 @@ public class TarifaDao {
 		try {
 			iniciaOperacion();
 			String hql = "from Tarifa t inner join fetch t.transporte tr where tr.idTransporte = " + idTransporte ;
+			list = (List<Tarifa>) session.createQuery(hql).list();
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Tarifa> traerTarifaPorCantEst(int cantEstaciones, int idTransporte) throws HibernateException {
+		List<Tarifa> list = null;
+		try {
+			iniciaOperacion();
+			String hql = "from Tarifa c where c.cantEstaciones != null and c.cantEstaciones <= " + cantEstaciones;
 			list = (List<Tarifa>) session.createQuery(hql).list();
 			tx.commit();
 		} finally {

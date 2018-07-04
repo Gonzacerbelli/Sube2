@@ -118,6 +118,7 @@ public class ControladorSimulador extends HttpServlet {
 			try {
 				array.put("status", "error");
 				array.put("mensaje", e.getMessage());
+				e.printStackTrace();
 			} catch (JSONException e1) {
 			
 			}

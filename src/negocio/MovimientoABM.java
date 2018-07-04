@@ -29,6 +29,9 @@ public class MovimientoABM {
 		{
 			medio = boleto.getEstacion().getNombre();
 		}
+		if(boleto.getPrecioFinal() < 0) {
+			tipo += " devolucion"; 
+		}
 		Movimiento t = new Movimiento(tipo, tarjeta, boleto.getPrecioFinal(), boleto.getFechaHora(), detalle, medio);
 		return dao.agregar(t);
 	}
